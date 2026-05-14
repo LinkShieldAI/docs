@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>LinkShieldAI API Documentation</title>
+    <meta
+      name="description"
+      content="LinkShieldAI API documentation for authentication, rate limits, endpoints, security notes, and examples."
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="#overview" aria-label="LinkShieldAI API Documentation home">
+        <span class="brand-mark">LS</span>
+        <span>
+          <strong>LinkShieldAI</strong>
+          <small>API Documentation</small>
+        </span>
+      </a>
+      <button class="icon-button menu-button" type="button" aria-label="Open navigation" data-menu-toggle>
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <label class="search" aria-label="Search documentation">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m21 21-4.35-4.35m1.35-5.15a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z" />
+        </svg>
+        <input type="search" placeholder="Search docs..." data-search />
+      </label>
+      <a class="top-link" href="https://linkshieldai.com">linkshieldai.com</a>
+    </header>
+
+    <div class="layout">
+      <aside class="sidebar" data-sidebar>
+        <nav aria-label="Documentation">
+          <a href="#overview" class="nav-link active">Overview</a>
+          <a href="#authentication" class="nav-link">Authentication</a>
+          <a href="#rate-limits" class="nav-link">Rate Limits</a>
+          <a href="#endpoints" class="nav-link">Endpoints</a>
+          <a href="#basic-check" class="nav-link sub">Basic Check</a>
+          <a href="#detailed-check" class="nav-link sub">Detailed Check</a>
+          <a href="#screenshot" class="nav-link sub">Website Screenshot</a>
+          <a href="#nsfw" class="nav-link sub">NSFW Endpoint</a>
+          <a href="#chimera" class="nav-link sub">Chimera Endpoint</a>
+          <a href="#security" class="nav-link">Security</a>
+          <a href="#code-examples" class="nav-link">Code Examples</a>
+          <a href="#discord-bot" class="nav-link">Discord Bot</a>
+        </nav>
+      </aside>
+
+      <main class="content" id="main">
+        <section class="doc-section hero-section" id="overview" data-title="Overview LinkShieldAI API Documentation">
+          <p class="eyebrow">Documentation</p>
+          <h1>LinkShieldAI API Documentation</h1>
+          <p class="lede">
+            A refined, easy-to-navigate version of the published LinkShieldAI API documentation.
+          </p>
+          <div class="quick-grid">
+            <a href="#authentication">
+              <strong>Authentication</strong>
+              <span>API key usage and access instructions.</span>
+            </a>
+            <a href="#endpoints">
+              <strong>Endpoints</strong>
+              <span>Basic, detailed, screenshot, NSFW, and Chimera checks.</span>
+            </a>
+            <a href="#code-examples">
+              <strong>Code Examples</strong>
+              <span>Published Python example for the basic endpoint.</span>
+            </a>
+          </div>
+        </section>
+
+        <section class="doc-section" id="authentication" data-title="Authentication API key Discord server">
+          <p class="eyebrow">Access</p>
+          <h2>Authentication</h2>
+          <p>
+            To use the LinkShieldAI API, you need to obtain an API key. Include this key as a
+            parameter in your requests.
+          </p>
+          <p>
+            To obtain an API key, join the LinkShieldAI Discord
+            <a href="https://discord.gg/URJVdwdp2e">server</a>.
+          </p>
+        </section>
+
+        <section class="doc-section" id="rate-limits" data-title="Rate Limits 1000 requests daily 500 hourly 50 per minute">
+          <p class="eyebrow">Usage</p>
+          <h2>Rate Limits</h2>
+          <div class="stat-grid">
+            <div>
+              <strong>1000</strong>
+              <span>daily requests</span>
+            </div>
+            <div>
+              <strong>500</strong>
+              <span>hourly requests</span>
+            </div>
+            <div>
+              <strong>50</strong>
+              <span>requests per minute</span>
+            </div>
+          </div>
+          <p>
+            Exceeding these thresholds will trigger rate limit exceeded errors.
+          </p>
+        </section>
+
+        <section class="doc-section" id="endpoints" data-title="Endpoints Basic Detailed Screenshot NSFW Chimera">
+          <p class="eyebrow">Reference</p>
+          <h2>Endpoints</h2>
+          <p>
+            The following endpoints are copied from the published LinkShieldAI documentation and
+            reorganized for easier scanning.
+          </p>
+        </section>
+
+        <section class="endpoint doc-section" id="basic-check" data-title="Basic Check likely safe malicious GET">
+          <div class="endpoint-heading">
+            <div>
+              <p class="eyebrow">Endpoint</p>
+              <h3>Basic Check</h3>
+            </div>
+            <span class="method">GET</span>
+          </div>
+          <dl class="endpoint-meta">
+            <dt>URL</dt>
+            <dd><code>https://api.linkshieldai.com/?key={key}&amp;url={url}</code></dd>
+            <dt>Description</dt>
+            <dd>Checks if the specified website is malicious or safe.</dd>
+          </dl>
+          <p class="note">Possible responses are examples only; errors may vary.</p>
+          <div class="code-list">
+            <code>{"result":"likely safe"}</code>
+            <code>{"result":"Might be malicious"}</code>
+            <code>{"result" : "The system didn't detect anything malicious."}</code>
+            <code>{"Error" : "some error"}</code>
+          </div>
+        </section>
+
+        <section class="endpoint doc-section" id="detailed-check" data-title="Detailed Check screenshot URL tag Yahoo no tags unable to reach">
+          <div class="endpoint-heading">
+            <div>
+              <p class="eyebrow">Endpoint</p>
+              <h3>Detailed Check</h3>
+            </div>
+            <span class="method">GET</span>
+          </div>
+          <dl class="endpoint-meta">
+            <dt>URL</dt>
+            <dd><code>https://api.linkshieldai.com/classify_link?key={key}&amp;url={url}</code></dd>
+            <dt>Description</dt>
+            <dd>
+              Provides detailed information about the specified website, including whether it may be
+              malicious, a screenshot URL of the website, and any targeted brands in phishing attacks.
+            </dd>
+          </dl>
+          <p class="note">Possible responses are examples only; errors may vary.</p>
+          <pre><code>{
+  "result" : "Might be malicious",
+  "screenshot url": "https://api.linkshieldai.com/screenshot/1b0745.png",
+  "tag": "Yahoo"
+}</code></pre>
+          <pre><code>{
+  "result": "Likely safe",
+  "screenshot url": "https://api.linkshieldai.com/screenshot/05046f.png",
+  "tag": "No tags found"
+}</code></pre>
+          <pre><code>{
+  "result": "Might be malicious",
+  "screenshot url": "https://api.linkshieldai.com/screenshot/3d3db2.png",
+  "tag": "No tags found"
+}</code></pre>
+          <pre><code>{
+  "Error": "Unable to reach the site"
+}</code></pre>
+        </section>
+
+        <section class="endpoint doc-section" id="screenshot" data-title="Get Website Screenshot image file file name">
+          <div class="endpoint-heading">
+            <div>
+              <p class="eyebrow">Endpoint</p>
+              <h3>Get Website Screenshot</h3>
+            </div>
+            <span class="method">GET</span>
+          </div>
+          <dl class="endpoint-meta">
+            <dt>URL</dt>
+            <dd><code>https://api.linkshieldai.com/screenshot/{file_name}</code></dd>
+            <dt>Description</dt>
+            <dd>Retrieves a screenshot of an already screenshotted website.</dd>
+            <dt>Example Response</dt>
+            <dd>Returns the image file.</dd>
+            <dt>Accessed</dt>
+            <dd>Through a file name, as shown above.</dd>
+          </dl>
+        </section>
+
+        <section class="endpoint doc-section" id="nsfw" data-title="NSFW endpoint pornographic database True False">
+          <div class="endpoint-heading">
+            <div>
+              <p class="eyebrow">Endpoint</p>
+              <h3>NSFW Endpoint</h3>
+            </div>
+            <span class="method">GET</span>
+          </div>
+          <dl class="endpoint-meta">
+            <dt>URL</dt>
+            <dd><code>https://api.linkshieldai.com/nsfw/site?key=[your_key]&amp;url=[url_to_check]</code></dd>
+            <dt>Description</dt>
+            <dd>
+              Allows you to quickly check if a URL is flagged as NSFW or pornographic in the database.
+            </dd>
+          </dl>
+          <div class="code-list">
+            <code>{"result":"False"}</code>
+            <code>{"result":"True"}</code>
+            <code>{"Error":"placeholder error"}</code>
+          </div>
+        </section>
+
+        <section class="endpoint doc-section" id="chimera" data-title="Chimera endpoint AI phishing malware malicious benign probability signatures">
+          <div class="endpoint-heading">
+            <div>
+              <p class="eyebrow">Endpoint</p>
+              <h3>Chimera Endpoint</h3>
+            </div>
+            <span class="method">GET</span>
+          </div>
+          <p>
+            The Chimera Endpoint is the gateway to LinkShieldAI's advanced artificial intelligence
+            capabilities for website scanning. This endpoint uses AI models and signature detection to
+            identify potential phishing, malware, and other malicious threats present in URLs.
+          </p>
+          <dl class="endpoint-meta">
+            <dt>URL</dt>
+            <dd><code>https://api.linkshieldai.com/chimera</code></dd>
+            <dt>Authentication</dt>
+            <dd>Requires an API key for access.</dd>
+            <dt>Description</dt>
+            <dd>
+              Submit any URL to LinkShieldAI's analysis engine. The response provides a classification,
+              a probability score, and the method used for detection.
+            </dd>
+          </dl>
+
+          <h4>Example Request</h4>
+          <pre><code>GET https://api.linkshieldai.com/chimera?key=YOUR_API_KEY_HERE&amp;url=https://steamcomun1ty.com/id=5944478616</code></pre>
+
+          <h4>Successful Scan - Malicious URL</h4>
+          <pre><code>{
+  "detection_method": "ai-model",
+  "matched_signatures": 0,
+  "probability": 0.9947241392537983,
+  "result": "malicious",
+  "url": "https://steamcomun1ty.com/id=5944478616"
+}</code></pre>
+
+          <h4>Successful Scan - Benign URL</h4>
+          <pre><code>{
+  "detection_method": "ai-model",
+  "matched_signatures": 0,
+  "probability": 0.13061513415575468,
+  "result": "benign",
+  "url": "https://google.com"
+}</code></pre>
+
+          <h4>Error Response - Invalid or Unreachable URL</h4>
+          <p class="note">HTTP status: <code>400 Bad Request</code> or <code>500 Internal Server Error</code>, depending on the cause.</p>
+          <pre><code>{
+  "error": "Invalid or unreachable URL."
+}</code></pre>
+
+          <h4>Response Fields</h4>
+          <div class="field-list">
+            <article>
+              <h5><code>detection_method</code> <span>string</span></h5>
+              <p>Indicates the primary method used to classify the URL.</p>
+              <ul>
+                <li><code>ai-model</code>: classification was primarily based on AI learned patterns.</li>
+                <li><code>rule-based</code>: classification was made from a direct match with known malicious signatures.</li>
+                <li><code>hybrid</code>: a combination of AI and rule-based methods contributed significantly.</li>
+                <li><code>HTML Fetch Failed</code>: the URL could not be reached or HTML content could not be retrieved.</li>
+              </ul>
+            </article>
+            <article>
+              <h5><code>matched_signatures</code> <span>integer</span></h5>
+              <p>
+                The number of distinct malicious signatures found in the scanned URL's content or
+                structure.
+              </p>
+            </article>
+            <article>
+              <h5><code>probability</code> <span>float</span></h5>
+              <p>
+                A value between <code>0.0</code> and <code>1.0</code> representing model confidence that
+                the URL is malicious.
+              </p>
+            </article>
+            <article>
+              <h5><code>result</code> <span>string</span></h5>
+              <p>The final classification of the URL.</p>
+              <ul>
+                <li><code>malicious</code>: highly likely to be phishing, malware, or scam content.</li>
+                <li><code>benign</code>: deemed safe based on analysis.</li>
+                <li><code>cannot classify</code>: classification could not be completed.</li>
+              </ul>
+            </article>
+            <article>
+              <h5><code>url</code> <span>string</span></h5>
+              <p>The original, un-encoded URL submitted for scanning.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="doc-section" id="security" data-title="Security Considerations HTTPS API key secure">
+          <p class="eyebrow">Safety</p>
+          <h2>Security Considerations</h2>
+          <ul class="check-list">
+            <li>Always use HTTPS when making requests to the LinkShieldAI API.</li>
+            <li>Keep your API key secure and do not expose it publicly.</li>
+          </ul>
+        </section>
+
+        <section class="doc-section" id="code-examples" data-title="Code Examples Python aiohttp asyncio basic endpoint">
+          <p class="eyebrow">Example</p>
+          <h2>Code Examples</h2>
+          <p>For this endpoint: <code>https://api.linkshieldai.com/?key={key}&amp;url={url}</code></p>
+          <pre><code>import aiohttp
+import asyncio
+
+async def check_mal(url, API_key):
+    """
+    Checks if the specified website is likely malicious.
+
+    Parameters:
+        url (str): The URL of the website to check.
+        API_key (str): Your API key for LinkShieldAI.
+
+    Returns:
+        bool: True if the website might be malicious, False otherwise.
+    """
+    API_ENDPOINT = f'https://api.linkshieldai.com/?key={API_key}&amp;url={url}'
+
+    async with aiohttp.ClientSession() as session:
+        try:
+            async with session.get(API_ENDPOINT, timeout=10) as response:
+                if response.status == 200:
+                    data = await response.json()
+
+                    result = data.get('result', "Failed to connect to the site.")
+
+                    if result == "Might be malicious":
+                        return True
+                    else:
+                        return False
+        except asyncio.TimeoutError:
+            print("Couldn't connect to the API.")</code></pre>
+        </section>
+
+        <section class="doc-section" id="discord-bot" data-title="Example Discord Bot GitHub py-cord anti-phishing">
+          <p class="eyebrow">Template</p>
+          <h2>Example Discord Bot</h2>
+          <p>
+            This is the <a href="https://github.com/LinkShieldAI/Discord-bot-template">link</a>.
+          </p>
+          <p>
+            The code is written in Python using py-cord and has everything you need to start your own
+            anti-phishing Discord bot.
+          </p>
+        </section>
+      </main>
+
+      <aside class="toc" aria-label="On this page">
+        <p>On this page</p>
+        <a href="#overview">Overview</a>
+        <a href="#authentication">Authentication</a>
+        <a href="#rate-limits">Rate Limits</a>
+        <a href="#endpoints">Endpoints</a>
+        <a href="#security">Security</a>
+        <a href="#code-examples">Code Examples</a>
+      </aside>
+    </div>
+
+    <div class="no-results" data-no-results hidden>
+      No matching sections found.
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
