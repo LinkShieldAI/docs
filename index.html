@@ -3,20 +3,20 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>LinkShieldAI API Documentation</title>
+    <title>LinkShieldAI Documentation</title>
     <meta
       name="description"
-      content="LinkShieldAI API documentation for authentication, rate limits, endpoints, security notes, and examples."
+      content="LinkShieldAI documentation for account setup, API keys, the Python SDK, CLI usage, endpoints, limits, and security notes."
     />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header class="topbar">
-      <a class="brand" href="#overview" aria-label="LinkShieldAI API Documentation home">
+      <a class="brand" href="#overview" aria-label="LinkShieldAI documentation home">
         <span class="brand-mark">LS</span>
         <span>
           <strong>LinkShieldAI</strong>
-          <small>API Documentation</small>
+          <small>Developer Docs</small>
         </span>
       </a>
       <button class="icon-button menu-button" type="button" aria-label="Open navigation" data-menu-toggle>
@@ -30,95 +30,201 @@
         </svg>
         <input type="search" placeholder="Search docs..." data-search />
       </label>
-      <a class="top-link" href="https://linkshieldai.com">linkshieldai.com</a>
+      <a class="top-link" href="https://developer.linkshieldai.com/portal.php">Developer Portal</a>
     </header>
 
     <div class="layout">
       <aside class="sidebar" data-sidebar>
         <nav aria-label="Documentation">
           <a href="#overview" class="nav-link active">Overview</a>
+          <a href="#quickstart" class="nav-link">Quickstart</a>
+          <a href="#account" class="nav-link sub">Create Account</a>
+          <a href="#python-sdk" class="nav-link sub">Python SDK</a>
+          <a href="#cli" class="nav-link sub">CLI</a>
           <a href="#authentication" class="nav-link">Authentication</a>
           <a href="#rate-limits" class="nav-link">Rate Limits</a>
           <a href="#endpoints" class="nav-link">Endpoints</a>
           <a href="#basic-check" class="nav-link sub">Basic Check</a>
           <a href="#detailed-check" class="nav-link sub">Detailed Check</a>
-          <a href="#screenshot" class="nav-link sub">Website Screenshot</a>
-          <a href="#nsfw" class="nav-link sub">NSFW Endpoint</a>
-          <a href="#chimera" class="nav-link sub">Chimera Endpoint</a>
+          <a href="#screenshot" class="nav-link sub">Screenshot</a>
+          <a href="#nsfw" class="nav-link sub">NSFW</a>
+          <a href="#chimera" class="nav-link sub">Chimera</a>
+          <a href="#errors" class="nav-link">Errors</a>
           <a href="#security" class="nav-link">Security</a>
-          <a href="#code-examples" class="nav-link">Code Examples</a>
-          <a href="#discord-bot" class="nav-link">Discord Bot</a>
+          <a href="#projects" class="nav-link">Examples</a>
         </nav>
       </aside>
 
       <main class="content" id="main">
-        <section class="doc-section hero-section" id="overview" data-title="Overview LinkShieldAI API Documentation">
+        <section class="doc-section hero-section" id="overview" data-title="Overview LinkShieldAI anti phishing API Discord bot browser extension Python SDK">
           <p class="eyebrow">Documentation</p>
-          <h1>LinkShieldAI API Documentation</h1>
+          <h1>Build safer apps with LinkShieldAI</h1>
           <p class="lede">
-            A refined, easy-to-navigate version of the published LinkShieldAI API documentation.
+            LinkShieldAI helps developers scan URLs for phishing, malware, scam pages, NSFW content,
+            and other unsafe destinations before users click them.
           </p>
           <div class="quick-grid">
-            <a href="#authentication">
-              <strong>Authentication</strong>
-              <span>API key usage and access instructions.</span>
+            <a href="#account">
+              <strong>Create a free account</strong>
+              <span>Use the Developer Portal to manage keys, usage, webhooks, and reports.</span>
+            </a>
+            <a href="#python-sdk">
+              <strong>Install the Python SDK</strong>
+              <span>Use sync clients, async clients, typed result objects, retries, and CLI commands.</span>
             </a>
             <a href="#endpoints">
-              <strong>Endpoints</strong>
-              <span>Basic, detailed, screenshot, NSFW, and Chimera checks.</span>
-            </a>
-            <a href="#code-examples">
-              <strong>Code Examples</strong>
-              <span>Published Python example for the basic endpoint.</span>
+              <strong>Call the API directly</strong>
+              <span>Scan URLs with simple GET endpoints and JSON responses.</span>
             </a>
           </div>
         </section>
 
-        <section class="doc-section" id="authentication" data-title="Authentication API key Discord server">
-          <p class="eyebrow">Access</p>
-          <h2>Authentication</h2>
+        <section class="doc-section" id="quickstart" data-title="Quickstart account api key pip install first scan">
+          <p class="eyebrow">Start here</p>
+          <h2>Quickstart</h2>
+          <ol class="step-list">
+            <li>
+              <strong>Create a free developer account</strong>
+              <span>Open the <a href="https://developer.linkshieldai.com/portal.php?signup=1">Developer Portal signup page</a>, enter your name, email, and a password with at least 8 characters.</span>
+            </li>
+            <li>
+              <strong>Get your API key</strong>
+              <span>Sign in to the portal to view usage, rotate keys, configure webhooks, and report false positives.</span>
+            </li>
+            <li>
+              <strong>Install the SDK</strong>
+              <span>Use <code>pip install linkshieldai==0.2.2</code> with Python 3.10 or newer.</span>
+            </li>
+            <li>
+              <strong>Run your first scan</strong>
+              <span>Use the SDK, CLI, or direct API endpoint depending on your project.</span>
+            </li>
+          </ol>
+        </section>
+
+        <section class="doc-section" id="account" data-title="Create account developer portal free developer account API key webhooks false positives">
+          <p class="eyebrow">Account</p>
+          <h2>Create a Free Developer Account</h2>
           <p>
-            To use the LinkShieldAI API, you need to obtain an API key. Include this key as a
-            parameter in your requests.
+            The Developer Portal is where you manage API access. Use it to sign in, create a free
+            account, view usage, rotate keys, configure webhooks, and report false positives.
           </p>
+          <div class="callout">
+            <strong>Signup URL</strong>
+            <code>https://developer.linkshieldai.com/portal.php?signup=1</code>
+          </div>
+          <h3>Required signup fields</h3>
+          <ul class="check-list">
+            <li>Name</li>
+            <li>Email address</li>
+            <li>Password with at least 8 characters</li>
+          </ul>
           <p>
-            To obtain an API key, join the LinkShieldAI Discord
-            <a href="https://discord.gg/URJVdwdp2e">server</a>.
+            After creating the account, return to <a href="https://developer.linkshieldai.com/portal.php">the portal</a>
+            and sign in with your email and password.
           </p>
         </section>
 
-        <section class="doc-section" id="rate-limits" data-title="Rate Limits 1000 requests daily 500 hourly 50 per minute">
+        <section class="doc-section" id="python-sdk" data-title="Python SDK PyPI linkshieldai 0.2.2 install setup sync async client environment variable">
+          <p class="eyebrow">SDK</p>
+          <h2>Python SDK Setup</h2>
+          <p>
+            The official package is available on PyPI as <a href="https://pypi.org/project/linkshieldai/0.2.2/">linkshieldai 0.2.2</a>.
+            It requires Python 3.10 or newer and wraps the LinkShieldAI API at
+            <code>https://api.linkshieldai.com</code>.
+          </p>
+          <pre><code>python -m pip install linkshieldai==0.2.2</code></pre>
+
+          <h3>Option 1: pass the key directly</h3>
+          <pre><code>from linkshieldai import LinkShieldAI
+
+client = LinkShieldAI(api_key="YOUR_API_KEY")
+result = client.basic_check("https://example.com")
+
+print(result.result)
+print(result.is_malicious)
+print(result.raw)</code></pre>
+
+          <h3>Option 2: use an environment variable</h3>
+          <pre><code># PowerShell
+$env:LINKSHIELDAI_API_KEY = "YOUR_API_KEY"</code></pre>
+          <pre><code>from linkshieldai import LinkShieldAI
+
+client = LinkShieldAI()
+result = client.chimera("https://google.com")
+
+print(result.result)
+print(result.probability)
+print(result.detection_method)
+print(result.matched_signatures)</code></pre>
+
+          <h3>Async client</h3>
+          <pre><code>import asyncio
+from linkshieldai import AsyncLinkShieldAI
+
+async def main():
+    async with AsyncLinkShieldAI(api_key="YOUR_API_KEY") as client:
+        result = await client.chimera("https://google.com")
+        print(result.result, result.probability)
+
+asyncio.run(main())</code></pre>
+        </section>
+
+        <section class="doc-section" id="cli" data-title="CLI command line basic detailed nsfw chimera screenshot">
+          <p class="eyebrow">CLI</p>
+          <h2>Command Line Usage</h2>
+          <p>
+            Installing the Python package also gives you a small command-line tool. You can pass the
+            API key with <code>--api-key</code>, or omit it when <code>LINKSHIELDAI_API_KEY</code> is set.
+          </p>
+          <pre><code>linkshieldai --api-key YOUR_API_KEY basic https://example.com
+linkshieldai --api-key YOUR_API_KEY detailed https://example.com
+linkshieldai --api-key YOUR_API_KEY nsfw https://example.com
+linkshieldai --api-key YOUR_API_KEY chimera https://google.com
+linkshieldai --api-key YOUR_API_KEY screenshot 05046f.png --output site.png</code></pre>
+        </section>
+
+        <section class="doc-section" id="authentication" data-title="Authentication API key query parameter environment variable">
+          <p class="eyebrow">Access</p>
+          <h2>Authentication</h2>
+          <p>
+            LinkShieldAI authenticates requests with an API key. For direct API calls, include the key
+            in the <code>key</code> query parameter. For the Python SDK, pass it to the client or set
+            <code>LINKSHIELDAI_API_KEY</code>.
+          </p>
+          <pre><code>GET https://api.linkshieldai.com/chimera?key=YOUR_API_KEY&amp;url=https://google.com</code></pre>
+        </section>
+
+        <section class="doc-section" id="rate-limits" data-title="Rate Limits 1000 monthly requests developer portal expand limit">
           <p class="eyebrow">Usage</p>
           <h2>Rate Limits</h2>
           <div class="stat-grid">
             <div>
-              <strong>1000</strong>
-              <span>daily requests</span>
-            </div>
-            <div>
-              <strong>500</strong>
-              <span>hourly requests</span>
-            </div>
-            <div>
-              <strong>50</strong>
-              <span>requests per minute</span>
+              <strong>1,000</strong>
+              <span>requests per month</span>
             </div>
           </div>
           <p>
-            Exceeding these thresholds will trigger rate limit exceeded errors.
+            Need more requests? Sign in to the
+            <a href="https://developer.linkshieldai.com/portal.php">Developer Portal</a> to expand
+            your usage.
           </p>
-        </section>
-
-        <section class="doc-section" id="endpoints" data-title="Endpoints Basic Detailed Screenshot NSFW Chimera">
-          <p class="eyebrow">Reference</p>
-          <h2>Endpoints</h2>
           <p>
-            The following endpoints are copied from the published LinkShieldAI documentation and
-            reorganized for easier scanning.
+            When you are close to your limit, add retry handling and catch rate-limit errors in your
+            app or bot.
           </p>
         </section>
 
-        <section class="endpoint doc-section" id="basic-check" data-title="Basic Check likely safe malicious GET">
+        <section class="doc-section" id="endpoints" data-title="Endpoints Basic Detailed Screenshot NSFW Chimera direct HTTP API">
+          <p class="eyebrow">Reference</p>
+          <h2>API Endpoints</h2>
+          <p>
+            Every endpoint below can be called directly over HTTPS. The Python SDK wraps the same
+            endpoints and normalizes common fields for easier use in code.
+          </p>
+        </section>
+
+        <section class="endpoint doc-section" id="basic-check" data-title="Basic Check likely safe might be malicious GET">
           <div class="endpoint-heading">
             <div>
               <p class="eyebrow">Endpoint</p>
@@ -129,19 +235,28 @@
           <dl class="endpoint-meta">
             <dt>URL</dt>
             <dd><code>https://api.linkshieldai.com/?key={key}&amp;url={url}</code></dd>
-            <dt>Description</dt>
-            <dd>Checks if the specified website is malicious or safe.</dd>
+            <dt>Use it for</dt>
+            <dd>Fast URL safety checks when you only need a simple safe or suspicious result.</dd>
           </dl>
-          <p class="note">Possible responses are examples only; errors may vary.</p>
+          <pre><code>from linkshieldai import LinkShieldAI
+
+client = LinkShieldAI(api_key="YOUR_API_KEY")
+result = client.basic_check("https://example.com")
+
+if result.is_malicious:
+    print("Block or review this URL")
+else:
+    print("No malicious signal found")</code></pre>
+          <h4>Example responses</h4>
           <div class="code-list">
             <code>{"result":"likely safe"}</code>
             <code>{"result":"Might be malicious"}</code>
-            <code>{"result" : "The system didn't detect anything malicious."}</code>
-            <code>{"Error" : "some error"}</code>
+            <code>{"result":"The system didn't detect anything malicious."}</code>
+            <code>{"Error":"some error"}</code>
           </div>
         </section>
 
-        <section class="endpoint doc-section" id="detailed-check" data-title="Detailed Check screenshot URL tag Yahoo no tags unable to reach">
+        <section class="endpoint doc-section" id="detailed-check" data-title="Detailed Check screenshot URL tag brand phishing Yahoo">
           <div class="endpoint-heading">
             <div>
               <p class="eyebrow">Endpoint</p>
@@ -152,34 +267,26 @@
           <dl class="endpoint-meta">
             <dt>URL</dt>
             <dd><code>https://api.linkshieldai.com/classify_link?key={key}&amp;url={url}</code></dd>
-            <dt>Description</dt>
-            <dd>
-              Provides detailed information about the specified website, including whether it may be
-              malicious, a screenshot URL of the website, and any targeted brands in phishing attacks.
-            </dd>
+            <dt>Use it for</dt>
+            <dd>Getting a safety result, screenshot URL, and detected phishing target or brand tag.</dd>
           </dl>
-          <p class="note">Possible responses are examples only; errors may vary.</p>
+          <pre><code>result = client.detailed_check("https://example.com")
+
+print(result.result)
+print(result.screenshot_url)
+print(result.tag)</code></pre>
+          <p class="note">
+            The SDK normalizes the API field <code>"screenshot url"</code> to <code>screenshot_url</code>.
+          </p>
+          <h4>Example response</h4>
           <pre><code>{
-  "result" : "Might be malicious",
+  "result": "Might be malicious",
   "screenshot url": "https://api.linkshieldai.com/screenshot/1b0745.png",
   "tag": "Yahoo"
 }</code></pre>
-          <pre><code>{
-  "result": "Likely safe",
-  "screenshot url": "https://api.linkshieldai.com/screenshot/05046f.png",
-  "tag": "No tags found"
-}</code></pre>
-          <pre><code>{
-  "result": "Might be malicious",
-  "screenshot url": "https://api.linkshieldai.com/screenshot/3d3db2.png",
-  "tag": "No tags found"
-}</code></pre>
-          <pre><code>{
-  "Error": "Unable to reach the site"
-}</code></pre>
         </section>
 
-        <section class="endpoint doc-section" id="screenshot" data-title="Get Website Screenshot image file file name">
+        <section class="endpoint doc-section" id="screenshot" data-title="Screenshot image file download get screenshot png">
           <div class="endpoint-heading">
             <div>
               <p class="eyebrow">Endpoint</p>
@@ -190,31 +297,29 @@
           <dl class="endpoint-meta">
             <dt>URL</dt>
             <dd><code>https://api.linkshieldai.com/screenshot/{file_name}</code></dd>
-            <dt>Description</dt>
-            <dd>Retrieves a screenshot of an already screenshotted website.</dd>
-            <dt>Example Response</dt>
-            <dd>Returns the image file.</dd>
-            <dt>Accessed</dt>
-            <dd>Through a file name, as shown above.</dd>
+            <dt>Use it for</dt>
+            <dd>Downloading a screenshot file returned by a detailed scan.</dd>
           </dl>
+          <pre><code>image_bytes = client.get_screenshot("05046f.png")
+client.get_screenshot("https://api.linkshieldai.com/screenshot/05046f.png", "site.png")</code></pre>
         </section>
 
-        <section class="endpoint doc-section" id="nsfw" data-title="NSFW endpoint pornographic database True False">
+        <section class="endpoint doc-section" id="nsfw" data-title="NSFW endpoint pornographic content database True False">
           <div class="endpoint-heading">
             <div>
               <p class="eyebrow">Endpoint</p>
-              <h3>NSFW Endpoint</h3>
+              <h3>NSFW Check</h3>
             </div>
             <span class="method">GET</span>
           </div>
           <dl class="endpoint-meta">
             <dt>URL</dt>
-            <dd><code>https://api.linkshieldai.com/nsfw/site?key=[your_key]&amp;url=[url_to_check]</code></dd>
-            <dt>Description</dt>
-            <dd>
-              Allows you to quickly check if a URL is flagged as NSFW or pornographic in the database.
-            </dd>
+            <dd><code>https://api.linkshieldai.com/nsfw/site?key={key}&amp;url={url}</code></dd>
+            <dt>Use it for</dt>
+            <dd>Checking whether a URL is flagged as NSFW or pornographic in the database.</dd>
           </dl>
+          <pre><code>result = client.nsfw_check("https://example.com")
+print(result.is_nsfw)</code></pre>
           <div class="code-list">
             <code>{"result":"False"}</code>
             <code>{"result":"True"}</code>
@@ -222,35 +327,35 @@
           </div>
         </section>
 
-        <section class="endpoint doc-section" id="chimera" data-title="Chimera endpoint AI phishing malware malicious benign probability signatures">
+        <section class="endpoint doc-section" id="chimera" data-title="Chimera AI phishing malware malicious benign probability signatures">
           <div class="endpoint-heading">
             <div>
               <p class="eyebrow">Endpoint</p>
-              <h3>Chimera Endpoint</h3>
+              <h3>Chimera AI Classification</h3>
             </div>
             <span class="method">GET</span>
           </div>
           <p>
-            The Chimera Endpoint is the gateway to LinkShieldAI's advanced artificial intelligence
-            capabilities for website scanning. This endpoint uses AI models and signature detection to
-            identify potential phishing, malware, and other malicious threats present in URLs.
+            Chimera is the advanced classification endpoint. It uses AI and signature detection to
+            identify phishing, malware, scams, and other malicious URL patterns.
           </p>
           <dl class="endpoint-meta">
             <dt>URL</dt>
-            <dd><code>https://api.linkshieldai.com/chimera</code></dd>
-            <dt>Authentication</dt>
-            <dd>Requires an API key for access.</dd>
-            <dt>Description</dt>
-            <dd>
-              Submit any URL to LinkShieldAI's analysis engine. The response provides a classification,
-              a probability score, and the method used for detection.
-            </dd>
+            <dd><code>https://api.linkshieldai.com/chimera?key={key}&amp;url={url}</code></dd>
+            <dt>Use it for</dt>
+            <dd>Risk scoring, moderation pipelines, Discord bots, browser extensions, and user-facing link checks.</dd>
           </dl>
+          <pre><code>result = client.chimera("https://google.com")
 
-          <h4>Example Request</h4>
-          <pre><code>GET https://api.linkshieldai.com/chimera?key=YOUR_API_KEY_HERE&amp;url=https://steamcomun1ty.com/id=5944478616</code></pre>
+print(result.result)
+print(result.probability)
+print(result.detection_method)
+print(result.matched_signatures)</code></pre>
 
-          <h4>Successful Scan - Malicious URL</h4>
+          <h4>Example request</h4>
+          <pre><code>GET https://api.linkshieldai.com/chimera?key=YOUR_API_KEY&amp;url=https://steamcomun1ty.com/id=5944478616</code></pre>
+
+          <h4>Example response</h4>
           <pre><code>{
   "detection_method": "ai-model",
   "matched_signatures": 0,
@@ -259,129 +364,112 @@
   "url": "https://steamcomun1ty.com/id=5944478616"
 }</code></pre>
 
-          <h4>Successful Scan - Benign URL</h4>
-          <pre><code>{
-  "detection_method": "ai-model",
-  "matched_signatures": 0,
-  "probability": 0.13061513415575468,
-  "result": "benign",
-  "url": "https://google.com"
-}</code></pre>
-
-          <h4>Error Response - Invalid or Unreachable URL</h4>
-          <p class="note">HTTP status: <code>400 Bad Request</code> or <code>500 Internal Server Error</code>, depending on the cause.</p>
-          <pre><code>{
-  "error": "Invalid or unreachable URL."
-}</code></pre>
-
-          <h4>Response Fields</h4>
+          <h4>Response fields</h4>
           <div class="field-list">
             <article>
               <h5><code>detection_method</code> <span>string</span></h5>
-              <p>Indicates the primary method used to classify the URL.</p>
-              <ul>
-                <li><code>ai-model</code>: classification was primarily based on AI learned patterns.</li>
-                <li><code>rule-based</code>: classification was made from a direct match with known malicious signatures.</li>
-                <li><code>hybrid</code>: a combination of AI and rule-based methods contributed significantly.</li>
-                <li><code>HTML Fetch Failed</code>: the URL could not be reached or HTML content could not be retrieved.</li>
-              </ul>
+              <p>Primary classification method, such as <code>ai-model</code>, <code>rule-based</code>, or <code>hybrid</code>.</p>
             </article>
             <article>
               <h5><code>matched_signatures</code> <span>integer</span></h5>
-              <p>
-                The number of distinct malicious signatures found in the scanned URL's content or
-                structure.
-              </p>
+              <p>Number of malicious signatures found in the scanned URL's content or structure.</p>
             </article>
             <article>
               <h5><code>probability</code> <span>float</span></h5>
-              <p>
-                A value between <code>0.0</code> and <code>1.0</code> representing model confidence that
-                the URL is malicious.
-              </p>
+              <p>Model confidence between <code>0.0</code> and <code>1.0</code> that the URL is malicious.</p>
             </article>
             <article>
               <h5><code>result</code> <span>string</span></h5>
-              <p>The final classification of the URL.</p>
-              <ul>
-                <li><code>malicious</code>: highly likely to be phishing, malware, or scam content.</li>
-                <li><code>benign</code>: deemed safe based on analysis.</li>
-                <li><code>cannot classify</code>: classification could not be completed.</li>
-              </ul>
+              <p>Final classification, commonly <code>malicious</code>, <code>benign</code>, or <code>cannot classify</code>.</p>
             </article>
             <article>
               <h5><code>url</code> <span>string</span></h5>
-              <p>The original, un-encoded URL submitted for scanning.</p>
+              <p>The original URL submitted for scanning.</p>
             </article>
           </div>
         </section>
 
-        <section class="doc-section" id="security" data-title="Security Considerations HTTPS API key secure">
-          <p class="eyebrow">Safety</p>
-          <h2>Security Considerations</h2>
+        <section class="doc-section" id="errors" data-title="Errors AuthenticationError RateLimitError APIStatusError APIResponseError APIConnectionError">
+          <p class="eyebrow">Handling</p>
+          <h2>Errors</h2>
+          <p>
+            The SDK preserves raw API payloads on result objects through <code>.raw</code> and exposes
+            clear exception types for common failure modes.
+          </p>
+          <pre><code>from linkshieldai import (
+    APIConnectionError,
+    APIResponseError,
+    APIStatusError,
+    AuthenticationError,
+    RateLimitError,
+)</code></pre>
+          <div class="field-list">
+            <article>
+              <h5><code>AuthenticationError</code></h5>
+              <p>Raised when the API key is missing.</p>
+            </article>
+            <article>
+              <h5><code>RateLimitError</code></h5>
+              <p>Raised for HTTP 429 responses.</p>
+            </article>
+            <article>
+              <h5><code>APIStatusError</code></h5>
+              <p>Raised for non-success HTTP status responses.</p>
+            </article>
+            <article>
+              <h5><code>APIResponseError</code></h5>
+              <p>Raised for malformed JSON or API payloads containing <code>Error</code> or <code>error</code>.</p>
+            </article>
+            <article>
+              <h5><code>APIConnectionError</code></h5>
+              <p>Raised for timeouts, DNS failures, or connection failures.</p>
+            </article>
+          </div>
+        </section>
+
+        <section class="doc-section" id="security" data-title="Security production API key HTTPS server side retries">
+          <p class="eyebrow">Production</p>
+          <h2>Security Notes</h2>
           <ul class="check-list">
-            <li>Always use HTTPS when making requests to the LinkShieldAI API.</li>
-            <li>Keep your API key secure and do not expose it publicly.</li>
+            <li>Always call the API over HTTPS.</li>
+            <li>Keep API keys server-side. Do not expose them in browser JavaScript.</li>
+            <li>Use retries for temporary failures. The SDK retries connection failures and HTTP <code>429</code>, <code>502</code>, <code>503</code>, and <code>504</code> by default.</li>
+            <li>Catch <code>RateLimitError</code> when running moderation bots, browser extension backends, or high-volume pipelines.</li>
           </ul>
         </section>
 
-        <section class="doc-section" id="code-examples" data-title="Code Examples Python aiohttp asyncio basic endpoint">
-          <p class="eyebrow">Example</p>
-          <h2>Code Examples</h2>
-          <p>For this endpoint: <code>https://api.linkshieldai.com/?key={key}&amp;url={url}</code></p>
-          <pre><code>import aiohttp
-import asyncio
-
-async def check_mal(url, API_key):
-    """
-    Checks if the specified website is likely malicious.
-
-    Parameters:
-        url (str): The URL of the website to check.
-        API_key (str): Your API key for LinkShieldAI.
-
-    Returns:
-        bool: True if the website might be malicious, False otherwise.
-    """
-    API_ENDPOINT = f'https://api.linkshieldai.com/?key={API_key}&amp;url={url}'
-
-    async with aiohttp.ClientSession() as session:
-        try:
-            async with session.get(API_ENDPOINT, timeout=10) as response:
-                if response.status == 200:
-                    data = await response.json()
-
-                    result = data.get('result', "Failed to connect to the site.")
-
-                    if result == "Might be malicious":
-                        return True
-                    else:
-                        return False
-        except asyncio.TimeoutError:
-            print("Couldn't connect to the API.")</code></pre>
-        </section>
-
-        <section class="doc-section" id="discord-bot" data-title="Example Discord Bot GitHub py-cord anti-phishing">
-          <p class="eyebrow">Template</p>
-          <h2>Example Discord Bot</h2>
-          <p>
-            This is the <a href="https://github.com/LinkShieldAI/Discord-bot-template">link</a>.
-          </p>
-          <p>
-            The code is written in Python using py-cord and has everything you need to start your own
-            anti-phishing Discord bot.
-          </p>
+        <section class="doc-section" id="projects" data-title="Examples Discord bot browser extension website docs GitHub">
+          <p class="eyebrow">Examples</p>
+          <h2>Example Projects and Links</h2>
+          <div class="link-grid">
+            <a href="https://linkshieldai.com">
+              <strong>Website</strong>
+              <span>Product homepage for the Discord security bot.</span>
+            </a>
+            <a href="https://github.com/LinkShieldAI/Discord-bot-template">
+              <strong>Discord Bot Template</strong>
+              <span>Python template for building an anti-phishing Discord bot with LinkShieldAI.</span>
+            </a>
+            <a href="https://github.com/LinkShieldAI/linkshieldai-extension">
+              <strong>Browser Extension</strong>
+              <span>Extension project for bringing LinkShieldAI checks into the browser.</span>
+            </a>
+            <a href="https://pypi.org/project/linkshieldai/0.2.2/">
+              <strong>PyPI Package</strong>
+              <span>Official Python SDK release page.</span>
+            </a>
+          </div>
         </section>
       </main>
 
       <aside class="toc" aria-label="On this page">
         <p>On this page</p>
-        <a href="#overview">Overview</a>
-        <a href="#authentication">Authentication</a>
-        <a href="#rate-limits">Rate Limits</a>
+        <a href="#quickstart">Quickstart</a>
+        <a href="#account">Account</a>
+        <a href="#python-sdk">Python SDK</a>
         <a href="#endpoints">Endpoints</a>
+        <a href="#errors">Errors</a>
         <a href="#security">Security</a>
-        <a href="#code-examples">Code Examples</a>
       </aside>
     </div>
 
