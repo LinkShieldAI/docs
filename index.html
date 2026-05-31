@@ -6,8 +6,9 @@
     <title>LinkShieldAI Documentation</title>
     <meta
       name="description"
-      content="LinkShieldAI documentation for account setup, API keys, the Python SDK, CLI usage, endpoints, limits, and security notes."
+      content="LinkShieldAI documentation for account setup, API keys, SDKs for Python, JavaScript, PHP, and Rust, CLI usage, endpoints, limits, and security notes."
     />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
@@ -40,7 +41,11 @@
           <a href="#quickstart" class="nav-link">Quickstart</a>
           <a href="#account" class="nav-link sub">Create Account</a>
           <a href="#python-sdk" class="nav-link sub">Python SDK</a>
+          <a href="#javascript-sdk" class="nav-link sub">JavaScript SDK</a>
+          <a href="#php-sdk" class="nav-link sub">PHP SDK</a>
+          <a href="#rust-sdk" class="nav-link sub">Rust SDK</a>
           <a href="#cli" class="nav-link sub">CLI</a>
+          <a href="#sdk-methods" class="nav-link sub">Method Names</a>
           <a href="#authentication" class="nav-link">Authentication</a>
           <a href="#rate-limits" class="nav-link">Rate Limits</a>
           <a href="#endpoints" class="nav-link">Endpoints</a>
@@ -56,7 +61,7 @@
       </aside>
 
       <main class="content" id="main">
-        <section class="doc-section hero-section" id="overview" data-title="Overview LinkShieldAI anti phishing API Discord bot browser extension Python SDK">
+        <section class="doc-section hero-section" id="overview" data-title="Overview LinkShieldAI anti phishing API Discord bot browser extension Python JavaScript PHP Rust SDK">
           <p class="eyebrow">Documentation</p>
           <h1>Build safer apps with LinkShieldAI</h1>
           <p class="lede">
@@ -69,8 +74,8 @@
               <span>Use the Developer Portal to manage keys, usage, webhooks, and reports.</span>
             </a>
             <a href="#python-sdk">
-              <strong>Install the Python SDK</strong>
-              <span>Use sync clients, async clients, typed result objects, retries, and CLI commands.</span>
+              <strong>Install an SDK</strong>
+              <span>Use Python, JavaScript, PHP, or Rust clients with typed results, retries, and CLI commands.</span>
             </a>
             <a href="#endpoints">
               <strong>Call the API directly</strong>
@@ -79,7 +84,7 @@
           </div>
         </section>
 
-        <section class="doc-section" id="quickstart" data-title="Quickstart account api key pip install first scan">
+        <section class="doc-section" id="quickstart" data-title="Quickstart account api key pip npm composer cargo install first scan">
           <p class="eyebrow">Start here</p>
           <h2>Quickstart</h2>
           <ol class="step-list">
@@ -92,14 +97,34 @@
               <span>Sign in to the portal to view usage, rotate keys, configure webhooks, and report false positives.</span>
             </li>
             <li>
-              <strong>Install the SDK</strong>
-              <span>Use <code>pip install linkshieldai==0.2.2</code> with Python 3.10 or newer.</span>
+              <strong>Install an SDK</strong>
+              <span>Choose Python, JavaScript, PHP, or Rust. Each SDK wraps the same API endpoints and uses the same API key.</span>
             </li>
             <li>
               <strong>Run your first scan</strong>
               <span>Use the SDK, CLI, or direct API endpoint depending on your project.</span>
             </li>
           </ol>
+
+          <h3>Choose your SDK</h3>
+          <div class="sdk-grid">
+            <a href="#python-sdk">
+              <strong>Python</strong>
+              <span><code>pip install linkshieldai==0.2.2</code></span>
+            </a>
+            <a href="#javascript-sdk">
+              <strong>JavaScript / TypeScript</strong>
+              <span><code>npm install linkshieldai</code></span>
+            </a>
+            <a href="#php-sdk">
+              <strong>PHP</strong>
+              <span><code>composer require linkshieldai/linkshieldai</code></span>
+            </a>
+            <a href="#rust-sdk">
+              <strong>Rust</strong>
+              <span><code>linkshieldai = "0.1"</code></span>
+            </a>
+          </div>
         </section>
 
         <section class="doc-section" id="account" data-title="Create account developer portal free developer account API key webhooks false positives">
@@ -169,18 +194,208 @@ async def main():
 asyncio.run(main())</code></pre>
         </section>
 
+        <section class="doc-section" id="javascript-sdk" data-title="JavaScript TypeScript SDK npm linkshieldai install Node backend bots CLI">
+          <p class="eyebrow">SDK</p>
+          <h2>JavaScript / TypeScript SDK Setup</h2>
+          <p>
+            The official JavaScript package is available on npm as
+            <a href="https://www.npmjs.com/package/linkshieldai">linkshieldai</a>.
+            Use it in Node.js backends, bots, moderation services, and security workflows.
+          </p>
+          <pre><code>npm install linkshieldai</code></pre>
+
+          <h3>Run a basic scan</h3>
+          <pre><code>import { LinkShieldAI } from "linkshieldai";
+
+const client = new LinkShieldAI({ apiKey: "YOUR_API_KEY" });
+const result = await client.basicCheck("https://example.com");
+
+console.log(result.result);
+console.log(result.isMalicious);
+console.log(result.raw);</code></pre>
+
+          <h3>Use an environment variable</h3>
+          <pre><code># PowerShell
+$env:LINKSHIELDAI_API_KEY = "YOUR_API_KEY"</code></pre>
+          <pre><code>import { LinkShieldAI } from "linkshieldai";
+
+const client = new LinkShieldAI();
+const result = await client.chimera("https://google.com");
+
+console.log(result.result);
+console.log(result.probability);
+console.log(result.detectionMethod);
+console.log(result.matchedSignatures);</code></pre>
+
+          <p class="note">
+            Keep API keys server-side. Do not call LinkShieldAI directly from public browser JavaScript.
+          </p>
+        </section>
+
+        <section class="doc-section" id="php-sdk" data-title="PHP SDK Composer Packagist Laravel WordPress backend CLI">
+          <p class="eyebrow">SDK</p>
+          <h2>PHP SDK Setup</h2>
+          <p>
+            The official PHP package is available on Packagist as
+            <a href="https://packagist.org/packages/linkshieldai/linkshieldai">linkshieldai/linkshieldai</a>.
+            Use it in PHP apps, Laravel projects, WordPress tooling, dashboards, and backend services.
+          </p>
+          <pre><code>composer require linkshieldai/linkshieldai</code></pre>
+
+          <h3>Run a basic scan</h3>
+          <pre><code>&lt;?php
+
+require __DIR__ . "/vendor/autoload.php";
+
+use LinkShieldAI\Client;
+
+$client = new Client(apiKey: "YOUR_API_KEY");
+$result = $client-&gt;basicCheck("https://example.com");
+
+echo $result-&gt;result . PHP_EOL;
+var_dump($result-&gt;isMalicious);
+var_dump($result-&gt;raw);</code></pre>
+
+          <h3>Use an environment variable</h3>
+          <pre><code># PowerShell
+$env:LINKSHIELDAI_API_KEY = "YOUR_API_KEY"</code></pre>
+          <pre><code>&lt;?php
+
+require __DIR__ . "/vendor/autoload.php";
+
+use LinkShieldAI\Client;
+
+$client = new Client();
+$result = $client-&gt;chimera("https://google.com");
+
+echo $result-&gt;result . PHP_EOL;
+echo $result-&gt;probability . PHP_EOL;
+echo $result-&gt;detectionMethod . PHP_EOL;</code></pre>
+        </section>
+
+        <section class="doc-section" id="rust-sdk" data-title="Rust SDK Cargo crate async Tokio reqwest CLI">
+          <p class="eyebrow">SDK</p>
+          <h2>Rust SDK Setup</h2>
+          <p>
+            The Rust SDK is an async crate for Rust services, security tools, CLIs, and high-reliability
+            URL scanning pipelines. It uses typed result structs and a single error enum.
+          </p>
+          <pre><code>[dependencies]
+linkshieldai = "0.1"
+tokio = { version = "1", features = ["macros", "rt-multi-thread"] }</code></pre>
+
+          <h3>Run a basic scan</h3>
+          <pre><code>use linkshieldai::LinkShieldAI;
+
+#[tokio::main]
+async fn main() -&gt; linkshieldai::Result&lt;()&gt; {
+    let client = LinkShieldAI::new("YOUR_API_KEY")?;
+    let result = client.basic_check("https://example.com").await?;
+
+    println!("{:?}", result.result);
+    println!("{}", result.is_malicious);
+
+    Ok(())
+}</code></pre>
+
+          <h3>Use an environment variable</h3>
+          <pre><code># PowerShell
+$env:LINKSHIELDAI_API_KEY = "YOUR_API_KEY"</code></pre>
+          <pre><code>use linkshieldai::LinkShieldAI;
+
+let client = LinkShieldAI::new("")?;
+let result = client.chimera("https://google.com").await?;
+
+println!("{:?}", result.result);
+println!("{:?}", result.probability);
+println!("{:?}", result.detection_method);
+println!("{:?}", result.matched_signatures);</code></pre>
+        </section>
+
         <section class="doc-section" id="cli" data-title="CLI command line basic detailed nsfw chimera screenshot">
           <p class="eyebrow">CLI</p>
           <h2>Command Line Usage</h2>
           <p>
-            Installing the Python package also gives you a small command-line tool. You can pass the
+            The Python, JavaScript, PHP, and Rust SDKs include command-line tools. You can pass the
             API key with <code>--api-key</code>, or omit it when <code>LINKSHIELDAI_API_KEY</code> is set.
           </p>
+          <h3>Python</h3>
           <pre><code>linkshieldai --api-key YOUR_API_KEY basic https://example.com
 linkshieldai --api-key YOUR_API_KEY detailed https://example.com
 linkshieldai --api-key YOUR_API_KEY nsfw https://example.com
 linkshieldai --api-key YOUR_API_KEY chimera https://google.com
 linkshieldai --api-key YOUR_API_KEY screenshot 05046f.png --output site.png</code></pre>
+
+          <h3>JavaScript / TypeScript</h3>
+          <pre><code>linkshieldai --api-key YOUR_API_KEY basic https://example.com
+linkshieldai --api-key YOUR_API_KEY chimera https://google.com</code></pre>
+
+          <h3>PHP</h3>
+          <pre><code>vendor/bin/linkshieldai --api-key YOUR_API_KEY basic https://example.com
+vendor/bin/linkshieldai --api-key YOUR_API_KEY chimera https://google.com</code></pre>
+
+          <h3>Rust</h3>
+          <pre><code>cargo run --bin linkshieldai -- --api-key YOUR_API_KEY basic https://example.com
+cargo run --bin linkshieldai -- --api-key YOUR_API_KEY chimera https://google.com</code></pre>
+        </section>
+
+        <section class="doc-section" id="sdk-methods" data-title="SDK method names Python JavaScript PHP Rust basic detailed nsfw chimera screenshot">
+          <p class="eyebrow">SDK Reference</p>
+          <h2>SDK Method Names</h2>
+          <p>
+            All official SDKs call the same LinkShieldAI endpoints. The method names only change to
+            match each language's style.
+          </p>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th>Python</th>
+                  <th>JavaScript</th>
+                  <th>PHP</th>
+                  <th>Rust</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Basic URL check</td>
+                  <td><code>basic_check()</code></td>
+                  <td><code>basicCheck()</code></td>
+                  <td><code>basicCheck()</code></td>
+                  <td><code>basic_check()</code></td>
+                </tr>
+                <tr>
+                  <td>Detailed URL check</td>
+                  <td><code>detailed_check()</code></td>
+                  <td><code>detailedCheck()</code></td>
+                  <td><code>detailedCheck()</code></td>
+                  <td><code>detailed_check()</code></td>
+                </tr>
+                <tr>
+                  <td>NSFW check</td>
+                  <td><code>nsfw_check()</code></td>
+                  <td><code>nsfwCheck()</code></td>
+                  <td><code>nsfwCheck()</code></td>
+                  <td><code>nsfw_check()</code></td>
+                </tr>
+                <tr>
+                  <td>Chimera AI</td>
+                  <td><code>chimera()</code></td>
+                  <td><code>chimera()</code></td>
+                  <td><code>chimera()</code></td>
+                  <td><code>chimera()</code></td>
+                </tr>
+                <tr>
+                  <td>Screenshot download</td>
+                  <td><code>get_screenshot()</code></td>
+                  <td><code>getScreenshot()</code></td>
+                  <td><code>getScreenshot()</code></td>
+                  <td><code>get_screenshot()</code></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </section>
 
         <section class="doc-section" id="authentication" data-title="Authentication API key query parameter environment variable">
@@ -188,7 +403,7 @@ linkshieldai --api-key YOUR_API_KEY screenshot 05046f.png --output site.png</cod
           <h2>Authentication</h2>
           <p>
             LinkShieldAI authenticates requests with an API key. For direct API calls, include the key
-            in the <code>key</code> query parameter. For the Python SDK, pass it to the client or set
+            in the <code>key</code> query parameter. For SDKs, pass it to the client or set
             <code>LINKSHIELDAI_API_KEY</code>.
           </p>
           <pre><code>GET https://api.linkshieldai.com/chimera?key=YOUR_API_KEY&amp;url=https://google.com</code></pre>
@@ -218,8 +433,8 @@ linkshieldai --api-key YOUR_API_KEY screenshot 05046f.png --output site.png</cod
           <p class="eyebrow">Reference</p>
           <h2>API Endpoints</h2>
           <p>
-            Every endpoint below can be called directly over HTTPS. The Python SDK wraps the same
-            endpoints and normalizes common fields for easier use in code.
+            Every endpoint below can be called directly over HTTPS. The SDKs wrap the same endpoints
+            and normalize common fields for easier use in code.
           </p>
         </section>
 
@@ -275,7 +490,8 @@ print(result.result)
 print(result.screenshot_url)
 print(result.tag)</code></pre>
           <p class="note">
-            The SDK normalizes the API field <code>"screenshot url"</code> to <code>screenshot_url</code>.
+            SDKs normalize the API field <code>"screenshot url"</code> to the language's usual field style:
+            <code>screenshot_url</code> in Python and Rust, <code>screenshotUrl</code> in JavaScript and PHP.
           </p>
           <h4>Example response</h4>
           <pre><code>{
@@ -392,8 +608,8 @@ print(result.matched_signatures)</code></pre>
           <p class="eyebrow">Handling</p>
           <h2>Errors</h2>
           <p>
-            The SDK preserves raw API payloads on result objects through <code>.raw</code> and exposes
-            clear exception types for common failure modes.
+            SDKs preserve raw API payloads on result objects through <code>raw</code> and expose clear
+            error types for common failure modes.
           </p>
           <pre><code>from linkshieldai import (
     APIConnectionError,
@@ -457,6 +673,14 @@ print(result.matched_signatures)</code></pre>
               <strong>PyPI Package</strong>
               <span>Official Python SDK release page.</span>
             </a>
+            <a href="https://www.npmjs.com/package/linkshieldai">
+              <strong>npm Package</strong>
+              <span>Official JavaScript and TypeScript SDK release page.</span>
+            </a>
+            <a href="https://packagist.org/packages/linkshieldai/linkshieldai">
+              <strong>Packagist Package</strong>
+              <span>Official PHP SDK release page.</span>
+            </a>
           </div>
         </section>
       </main>
@@ -466,6 +690,9 @@ print(result.matched_signatures)</code></pre>
         <a href="#quickstart">Quickstart</a>
         <a href="#account">Account</a>
         <a href="#python-sdk">Python SDK</a>
+        <a href="#javascript-sdk">JavaScript SDK</a>
+        <a href="#php-sdk">PHP SDK</a>
+        <a href="#rust-sdk">Rust SDK</a>
         <a href="#endpoints">Endpoints</a>
         <a href="#errors">Errors</a>
         <a href="#security">Security</a>
@@ -476,6 +703,7 @@ print(result.matched_signatures)</code></pre>
       No matching sections found.
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

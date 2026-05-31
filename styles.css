@@ -294,7 +294,8 @@ h5 {
 
 .quick-grid,
 .link-grid,
-.stat-grid {
+.stat-grid,
+.sdk-grid {
   display: grid;
   gap: 12px;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -303,6 +304,7 @@ h5 {
 
 .quick-grid a,
 .link-grid a,
+.sdk-grid a,
 .stat-grid div,
 .field-list article {
   background: #fbfdff;
@@ -312,12 +314,14 @@ h5 {
 }
 
 .quick-grid a,
-.link-grid a {
+.link-grid a,
+.sdk-grid a {
   color: var(--text);
 }
 
 .quick-grid a:hover,
-.link-grid a:hover {
+.link-grid a:hover,
+.sdk-grid a:hover {
   border-color: #b9ccec;
   text-decoration: none;
 }
@@ -326,6 +330,8 @@ h5 {
 .quick-grid span,
 .link-grid strong,
 .link-grid span,
+.sdk-grid strong,
+.sdk-grid span,
 .stat-grid strong,
 .stat-grid span {
   display: block;
@@ -333,9 +339,14 @@ h5 {
 
 .quick-grid span,
 .link-grid span,
+.sdk-grid span,
 .stat-grid span,
 .note {
   color: var(--muted);
+}
+
+.sdk-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .link-grid {
@@ -464,6 +475,7 @@ pre {
   margin: 14px 0;
   overflow: auto;
   padding: 18px;
+  position: relative;
 }
 
 pre code {
@@ -473,6 +485,32 @@ pre code {
   display: block;
   font-size: 13px;
   line-height: 1.65;
+  padding: 0;
+}
+
+pre[data-language] {
+  padding-top: 42px;
+}
+
+pre[data-language]::before {
+  background: #1d2940;
+  border: 1px solid #36445f;
+  border-radius: 999px;
+  color: #b8c7e6;
+  content: attr(data-language);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  line-height: 1;
+  padding: 6px 9px;
+  position: absolute;
+  right: 12px;
+  text-transform: uppercase;
+  top: 10px;
+}
+
+pre code.hljs {
+  background: transparent;
   padding: 0;
 }
 
@@ -509,6 +547,42 @@ pre code {
 .field-list ul,
 .check-list {
   margin-bottom: 0;
+}
+
+.table-wrap {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  margin-top: 18px;
+  overflow: auto;
+}
+
+table {
+  border-collapse: collapse;
+  min-width: 720px;
+  width: 100%;
+}
+
+th,
+td {
+  border-bottom: 1px solid var(--line);
+  padding: 12px 14px;
+  text-align: left;
+  vertical-align: top;
+}
+
+th {
+  background: var(--surface-strong);
+  color: var(--text);
+  font-size: 13px;
+}
+
+td {
+  background: #fbfdff;
+  font-size: 14px;
+}
+
+tr:last-child td {
+  border-bottom: 0;
 }
 
 .field-list ul,
@@ -611,7 +685,8 @@ pre code {
 
   .quick-grid,
   .link-grid,
-  .stat-grid {
+  .stat-grid,
+  .sdk-grid {
     grid-template-columns: 1fr;
   }
 
