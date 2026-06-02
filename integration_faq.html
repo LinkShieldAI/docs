@@ -1,0 +1,1062 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LinkShieldAI API Questions for Bot Developers</title>
+  <meta name="description" content="Common pre-integration questions for Discord bot developers evaluating the LinkShieldAI API.">
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #06120f;
+      --panel: #0b1c17;
+      --panel-strong: #102820;
+      --line: rgba(123, 255, 199, 0.18);
+      --text: #effff8;
+      --muted: #a8c8bb;
+      --faint: #6f9184;
+      --accent: #40f49b;
+      --accent-2: #30c5ff;
+      --warn: #ffd166;
+      --shadow: 0 26px 80px rgba(0, 0, 0, 0.38);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background:
+        radial-gradient(circle at top left, rgba(64, 244, 155, 0.16), transparent 32rem),
+        radial-gradient(circle at top right, rgba(48, 197, 255, 0.12), transparent 30rem),
+        linear-gradient(180deg, #071713 0%, var(--bg) 38%, #040b09 100%);
+      color: var(--text);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .answer a,
+    .resource a,
+    .footer-inner a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-decoration-color: rgba(64, 244, 155, 0.48);
+      text-decoration-thickness: 2px;
+      text-underline-offset: 4px;
+      font-weight: 850;
+      transition: color 160ms ease, text-decoration-color 160ms ease;
+    }
+
+    .answer a:hover,
+    .resource a:hover,
+    .footer-inner a:hover,
+    .answer a:focus-visible,
+    .resource a:focus-visible,
+    .footer-inner a:focus-visible {
+      color: #9dffd1;
+      text-decoration-color: currentColor;
+    }
+
+    .shell {
+      width: min(1120px, calc(100% - 40px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(18px);
+      background: rgba(6, 18, 15, 0.72);
+      border-bottom: 1px solid rgba(123, 255, 199, 0.12);
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      min-height: 72px;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+
+    .brand img {
+      width: 42px;
+      height: 42px;
+      object-fit: contain;
+      filter: drop-shadow(0 0 18px rgba(64, 244, 155, 0.3));
+    }
+
+    .brand-mark {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: linear-gradient(145deg, rgba(64, 244, 155, 0.22), rgba(48, 197, 255, 0.1));
+      color: var(--accent);
+      font-weight: 900;
+      letter-spacing: 0;
+    }
+
+    .brand-text {
+      display: grid;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .brand-text strong {
+      font-size: 15px;
+      letter-spacing: 0;
+    }
+
+    .brand-text span {
+      color: var(--muted);
+      font-size: 12px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .nav-links a,
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 40px;
+      padding: 0 14px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 700;
+      line-height: 1.1;
+    }
+
+    .nav-links a:hover {
+      color: var(--text);
+      border-color: var(--line);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .button.primary {
+      color: #02120c;
+      background: linear-gradient(135deg, var(--accent), #8dffcb);
+      border-color: rgba(255, 255, 255, 0.08);
+      box-shadow: 0 18px 45px rgba(64, 244, 155, 0.22);
+    }
+
+    .button.secondary {
+      color: var(--text);
+      border-color: var(--line);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
+      gap: 34px;
+      align-items: center;
+      padding: 78px 0 42px;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 0 0 18px;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      color: #cffff0;
+      background: rgba(64, 244, 155, 0.07);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 0;
+      font-size: clamp(42px, 6vw, 74px);
+      line-height: 0.95;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 690px;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.7;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 30px;
+    }
+
+    .proof-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-top: 30px;
+      max-width: 760px;
+    }
+
+    .proof {
+      min-height: 88px;
+      padding: 14px;
+      border: 1px solid rgba(123, 255, 199, 0.14);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .proof strong {
+      display: block;
+      margin-bottom: 7px;
+      font-size: 15px;
+    }
+
+    .proof span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .terminal {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(123, 255, 199, 0.18);
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.05), transparent),
+        rgba(6, 18, 15, 0.8);
+      box-shadow: var(--shadow);
+    }
+
+    .terminal-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(123, 255, 199, 0.14);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .dots {
+      display: flex;
+      gap: 7px;
+    }
+
+    .dots span {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: var(--faint);
+    }
+
+    .terminal-head p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .terminal-body {
+      padding: 20px;
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #d7fff0;
+    }
+
+    .code-line {
+      display: flex;
+      gap: 12px;
+      border-bottom: 1px solid rgba(123, 255, 199, 0.06);
+      padding: 6px 0;
+    }
+
+    .code-line:last-child {
+      border-bottom: 0;
+    }
+
+    .code-line span:first-child {
+      flex: 0 0 28px;
+      color: var(--faint);
+      text-align: right;
+    }
+
+    .green {
+      color: var(--accent);
+    }
+
+    .blue {
+      color: var(--accent-2);
+    }
+
+    .section {
+      padding: 56px 0;
+    }
+
+    .section-title {
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 24px;
+    }
+
+    .section-title h2 {
+      margin: 0;
+      font-size: clamp(28px, 4vw, 44px);
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .section-title p {
+      max-width: 520px;
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+
+    .filter {
+      min-height: 38px;
+      padding: 0 13px;
+      border: 1px solid rgba(123, 255, 199, 0.16);
+      border-radius: 8px;
+      color: var(--muted);
+      background: rgba(255, 255, 255, 0.04);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .filter.active {
+      color: #03140d;
+      border-color: transparent;
+      background: var(--accent);
+    }
+
+    .faq-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      align-items: start;
+    }
+
+    details {
+      align-self: start;
+      border: 1px solid rgba(123, 255, 199, 0.14);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.035);
+      overflow: hidden;
+      transition: border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
+    }
+
+    details[open] {
+      background: rgba(16, 40, 32, 0.74);
+      border-color: rgba(64, 244, 155, 0.35);
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
+    }
+
+    summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      min-height: 68px;
+      padding: 18px 18px;
+      cursor: pointer;
+      color: var(--text);
+      font-weight: 850;
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      content: "+";
+      display: grid;
+      place-items: center;
+      flex: 0 0 28px;
+      width: 28px;
+      height: 28px;
+      border: 1px solid rgba(123, 255, 199, 0.16);
+      border-radius: 8px;
+      color: var(--accent);
+    }
+
+    details[open] summary::after {
+      content: "-";
+      color: #03140d;
+      background: var(--accent);
+      border-color: transparent;
+    }
+
+    .answer {
+      padding: 0 18px 18px;
+      color: var(--muted);
+      line-height: 1.65;
+    }
+
+    details[open] .answer {
+      animation: answerIn 180ms ease both;
+    }
+
+    @keyframes answerIn {
+      from {
+        opacity: 0;
+        transform: translateY(-4px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .answer p {
+      margin: 0 0 12px;
+    }
+
+    .answer p:last-child {
+      margin-bottom: 0;
+    }
+
+    .answer ul {
+      margin: 10px 0 0;
+      padding-left: 18px;
+    }
+
+    .answer li {
+      margin: 7px 0;
+    }
+
+    .note {
+      border-left: 3px solid var(--warn);
+      padding: 10px 12px;
+      margin-top: 12px;
+      border-radius: 0 8px 8px 0;
+      color: #ffe7a6;
+      background: rgba(255, 209, 102, 0.08);
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .resource {
+      display: grid;
+      gap: 10px;
+      min-height: 150px;
+      padding: 18px;
+      border: 1px solid rgba(123, 255, 199, 0.14);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .resource strong {
+      font-size: 17px;
+    }
+
+    .resource span {
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    .resource a {
+      width: fit-content;
+    }
+
+    .step {
+      min-height: 150px;
+      padding: 18px;
+      border: 1px solid rgba(123, 255, 199, 0.14);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.035);
+    }
+
+    .step span {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      margin-bottom: 18px;
+      border-radius: 8px;
+      color: #03140d;
+      background: var(--accent);
+      font-weight: 900;
+    }
+
+    .step h3 {
+      margin: 0 0 10px;
+      font-size: 17px;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.55;
+      font-size: 14px;
+    }
+
+    .cta {
+      display: grid;
+      justify-items: center;
+      gap: 20px;
+      align-items: center;
+      text-align: center;
+      margin: 56px auto 64px;
+      padding: 28px;
+      border: 1px solid rgba(64, 244, 155, 0.28);
+      border-radius: 8px;
+      background:
+        linear-gradient(135deg, rgba(64, 244, 155, 0.14), rgba(48, 197, 255, 0.08)),
+        rgba(255, 255, 255, 0.04);
+      box-shadow: var(--shadow);
+    }
+
+    .cta h2 {
+      margin: 0 0 10px;
+      font-size: clamp(24px, 4vw, 36px);
+      letter-spacing: 0;
+    }
+
+    .cta p {
+      margin: 0;
+      max-width: 680px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .cta .hero-actions {
+      justify-content: center;
+    }
+
+    footer {
+      padding: 30px 0 44px;
+      border-top: 1px solid rgba(123, 255, 199, 0.12);
+      color: var(--faint);
+      font-size: 13px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .footer-inner a {
+      font-weight: 850;
+    }
+
+    @media (max-width: 880px) {
+      .hero,
+      .faq-grid,
+      .cta {
+        grid-template-columns: 1fr;
+      }
+
+      .flow,
+      .proof-row,
+      .resource-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .section-title {
+        display: grid;
+      }
+
+      .nav {
+        align-items: flex-start;
+        padding: 14px 0;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .shell {
+        width: min(100% - 28px, 1120px);
+      }
+
+      .nav,
+      .nav-links,
+      .hero-actions {
+        display: grid;
+        width: 100%;
+      }
+
+      .nav-links {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .nav-links .button {
+        grid-column: 1 / -1;
+      }
+
+      .hero {
+        padding-top: 42px;
+      }
+
+      .proof-row,
+      .flow,
+      .resource-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .terminal-body {
+        font-size: 12px;
+        padding: 16px;
+      }
+
+      .code-line {
+        gap: 8px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <nav class="shell nav" aria-label="Primary navigation">
+      <a class="brand" href="https://linkshieldai.com/">
+        <img src="https://linkshieldai.com/logo.png" alt="" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+        <span class="brand-mark" style="display:none;">LS</span>
+        <span class="brand-text">
+          <strong>LinkShieldAI</strong>
+          <span>API questions for bot developers</span>
+        </span>
+      </a>
+      <div class="nav-links">
+        <a href="#questions">Questions</a>
+        <a href="#test-plan">Test Plan</a>
+        <a href="#resources">Policies</a>
+        <a href="https://docs.linkshieldai.com/">Docs</a>
+        <a class="button primary" href="https://developer.linkshieldai.com/portal.php">Get API Key</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+    <section class="shell hero">
+      <div>
+        <p class="eyebrow">Pre-integration FAQ for Discord bot developers</p>
+        <h1>Evaluate LinkShieldAI before connecting it to your bot.</h1>
+        <p class="lead">
+          A clear question-and-answer page for developers who already have moderation, security, or link protection features and want to know whether the LinkShieldAI API is worth testing as another detection signal.
+        </p>
+        <div class="hero-actions">
+          <a class="button primary" href="https://developer.linkshieldai.com/portal.php">Create a developer key</a>
+          <a class="button secondary" href="#questions">Review common questions</a>
+        </div>
+        <div class="proof-row" aria-label="Evaluation points">
+          <div class="proof">
+            <strong>No Discord permission needed</strong>
+            <span>Test with direct API requests before changing your production bot.</span>
+          </div>
+          <div class="proof">
+            <strong>Use as an extra signal</strong>
+            <span>Compare results with your current stack before taking moderation action.</span>
+          </div>
+          <div class="proof">
+            <strong>SDKs available</strong>
+            <span>Python, JavaScript, PHP, and Rust options are noted below.</span>
+          </div>
+        </div>
+      </div>
+
+      <aside class="terminal" aria-label="Sample evaluation flow">
+        <div class="terminal-head">
+          <div class="dots" aria-hidden="true"><span></span><span></span><span></span></div>
+          <p>controlled test</p>
+        </div>
+        <div class="terminal-body">
+          <div class="code-line"><span>01</span><div><span class="green">bot receives</span> user-submitted URL</div></div>
+          <div class="code-line"><span>02</span><div><span class="blue">send URL</span> to LinkShieldAI API</div></div>
+          <div class="code-line"><span>03</span><div><span class="green">log result</span> in private dev channel</div></div>
+          <div class="code-line"><span>04</span><div><span class="blue">compare</span> with current detection stack</div></div>
+          <div class="code-line"><span>05</span><div><span class="green">decide</span> whether integration adds value</div></div>
+        </div>
+      </aside>
+    </section>
+
+    <section id="questions" class="shell section">
+      <div class="section-title">
+        <h2>Common Questions</h2>
+        <p>These answers are written to avoid overclaiming. If a point depends on your exact usage, the answer tells developers to verify it through documentation, testing, or a direct discussion.</p>
+      </div>
+
+      <div class="filters" role="tablist" aria-label="Question filters">
+        <button class="filter active" data-filter="all" type="button">All</button>
+        <button class="filter" data-filter="integration" type="button">Integration</button>
+        <button class="filter" data-filter="trust" type="button">Trust</button>
+        <button class="filter" data-filter="commercial" type="button">Commercial</button>
+        <button class="filter" data-filter="testing" type="button">Testing</button>
+        <button class="filter" data-filter="policies" type="button">Policies</button>
+      </div>
+
+      <div class="faq-grid">
+        <details data-category="integration" open>
+          <summary>Do you have full API documentation?</summary>
+          <div class="answer">
+            <p>Start with the official documentation: <a href="https://docs.linkshieldai.com/">https://docs.linkshieldai.com/</a>.</p>
+            <p>Developers should review the endpoint details, expected request format, response fields, and any available examples before integrating. If a required example or error case is missing, ask for clarification before using it in production.</p>
+          </div>
+        </details>
+
+        <details data-category="trust">
+          <summary>What data is stored or logged when URLs are submitted?</summary>
+          <div class="answer">
+            <p>Review the official privacy policy before production use: <a href="https://linkshieldai.com/privacy-policy.html">https://linkshieldai.com/privacy-policy.html</a>.</p>
+            <p>For a first technical test, developers can use non-sensitive sample URLs or historical test data instead of sending live user traffic.</p>
+          </div>
+        </details>
+
+        <details data-category="commercial">
+          <summary>Is the API intended for commercial Discord bots?</summary>
+          <div class="answer">
+            <p>If the bot is commercial, the developer should review the official Terms of Service before relying on the API in production: <a href="https://linkshieldai.com/terms-of-service.html">https://linkshieldai.com/terms-of-service.html</a>.</p>
+            <p>A controlled test can still be run first to evaluate technical value before discussing production usage.</p>
+          </div>
+        </details>
+
+        <details data-category="commercial">
+          <summary>What are the pricing options beyond the free developer tier?</summary>
+          <div class="answer">
+            <p>The free developer tier is useful for evaluation. For production usage, pricing should be discussed based on request volume, peak traffic, and the bot's use case.</p>
+            <p>Ask the developer for approximate monthly URL scan volume and whether they want to scan every link or only suspicious links.</p>
+            <p>If payment or plan terms are involved, developers should also review the refund and cancellation policy: <a href="https://linkshieldai.com/refund-policy.html">https://linkshieldai.com/refund-policy.html</a>.</p>
+            <div class="note">If you don't want to discuss pricing, refer to the official pricing page on the developer portal: <a href="https://developer.linkshieldai.com/portal.php?page=billing">Here</a>.</div>
+          </div>
+        </details>
+
+        <details data-category="trust">
+          <summary>Do you provide uptime or reliability guarantees?</summary>
+          <div class="answer">
+            <p>Reliability requirements should be discussed before production integration, especially for high-traffic moderation bots.</p>
+            <p>For evaluation, run LinkShieldAI in logging mode first. That lets the bot compare results without depending on the API for immediate enforcement.</p>
+          </div>
+        </details>
+
+        <details data-category="integration">
+          <summary>How should false positives be handled?</summary>
+          <div class="answer">
+            <p>Use LinkShieldAI as a signal first, not as the only reason to punish a user.</p>
+            <ul>
+              <li>Log uncertain results for moderator review.</li>
+              <li>Let your existing allowlist override automatic action.</li>
+              <li>Compare LinkShieldAI results with your current scanner.</li>
+              <li>Only automate stronger action after testing real results.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details data-category="testing">
+          <summary>Can I test without Discord or bot permissions?</summary>
+          <div class="answer">
+            <p>Yes. A developer can test with direct API requests from a local script, dev environment, private test bot, or backend service.</p>
+            <p>No Discord bot token, server invite, or bot permission is needed just to evaluate URL analysis results.</p>
+          </div>
+        </details>
+
+        <details data-category="integration">
+          <summary>Does LinkShieldAI replace my current protection?</summary>
+          <div class="answer">
+            <p>It does not have to. The safest starting point is using LinkShieldAI as an additional detection layer or secondary signal.</p>
+            <p>That means your current system stays in place while LinkShieldAI results are logged, compared, and evaluated.</p>
+          </div>
+        </details>
+
+        <details data-category="integration">
+          <summary>What if my bot already uses VirusTotal, Google Safe Browsing, or another provider?</summary>
+          <div class="answer">
+            <p>Keep the existing provider and test LinkShieldAI beside it.</p>
+            <p>The practical question is whether it adds useful signal for phishing, scams, crypto-scam patterns, suspicious redirects, or Discord-focused abuse cases your current stack may miss.</p>
+          </div>
+        </details>
+
+        <details data-category="testing">
+          <summary>What is the safest first test?</summary>
+          <div class="answer">
+            <p>Start in logging mode. The bot sends URLs to LinkShieldAI, records the response privately, and takes no automatic moderation action at first.</p>
+            <p>After reviewing enough results, decide whether to use it for mod alerts, message deletion, warnings, or higher-confidence enforcement.</p>
+          </div>
+        </details>
+
+        <details data-category="integration">
+          <summary>Which SDKs are available?</summary>
+          <div class="answer">
+            <p>Official package links provided by LinkShieldAI:</p>
+            <ul>
+              <li><a href="https://pypi.org/project/linkshieldai/0.2.2/">Python SDK</a></li>
+              <li><a href="https://www.npmjs.com/package/linkshieldai">JavaScript SDK</a></li>
+              <li><a href="https://packagist.org/packages/linkshieldai/linkshieldai">PHP SDK</a></li>
+              <li><a href="https://crates.io/crates/linkshieldai">Rust SDK</a></li>
+            </ul>
+            <p>Other languages can evaluate the API through direct HTTP requests if supported by the documentation.</p>
+          </div>
+        </details>
+
+        <details data-category="trust">
+          <summary>Can detection be guaranteed?</summary>
+          <div class="answer">
+            <p>No security API should promise perfect detection. Threats change, domains rotate, and new campaigns appear constantly.</p>
+            <p>The correct way to position LinkShieldAI is as another layer of analysis that can improve decision-making when combined with existing moderation rules and review workflows.</p>
+          </div>
+        </details>
+
+        <details data-category="commercial">
+          <summary>What should a production discussion include?</summary>
+          <div class="answer">
+            <p>Before production use, discuss expected request volume, peak traffic, acceptable latency, reliability expectations, pricing, data handling, and how moderation decisions will be made.</p>
+            <p>This keeps the conversation professional and prevents surprises later.</p>
+          </div>
+        </details>
+
+        <details data-category="testing">
+          <summary>What sample should I test against?</summary>
+          <div class="answer">
+            <p>Use a mix of known safe URLs, known malicious or suspicious samples from your own moderation history, shortened URLs, newly seen domains, and URLs your current system was unsure about.</p>
+            <p>The goal is not a perfect lab result. The goal is to learn whether LinkShieldAI adds practical value to your bot's existing workflow.</p>
+          </div>
+        </details>
+
+        <details data-category="integration">
+          <summary>Can I use direct API requests instead of an SDK?</summary>
+          <div class="answer">
+            <p>Yes, direct API requests are a good option when a developer wants to keep dependencies low or uses a language without a published SDK link.</p>
+            <p>The SDKs are useful for convenience, but the integration decision should depend on the bot's architecture and the examples in the official documentation.</p>
+          </div>
+        </details>
+
+        <details data-category="integration">
+          <summary>Where should LinkShieldAI sit in my moderation flow?</summary>
+          <div class="answer">
+            <p>A practical first placement is after URL extraction and before enforcement.</p>
+            <p>The bot sees a URL, sends it for analysis, logs the result, and only later decides whether the result should affect warnings, deletions, mod alerts, or automatic moderation.</p>
+          </div>
+        </details>
+
+        <details data-category="integration">
+          <summary>Should I scan every link or only suspicious links?</summary>
+          <div class="answer">
+            <p>Both models can make sense. Scanning every link gives broader coverage, while scanning suspicious links can reduce request volume.</p>
+            <p>For high-traffic bots, start with suspicious patterns such as shortened URLs, new domains, unknown domains, giveaway language, crypto-related messages, or links your current system cannot classify confidently.</p>
+          </div>
+        </details>
+
+        <details data-category="trust">
+          <summary>What happens if the API is unavailable?</summary>
+          <div class="answer">
+            <p>Your bot should define a fallback behavior before production use.</p>
+            <p>Common options include logging the failure, falling back to your existing scanner, sending the URL to moderator review, or allowing the current system to make the decision without LinkShieldAI for that request.</p>
+          </div>
+        </details>
+
+        <details data-category="trust">
+          <summary>How should API keys be handled?</summary>
+          <div class="answer">
+            <p>Treat API keys as secrets. Keep them out of public code, client-side code, screenshots, and shared logs.</p>
+            <p>For bot projects, store the key in environment variables or a private secret manager and rotate it if it is exposed.</p>
+          </div>
+        </details>
+
+        <details data-category="testing">
+          <summary>Can I test on historical moderation logs?</summary>
+          <div class="answer">
+            <p>Yes, if your privacy rules and server policies allow it. Historical URLs are useful because you can compare LinkShieldAI's result against what Guardian or another bot already decided.</p>
+            <p>When in doubt, use anonymized or non-sensitive samples for the first evaluation.</p>
+          </div>
+        </details>
+
+        <details data-category="testing">
+          <summary>How long should a controlled test run?</summary>
+          <div class="answer">
+            <p>Long enough to see a meaningful mix of safe, suspicious, and malicious-looking URLs. For a small bot, that may mean a focused sample set. For a larger bot, a few days of logging mode may be more useful.</p>
+            <p>The right test length depends on traffic volume and how often the bot sees links.</p>
+          </div>
+        </details>
+
+        <details data-category="commercial">
+          <summary>What information should I send for a production quote?</summary>
+          <div class="answer">
+            <p>Share approximate monthly URL checks, peak request bursts, whether you scan every URL or only suspicious ones, and whether the bot needs special reliability expectations.</p>
+            <p>That gives enough context to discuss a realistic production plan without guessing.</p>
+          </div>
+        </details>
+
+        <details data-category="policies">
+          <summary>Where can I review the Privacy Policy?</summary>
+          <div class="answer">
+            <p>The official privacy policy is here: <a href="https://linkshieldai.com/privacy-policy.html">https://linkshieldai.com/privacy-policy.html</a>.</p>
+            <p>Developers should review it before sending production traffic or user-related data through any API.</p>
+          </div>
+        </details>
+
+        <details data-category="policies">
+          <summary>Where can I review the Terms of Service?</summary>
+          <div class="answer">
+            <p>The official Terms of Service are here: <a href="https://linkshieldai.com/terms-of-service.html">https://linkshieldai.com/terms-of-service.html</a>.</p>
+            <p>This is the correct place to check usage terms before commercial or production integration.</p>
+          </div>
+        </details>
+
+        <details data-category="policies">
+          <summary>Where can I review refund and cancellation terms?</summary>
+          <div class="answer">
+            <p>The official refund and cancellation policy is here: <a href="https://linkshieldai.com/refund-policy.html">https://linkshieldai.com/refund-policy.html</a>.</p>
+            <p>Review this before choosing any paid plan or production agreement.</p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <section id="resources" class="shell section">
+      <div class="section-title">
+        <h2>Official Resources</h2>
+        <p>Use these links when a developer asks for formal policy details instead of an informal Discord answer.</p>
+      </div>
+
+      <div class="resource-grid">
+        <div class="resource">
+          <strong>Privacy Policy</strong>
+          <span>Use this for questions about privacy, submitted data, and data handling.</span>
+          <a href="https://linkshieldai.com/privacy-policy.html">Open policy</a>
+        </div>
+        <div class="resource">
+          <strong>Terms of Service</strong>
+          <span>Use this for permitted use, account terms, and production or commercial evaluation.</span>
+          <a href="https://linkshieldai.com/terms-of-service.html">Open terms</a>
+        </div>
+        <div class="resource">
+          <strong>Refund & Cancellation</strong>
+          <span>Use this for payment, plan cancellation, and refund-related questions.</span>
+          <a href="https://linkshieldai.com/refund-policy.html">Open policy</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="test-plan" class="shell section">
+      <div class="section-title">
+        <h2>Controlled Test Plan</h2>
+        <p>A low-risk path for developers who are interested but cautious.</p>
+      </div>
+
+      <div class="flow">
+        <div class="step">
+          <span>1</span>
+          <h3>Get a key</h3>
+          <p>Create a developer API key through the official portal.</p>
+        </div>
+        <div class="step">
+          <span>2</span>
+          <h3>Send test URLs</h3>
+          <p>Use sample URLs or private dev traffic before touching production behavior.</p>
+        </div>
+        <div class="step">
+          <span>3</span>
+          <h3>Log only</h3>
+          <p>Record results privately and compare them with your current detection stack.</p>
+        </div>
+        <div class="step">
+          <span>4</span>
+          <h3>Decide value</h3>
+          <p>Move toward integration only if the results add useful signal.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="shell cta">
+      <div>
+        <h2>Ready to evaluate the API?</h2>
+        <p>Start with documentation and a controlled test. Keep your current bot behavior unchanged until the results prove useful.</p>
+      </div>
+      <div class="hero-actions">
+        <a class="button primary" href="https://developer.linkshieldai.com/portal.php">Developer portal</a>
+        <a class="button secondary" href="https://docs.linkshieldai.com/">Read docs</a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="shell footer-inner">
+      <span>LinkShieldAI developer evaluation page</span>
+      <span>
+        <a href="https://linkshieldai.com/">Website</a>
+        &nbsp;&nbsp;
+        <a href="https://github.com/LinkShieldAI">GitHub</a>
+        &nbsp;&nbsp;
+        <a href="https://chromewebstore.google.com/detail/anfenjcapbgbgbfaokjmgglobcomnocd?utm_source=item-share-cb">Web extension</a>
+      </span>
+    </div>
+  </footer>
+
+  <script>
+    const buttons = document.querySelectorAll(".filter");
+    const items = document.querySelectorAll("details[data-category]");
+
+    buttons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const filter = button.dataset.filter;
+        buttons.forEach((item) => item.classList.remove("active"));
+        button.classList.add("active");
+
+        items.forEach((item) => {
+          const visible = filter === "all" || item.dataset.category === filter;
+          item.style.display = visible ? "" : "none";
+          if (!visible) item.open = false;
+        });
+      });
+    });
+  </script>
+</body>
+</html>
