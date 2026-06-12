@@ -178,9 +178,7 @@ client = LinkShieldAI()
 result = client.chimera("https://google.com")
 
 print(result.result)
-print(result.probability)
-print(result.detection_method)
-print(result.matched_signatures)</code></pre>
+print(result.raw)</code></pre>
 
           <h3>Async client</h3>
           <pre><code>import asyncio
@@ -189,7 +187,8 @@ from linkshieldai import AsyncLinkShieldAI
 async def main():
     async with AsyncLinkShieldAI(api_key="YOUR_API_KEY") as client:
         result = await client.chimera("https://google.com")
-        print(result.result, result.probability)
+        print(result.result)
+        print(result.raw)
 
 asyncio.run(main())</code></pre>
         </section>
@@ -223,9 +222,7 @@ const client = new LinkShieldAI();
 const result = await client.chimera("https://google.com");
 
 console.log(result.result);
-console.log(result.probability);
-console.log(result.detectionMethod);
-console.log(result.matchedSignatures);</code></pre>
+console.log(result.raw);</code></pre>
 
           <p class="note">
             Keep API keys server-side. Do not call LinkShieldAI directly from public browser JavaScript.
@@ -269,8 +266,7 @@ $client = new Client();
 $result = $client-&gt;chimera("https://google.com");
 
 echo $result-&gt;result . PHP_EOL;
-echo $result-&gt;probability . PHP_EOL;
-echo $result-&gt;detectionMethod . PHP_EOL;</code></pre>
+var_dump($result-&gt;raw);</code></pre>
         </section>
 
         <section class="doc-section" id="rust-sdk" data-title="Rust SDK Cargo crate async Tokio reqwest CLI">
@@ -307,9 +303,7 @@ let client = LinkShieldAI::new("")?;
 let result = client.chimera("https://google.com").await?;
 
 println!("{:?}", result.result);
-println!("{:?}", result.probability);
-println!("{:?}", result.detection_method);
-println!("{:?}", result.matched_signatures);</code></pre>
+println!("{:?}", result.raw);</code></pre>
         </section>
 
         <section class="doc-section" id="cli" data-title="CLI command line basic detailed nsfw chimera screenshot">
@@ -499,6 +493,11 @@ print(result.tag)</code></pre>
   "screenshot url": "https://api.linkshieldai.com/screenshot/1b0745.png",
   "tag": "Yahoo"
 }</code></pre>
+          <p class="note">
+            Successful detailed scans return one of: <code>Likely safe</code>,
+            <code>Might be malicious</code>, or
+            <code>The system didn't detect anything malicious.</code>
+          </p>
         </section>
 
         <section class="endpoint doc-section" id="screenshot" data-title="Screenshot image file download get screenshot png">
@@ -542,7 +541,7 @@ print(result.is_nsfw)</code></pre>
           </div>
         </section>
 
-        <section class="endpoint doc-section" id="chimera" data-title="Chimera AI phishing malware malicious benign probability signatures">
+        <section class="endpoint doc-section" id="chimera" data-title="Chimera AI phishing malware Might be malicious likely safe UNKNOWN classification response">
           <div class="endpoint-heading">
             <div>
               <p class="eyebrow">Endpoint</p>
@@ -551,56 +550,88 @@ print(result.is_nsfw)</code></pre>
             <span class="method">GET</span>
           </div>
           <p>
-            Chimera is the advanced classification endpoint. It uses AI and signature detection to
-            identify phishing, malware, scams, and other malicious URL patterns.
+            Chimera is the advanced classification endpoint. It combines reputation data,
+            fingerprint matching, and AI detection to identify malicious URLs. The response exposes
+            only the final classification and scanned URL.
           </p>
           <dl class="endpoint-meta">
             <dt>URL</dt>
             <dd><code>https://api.linkshieldai.com/chimera?key={key}&amp;url={url}</code></dd>
             <dt>Use it for</dt>
-            <dd>Risk scoring, moderation pipelines, Discord bots, browser extensions, and user-facing link checks.</dd>
+            <dd>Moderation pipelines, Discord bots, browser extensions, and user-facing link checks.</dd>
           </dl>
           <pre><code>result = client.chimera("https://google.com")
 
 print(result.result)
-print(result.probability)
-print(result.detection_method)
-print(result.matched_signatures)</code></pre>
+print(result.raw)</code></pre>
 
           <h4>Example request</h4>
           <pre><code>GET https://api.linkshieldai.com/chimera?key=YOUR_API_KEY&amp;url=https://somethingmalicious.com</code></pre>
 
-          <h4>Example response</h4>
+          <h4>Successful responses</h4>
           <pre><code>{
-  "detection_method": "ai-model",
-  "matched_signatures": 0,
-  "probability": 0.9947241392537983,
-  "result": "malicious",
+  "result": "Might be malicious",
   "url": "https://somethingmalicious.com"
 }</code></pre>
+          <pre><code>{
+  "result": "likely safe",
+  "url": "https://google.com"
+}</code></pre>
+          <pre><code>{
+  "result": "UNKNOWN",
+  "url": "https://example.com"
+}</code></pre>
+
+          <p class="note">
+            A result of <code>UNKNOWN</code> means Chimera did not find enough evidence to classify
+            the URL, including when PhishPrint identifies suspicious but unconfirmed similarity.
+            It is not a guarantee that the URL is safe.
+          </p>
 
           <h4>Response fields</h4>
           <div class="field-list">
             <article>
-              <h5><code>detection_method</code> <span>string</span></h5>
-              <p>Primary classification method, such as <code>ai-model</code>, <code>rule-based</code>, or <code>hybrid</code>.</p>
-            </article>
-            <article>
-              <h5><code>matched_signatures</code> <span>integer</span></h5>
-              <p>Number of malicious signatures found in the scanned URL's content or structure.</p>
-            </article>
-            <article>
-              <h5><code>probability</code> <span>float</span></h5>
-              <p>Model confidence between <code>0.0</code> and <code>1.0</code> that the URL is malicious.</p>
-            </article>
-            <article>
               <h5><code>result</code> <span>string</span></h5>
-              <p>Final classification, commonly <code>malicious</code>, <code>benign</code>, or <code>cannot classify</code>.</p>
+              <p>Final classification: <code>likely safe</code>, <code>Might be malicious</code>, or <code>UNKNOWN</code>.</p>
             </article>
             <article>
               <h5><code>url</code> <span>string</span></h5>
-              <p>The original URL submitted for scanning.</p>
+              <p>The normalized URL scanned by Chimera.</p>
             </article>
+          </div>
+
+          <h4>Error responses</h4>
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Status</th>
+                  <th>Response</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><code>400</code></td>
+                  <td><code>{"error":"Missing \"key\" or \"url\" parameter."}</code></td>
+                </tr>
+                <tr>
+                  <td><code>400</code></td>
+                  <td><code>{"error":"Invalid or unreachable URL."}</code></td>
+                </tr>
+                <tr>
+                  <td><code>429</code></td>
+                  <td><code>{"error":"API key rate limit exceeded."}</code></td>
+                </tr>
+                <tr>
+                  <td><code>502</code></td>
+                  <td><code>{"error":"Unable to scan URL."}</code></td>
+                </tr>
+                <tr>
+                  <td><code>500</code></td>
+                  <td><code>{"error":"Internal server error."}</code></td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </section>
 
