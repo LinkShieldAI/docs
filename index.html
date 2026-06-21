@@ -49,6 +49,7 @@
           <a href="#authentication" class="nav-link">Authentication</a>
           <a href="#rate-limits" class="nav-link">Rate Limits</a>
           <a href="#endpoints" class="nav-link">Endpoints</a>
+          <a href="#v1-scan" class="nav-link sub">POST /v1/scan</a>
           <a href="#basic-check" class="nav-link sub">Basic Check</a>
           <a href="#detailed-check" class="nav-link sub">Detailed Check</a>
           <a href="#screenshot" class="nav-link sub">Screenshot</a>
@@ -79,7 +80,7 @@
             </a>
             <a href="#endpoints">
               <strong>Call the API directly</strong>
-              <span>Scan URLs with simple GET endpoints and JSON responses.</span>
+              <span>Use Bearer authentication with the versioned POST /v1/scan contract.</span>
             </a>
           </div>
         </section>
@@ -163,11 +164,11 @@
           <pre><code>from linkshieldai import LinkShieldAI
 
 client = LinkShieldAI(api_key="YOUR_API_KEY")
-result = client.basic_check("https://example.com")
+result = client.scan("https://example.com", mode="standard")
 
-print(result.result)
-print(result.is_malicious)
-print(result.raw)</code></pre>
+print(result.verdict)
+print(result.request_id)
+print(result.reason_codes)</code></pre>
 
           <h3>Option 2: use an environment variable</h3>
           <pre><code># PowerShell
@@ -207,11 +208,11 @@ asyncio.run(main())</code></pre>
           <pre><code>import { LinkShieldAI } from "linkshieldai";
 
 const client = new LinkShieldAI({ apiKey: "YOUR_API_KEY" });
-const result = await client.basicCheck("https://example.com");
+const result = await client.scan("https://example.com", "standard");
 
-console.log(result.result);
-console.log(result.isMalicious);
-console.log(result.raw);</code></pre>
+console.log(result.verdict);
+console.log(result.request_id);
+console.log(result.reason_codes);</code></pre>
 
           <h3>Use an environment variable</h3>
           <pre><code># PowerShell
@@ -247,11 +248,11 @@ require __DIR__ . "/vendor/autoload.php";
 use LinkShieldAI\Client;
 
 $client = new Client(apiKey: "YOUR_API_KEY");
-$result = $client-&gt;basicCheck("https://example.com");
+$result = $client-&gt;scan("https://example.com", "standard");
 
-echo $result-&gt;result . PHP_EOL;
-var_dump($result-&gt;isMalicious);
-var_dump($result-&gt;raw);</code></pre>
+echo $result["verdict"] . PHP_EOL;
+echo $result["request_id"] . PHP_EOL;
+var_dump($result["reason_codes"]);</code></pre>
 
           <h3>Use an environment variable</h3>
           <pre><code># PowerShell
@@ -286,10 +287,10 @@ tokio = { version = "1", features = ["macros", "rt-multi-thread"] }</code></pre>
 #[tokio::main]
 async fn main() -&gt; linkshieldai::Result&lt;()&gt; {
     let client = LinkShieldAI::new("YOUR_API_KEY")?;
-    let result = client.basic_check("https://example.com").await?;
+    let result = client.scan("https://example.com", "standard").await?;
 
-    println!("{:?}", result.result);
-    println!("{}", result.is_malicious);
+    println!("{}", result.verdict);
+    println!("{}", result.request_id);
 
     Ok(())
 }</code></pre>
@@ -353,6 +354,13 @@ cargo run --bin linkshieldai -- --api-key YOUR_API_KEY chimera https://google.co
               </thead>
               <tbody>
                 <tr>
+                  <td>Versioned URL-risk scan</td>
+                  <td><code>scan()</code></td>
+                  <td><code>scan()</code></td>
+                  <td><code>scan()</code></td>
+                  <td><code>scan()</code></td>
+                </tr>
+                <tr>
                   <td>Basic URL check</td>
                   <td><code>basic_check()</code></td>
                   <td><code>basicCheck()</code></td>
@@ -396,30 +404,23 @@ cargo run --bin linkshieldai -- --api-key YOUR_API_KEY chimera https://google.co
           <p class="eyebrow">Access</p>
           <h2>Authentication</h2>
           <p>
-            LinkShieldAI authenticates requests with an API key. For direct API calls, include the key
-            in the <code>key</code> query parameter. For SDKs, pass it to the client or set
-            <code>LINKSHIELDAI_API_KEY</code>.
+            The versioned API requires an API key in the HTTP <code>Authorization</code> header.
+            Keep keys server-side. SDKs accept a key directly or read <code>LINKSHIELDAI_API_KEY</code>.
           </p>
-          <pre><code>GET https://api.linkshieldai.com/chimera?key=YOUR_API_KEY&amp;url=https://google.com</code></pre>
+          <pre><code>Authorization: Bearer YOUR_API_KEY</code></pre>
+          <p class="note">Legacy endpoints continue to accept query keys for compatibility. New integrations should use <code>/v1/scan</code>.</p>
         </section>
 
         <section class="doc-section" id="rate-limits" data-title="Rate Limits 1000 monthly requests developer portal expand limit">
           <p class="eyebrow">Usage</p>
           <h2>Rate Limits</h2>
-          <div class="stat-grid">
-            <div>
-              <strong>1,000</strong>
-              <span>requests per month</span>
-            </div>
-          </div>
           <p>
-            Need more requests? Sign in to the
-            <a href="https://developer.linkshieldai.com/portal.php">Developer Portal</a> to expand
-            your usage.
+            Limits depend on the account plan and configured usage cap. The Developer Portal shows
+            the active allowance and current monthly usage.
           </p>
           <p>
-            When you are close to your limit, add retry handling and catch rate-limit errors in your
-            app or bot.
+            Responses include <code>X-RateLimit-Remaining</code>, <code>X-Monthly-Usage-Remaining</code>,
+            and <code>Retry-After</code> when throttled. Treat HTTP <code>429</code> as retryable.
           </p>
         </section>
 
@@ -430,6 +431,36 @@ cargo run --bin linkshieldai -- --api-key YOUR_API_KEY chimera https://google.co
             Every endpoint below can be called directly over HTTPS. The SDKs wrap the same endpoints
             and normalize common fields for easier use in code.
           </p>
+        </section>
+
+        <section class="endpoint doc-section" id="v1-scan" data-title="POST v1 scan Bearer standard detailed deep verdict request ID reason codes">
+          <div class="endpoint-heading"><div><p class="eyebrow">Recommended endpoint</p><h3>URL-risk scan</h3></div><span class="method">POST</span></div>
+          <dl class="endpoint-meta"><dt>URL</dt><dd><code>https://api.linkshieldai.com/v1/scan</code></dd><dt>Authentication</dt><dd><code>Authorization: Bearer YOUR_API_KEY</code></dd></dl>
+          <pre><code>curl -X POST https://api.linkshieldai.com/v1/scan \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"url":"https://example.com","mode":"standard"}'</code></pre>
+          <h4>Modes</h4>
+          <div class="field-list"><article><h5><code>standard</code></h5><p>Fast reputation and threat-feed decision.</p></article><article><h5><code>detailed</code></h5><p>Adds redirect, page-preview, brand, and screenshot signals when available.</p></article><article><h5><code>deep</code></h5><p>Adds page fingerprinting and model analysis when earlier signals are inconclusive.</p></article></div>
+          <h4>Example response</h4>
+          <pre><code>{
+  "request_id": "7f4d...",
+  "url": {"submitted": "https://example.com", "normalized": "https://example.com/", "redirects": []},
+  "mode": "standard",
+  "verdict": "SAFE",
+  "confidence": null,
+  "risk_score": null,
+  "threat_categories": [],
+  "reason_codes": ["KNOWN_SAFE_MATCH"],
+  "brand_target": null,
+  "screenshot_url": null,
+  "scanned_at": "2026-06-21T12:00:00.000Z",
+  "freshness": "live",
+  "engine_version": "linkshield-v1"
+}</code></pre>
+          <p class="note"><code>UNKNOWN</code> means no decisive signal was available and must not be treated as <code>SAFE</code>. Confidence, risk score, brand, and screenshot fields are nullable.</p>
+          <h4>Errors and usage headers</h4>
+          <p>Errors use <code>{"error":{"code":"INVALID_URL","message":"...","request_id":"..."}}</code>. Expect HTTP <code>400</code>, <code>401</code>, <code>429</code>, and <code>5xx</code>. Responses expose <code>X-Request-ID</code>, rate-limit, and monthly-usage headers; throttled responses include <code>Retry-After</code>.</p>
         </section>
 
         <section class="endpoint doc-section" id="basic-check" data-title="Basic Check likely safe might be malicious GET">

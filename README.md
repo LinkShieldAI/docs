@@ -45,6 +45,8 @@ Developers can also integrate LinkShieldAI through direct API requests where sup
 
 ## Recommended Integration Approach
 
+New integrations should call `POST /v1/scan` with `Authorization: Bearer <api-key>` or use the SDK `scan(url, mode)` method. Supported modes are `standard`, `detailed`, and `deep`. Legacy endpoints remain available for compatibility.
+
 For production bots and moderation tools, start with a controlled test before enabling automatic enforcement.
 
 Recommended flow:
