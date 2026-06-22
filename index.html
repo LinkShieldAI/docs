@@ -307,7 +307,7 @@ println!("{:?}", result.result);
 println!("{:?}", result.raw);</code></pre>
         </section>
 
-        <section class="doc-section" id="cli" data-title="CLI command line basic detailed nsfw chimera screenshot">
+        <section class="doc-section" id="cli" data-title="CLI command line scan standard detailed deep basic nsfw chimera screenshot">
           <p class="eyebrow">CLI</p>
           <h2>Command Line Usage</h2>
           <p>
@@ -315,22 +315,28 @@ println!("{:?}", result.raw);</code></pre>
             API key with <code>--api-key</code>, or omit it when <code>LINKSHIELDAI_API_KEY</code> is set.
           </p>
           <h3>Python</h3>
-          <pre><code>linkshieldai --api-key YOUR_API_KEY basic https://example.com
+          <pre><code>linkshieldai --api-key YOUR_API_KEY scan https://example.com --mode standard
+linkshieldai --api-key YOUR_API_KEY scan https://example.com --mode detailed
+linkshieldai --api-key YOUR_API_KEY scan https://example.com --mode deep
+linkshieldai --api-key YOUR_API_KEY basic https://example.com
 linkshieldai --api-key YOUR_API_KEY detailed https://example.com
 linkshieldai --api-key YOUR_API_KEY nsfw https://example.com
 linkshieldai --api-key YOUR_API_KEY chimera https://google.com
 linkshieldai --api-key YOUR_API_KEY screenshot 05046f.png --output site.png</code></pre>
 
           <h3>JavaScript / TypeScript</h3>
-          <pre><code>linkshieldai --api-key YOUR_API_KEY basic https://example.com
+          <pre><code>linkshieldai --api-key YOUR_API_KEY scan https://example.com --mode standard
+linkshieldai --api-key YOUR_API_KEY basic https://example.com
 linkshieldai --api-key YOUR_API_KEY chimera https://google.com</code></pre>
 
           <h3>PHP</h3>
-          <pre><code>vendor/bin/linkshieldai --api-key YOUR_API_KEY basic https://example.com
+          <pre><code>vendor/bin/linkshieldai --api-key YOUR_API_KEY scan https://example.com --mode standard
+vendor/bin/linkshieldai --api-key YOUR_API_KEY basic https://example.com
 vendor/bin/linkshieldai --api-key YOUR_API_KEY chimera https://google.com</code></pre>
 
           <h3>Rust</h3>
-          <pre><code>cargo run --bin linkshieldai -- --api-key YOUR_API_KEY basic https://example.com
+          <pre><code>cargo run --bin linkshieldai -- --api-key YOUR_API_KEY scan https://example.com --mode standard
+cargo run --bin linkshieldai -- --api-key YOUR_API_KEY basic https://example.com
 cargo run --bin linkshieldai -- --api-key YOUR_API_KEY chimera https://google.com</code></pre>
         </section>
 
@@ -542,6 +548,8 @@ print(result.tag)</code></pre>
           <dl class="endpoint-meta">
             <dt>URL</dt>
             <dd><code>https://api.linkshieldai.com/screenshot/{file_name}</code></dd>
+            <dt>SDK authentication</dt>
+            <dd><code>Authorization: Bearer YOUR_API_KEY</code></dd>
             <dt>Use it for</dt>
             <dd>Downloading a screenshot file returned by a detailed scan.</dd>
           </dl>
