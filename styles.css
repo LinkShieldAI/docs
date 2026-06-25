@@ -1,19 +1,70 @@
 :root {
-  color-scheme: light;
+  color-scheme: light dark;
   --bg: #f7f9fc;
   --surface: #ffffff;
   --surface-strong: #f0f5fb;
+  --surface-soft: #fbfdff;
+  --surface-rgb: 255, 255, 255;
   --text: #172033;
   --muted: #61708a;
   --line: #dce4ee;
   --blue: #2f6bd9;
   --blue-dark: #1d4fa8;
   --green: #168a5b;
+  --nav-active-bg: #e9f0fb;
+  --hero-bg: linear-gradient(135deg, #ffffff 0%, #eef5ff 100%);
+  --hero-grid-line: rgba(47, 107, 217, 0.11);
+  --hero-grid-line-2: rgba(47, 107, 217, 0.1);
+  --card-hover-line: #b9ccec;
+  --callout-bg: #eef5ff;
+  --callout-line: #c9daf7;
+  --method-bg: #e6f7ef;
+  --method-line: #bce7d0;
+  --inline-code-bg: #eef3f9;
+  --inline-code-line: #d9e2ee;
+  --inline-code-text: #172033;
   --code: #101829;
   --code-line: #27324a;
+  --code-label-bg: #1d2940;
+  --code-label-line: #36445f;
+  --code-label-text: #b8c7e6;
   --shadow: 0 16px 40px rgba(23, 32, 51, 0.08);
   font-family:
     Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #101418;
+    --surface: #151b22;
+    --surface-strong: #1b232d;
+    --surface-soft: #18202a;
+    --surface-rgb: 21, 27, 34;
+    --text: #edf2f7;
+    --muted: #a8b3bd;
+    --line: #2a3440;
+    --blue: #7fb3ff;
+    --blue-dark: #a7caff;
+    --green: #7fd7a5;
+    --nav-active-bg: #1d2c42;
+    --hero-bg: linear-gradient(135deg, #151b22 0%, #172131 100%);
+    --hero-grid-line: rgba(127, 179, 255, 0.13);
+    --hero-grid-line-2: rgba(127, 179, 255, 0.1);
+    --card-hover-line: #47617f;
+    --callout-bg: #17253a;
+    --callout-line: #2e4a72;
+    --method-bg: #1c3127;
+    --method-line: #315846;
+    --inline-code-bg: #1b232d;
+    --inline-code-line: #344252;
+    --inline-code-text: #edf2f7;
+    --code: #0b111b;
+    --code-line: #27324a;
+    --code-label-bg: #152033;
+    --code-label-line: #34445f;
+    --code-label-text: #c6d6f2;
+    --shadow: 0 16px 40px rgba(0, 0, 0, 0.24);
+  }
 }
 
 * {
@@ -43,7 +94,7 @@ a:hover {
 
 .topbar {
   align-items: center;
-  background: rgba(255, 255, 255, 0.92);
+  background: rgba(var(--surface-rgb), 0.92);
   border-bottom: 1px solid var(--line);
   display: grid;
   gap: 18px;
@@ -177,7 +228,7 @@ a:hover {
 .nav-link.active,
 .nav-link:hover,
 .toc a:hover {
-  background: #e9f0fb;
+  background: var(--nav-active-bg);
   color: var(--blue-dark);
   text-decoration: none;
 }
@@ -212,15 +263,15 @@ a:hover {
 }
 
 .hero-section {
-  background: linear-gradient(135deg, #ffffff 0%, #eef5ff 100%);
+  background: var(--hero-bg);
   overflow: hidden;
   position: relative;
 }
 
 .hero-section::after {
   background:
-    linear-gradient(90deg, rgba(47, 107, 217, 0.11) 1px, transparent 1px),
-    linear-gradient(rgba(47, 107, 217, 0.1) 1px, transparent 1px);
+    linear-gradient(90deg, var(--hero-grid-line) 1px, transparent 1px),
+    linear-gradient(var(--hero-grid-line-2) 1px, transparent 1px);
   background-size: 28px 28px;
   bottom: 0;
   content: "";
@@ -307,7 +358,7 @@ h5 {
 .sdk-grid a,
 .stat-grid div,
 .field-list article {
-  background: #fbfdff;
+  background: var(--surface-soft);
   border: 1px solid var(--line);
   border-radius: 8px;
   padding: 18px;
@@ -322,7 +373,7 @@ h5 {
 .quick-grid a:hover,
 .link-grid a:hover,
 .sdk-grid a:hover {
-  border-color: #b9ccec;
+  border-color: var(--card-hover-line);
   text-decoration: none;
 }
 
@@ -364,7 +415,7 @@ h5 {
 
 .step-list li {
   align-items: start;
-  background: #fbfdff;
+  background: var(--surface-soft);
   border: 1px solid var(--line);
   border-radius: 8px;
   display: grid;
@@ -403,8 +454,8 @@ h5 {
 }
 
 .callout {
-  background: #eef5ff;
-  border: 1px solid #c9daf7;
+  background: var(--callout-bg);
+  border: 1px solid var(--callout-line);
   border-radius: 8px;
   display: grid;
   gap: 8px;
@@ -431,8 +482,8 @@ h5 {
 }
 
 .method {
-  background: #e6f7ef;
-  border: 1px solid #bce7d0;
+  background: var(--method-bg);
+  border: 1px solid var(--method-line);
   border-radius: 999px;
   color: var(--green);
   font-size: 12px;
@@ -458,10 +509,10 @@ h5 {
 }
 
 code {
-  background: #eef3f9;
-  border: 1px solid #d9e2ee;
+  background: var(--inline-code-bg);
+  border: 1px solid var(--inline-code-line);
   border-radius: 6px;
-  color: #172033;
+  color: var(--inline-code-text);
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   font-size: 0.92em;
   padding: 0.12em 0.36em;
@@ -472,6 +523,7 @@ pre {
   border: 1px solid var(--code-line);
   border-radius: 8px;
   color: #edf3ff;
+  max-width: 100%;
   margin: 14px 0;
   overflow: auto;
   padding: 18px;
@@ -493,10 +545,10 @@ pre[data-language] {
 }
 
 pre[data-language]::before {
-  background: #1d2940;
-  border: 1px solid #36445f;
+  background: var(--code-label-bg);
+  border: 1px solid var(--code-label-line);
   border-radius: 999px;
-  color: #b8c7e6;
+  color: var(--code-label-text);
   content: attr(data-language);
   font-size: 11px;
   font-weight: 800;
@@ -553,6 +605,7 @@ pre code.hljs {
   border: 1px solid var(--line);
   border-radius: 8px;
   margin-top: 18px;
+  max-width: 100%;
   overflow: auto;
 }
 
@@ -577,7 +630,7 @@ th {
 }
 
 td {
-  background: #fbfdff;
+  background: var(--surface-soft);
   font-size: 14px;
 }
 
@@ -680,6 +733,7 @@ tr:last-child td {
   }
 
   .doc-section {
+    overflow: hidden;
     padding: 24px;
   }
 
