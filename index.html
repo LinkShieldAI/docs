@@ -112,7 +112,7 @@
           <div class="sdk-grid">
             <a href="#python-sdk">
               <strong>Python</strong>
-              <span><code>pip install linkshieldai==0.3.0</code></span>
+              <span><code>pip install linkshieldai==0.3.1</code></span>
             </a>
             <a href="#javascript-sdk">
               <strong>JavaScript / TypeScript</strong>
@@ -124,7 +124,7 @@
             </a>
             <a href="#rust-sdk">
               <strong>Rust</strong>
-              <span><code>linkshieldai = "0.1"</code></span>
+              <span><code>linkshieldai = "0.3"</code></span>
             </a>
           </div>
         </section>
@@ -151,15 +151,15 @@
           </p>
         </section>
 
-        <section class="doc-section" id="python-sdk" data-title="Python SDK PyPI linkshieldai 0.3.0 install setup sync async client environment variable">
+        <section class="doc-section" id="python-sdk" data-title="Python SDK PyPI linkshieldai 0.3.1 install setup sync async client environment variable">
           <p class="eyebrow">SDK</p>
           <h2>Python SDK Setup</h2>
           <p>
-            The official package is available on PyPI as <a href="https://pypi.org/project/linkshieldai/">linkshieldai 0.3.0</a>.
-            It requires Python 3.12 or newer and wraps the LinkShieldAI API at
+            The official package is available on PyPI as <a href="https://pypi.org/project/linkshieldai/">linkshieldai 0.3.1</a>.
+            It requires Python 3.10 or newer and wraps the LinkShieldAI API at
             <code>https://api.linkshieldai.com</code>.
           </p>
-          <pre><code>python -m pip install linkshieldai==0.3.0</code></pre>
+          <pre><code>python -m pip install linkshieldai==0.3.1</code></pre>
 
           <h3>Option 1: pass the key directly</h3>
           <pre><code>from linkshieldai import LinkShieldAI
@@ -212,8 +212,8 @@ const client = new LinkShieldAI({ apiKey: "YOUR_API_KEY" });
 const result = await client.scan("https://example.com", "standard");
 
 console.log(result.verdict);
-console.log(result.request_id);
-console.log(result.reason_codes);</code></pre>
+console.log(result.requestId);
+console.log(result.reasonCodes);</code></pre>
 
           <h3>Use an environment variable</h3>
           <pre><code># PowerShell
@@ -251,9 +251,9 @@ use LinkShieldAI\Client;
 $client = new Client(apiKey: "YOUR_API_KEY");
 $result = $client-&gt;scan("https://example.com", "standard");
 
-echo $result["verdict"] . PHP_EOL;
-echo $result["request_id"] . PHP_EOL;
-var_dump($result["reason_codes"]);</code></pre>
+echo $result-&gt;verdict . PHP_EOL;
+echo $result-&gt;requestId . PHP_EOL;
+var_dump($result-&gt;reasonCodes);</code></pre>
 
           <h3>Use an environment variable</h3>
           <pre><code># PowerShell
@@ -279,19 +279,21 @@ var_dump($result-&gt;raw);</code></pre>
             URL scanning pipelines. It uses typed result structs and a single error enum.
           </p>
           <pre><code>[dependencies]
-linkshieldai = "0.1"
+linkshieldai = "0.3"
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }</code></pre>
 
           <h3>Run a basic scan</h3>
-          <pre><code>use linkshieldai::LinkShieldAI;
+          <pre><code>use linkshieldai::{LinkShieldAI, ScanMode, ScanOptions};
 
 #[tokio::main]
 async fn main() -&gt; linkshieldai::Result&lt;()&gt; {
     let client = LinkShieldAI::new("YOUR_API_KEY")?;
-    let result = client.scan("https://example.com", "standard").await?;
+    let result = client
+        .scan("https://example.com", ScanMode::Standard, ScanOptions::default())
+        .await?;
 
     println!("{}", result.verdict);
-    println!("{}", result.request_id);
+    println!("{:?}", result.request_id);
 
     Ok(())
 }</code></pre>
@@ -308,40 +310,37 @@ println!("{:?}", result.result);
 println!("{:?}", result.raw);</code></pre>
         </section>
 
-        <section class="doc-section" id="cli" data-title="CLI command line scan standard detailed deep basic nsfw chimera screenshot">
+        <section class="doc-section" id="cli" data-title="CLI command line scan standard detailed deep ai include-signals nsfw chimera screenshot">
           <p class="eyebrow">CLI</p>
           <h2>Command Line Usage</h2>
           <p>
             The Python, JavaScript, PHP, and Rust SDKs include command-line tools. You can pass the
             API key with <code>--api-key</code>, or omit it when <code>LINKSHIELDAI_API_KEY</code> is set.
           </p>
+          <p class="note">The <code>basic</code> and <code>detailed</code> commands were removed. Use <code>scan</code> with <code>--mode</code>.</p>
           <h3>Python</h3>
           <pre><code>linkshieldai --api-key YOUR_API_KEY scan https://example.com --mode standard
 linkshieldai --api-key YOUR_API_KEY scan https://example.com --mode detailed
-linkshieldai --api-key YOUR_API_KEY scan https://example.com --mode deep
-linkshieldai --api-key YOUR_API_KEY basic https://example.com
-linkshieldai --api-key YOUR_API_KEY detailed https://example.com
+linkshieldai --api-key YOUR_API_KEY scan https://example.com --mode deep --ai
+linkshieldai --api-key YOUR_API_KEY scan https://example.com --include-signals
 linkshieldai --api-key YOUR_API_KEY nsfw https://example.com
 linkshieldai --api-key YOUR_API_KEY chimera https://google.com
 linkshieldai --api-key YOUR_API_KEY screenshot 05046f.png --output site.png</code></pre>
 
           <h3>JavaScript / TypeScript</h3>
           <pre><code>linkshieldai --api-key YOUR_API_KEY scan https://example.com --mode standard
-linkshieldai --api-key YOUR_API_KEY basic https://example.com
 linkshieldai --api-key YOUR_API_KEY chimera https://google.com</code></pre>
 
           <h3>PHP</h3>
           <pre><code>vendor/bin/linkshieldai --api-key YOUR_API_KEY scan https://example.com --mode standard
-vendor/bin/linkshieldai --api-key YOUR_API_KEY basic https://example.com
 vendor/bin/linkshieldai --api-key YOUR_API_KEY chimera https://google.com</code></pre>
 
           <h3>Rust</h3>
           <pre><code>cargo run --bin linkshieldai -- --api-key YOUR_API_KEY scan https://example.com --mode standard
-cargo run --bin linkshieldai -- --api-key YOUR_API_KEY basic https://example.com
 cargo run --bin linkshieldai -- --api-key YOUR_API_KEY chimera https://google.com</code></pre>
         </section>
 
-        <section class="doc-section" id="sdk-methods" data-title="SDK method names Python JavaScript PHP Rust basic detailed nsfw chimera screenshot">
+        <section class="doc-section" id="sdk-methods" data-title="SDK method names Python JavaScript PHP Rust scan nsfw chimera screenshot">
           <p class="eyebrow">SDK Reference</p>
           <h2>SDK Method Names</h2>
           <p>
@@ -366,20 +365,6 @@ cargo run --bin linkshieldai -- --api-key YOUR_API_KEY chimera https://google.co
                   <td><code>scan()</code></td>
                   <td><code>scan()</code></td>
                   <td><code>scan()</code></td>
-                </tr>
-                <tr>
-                  <td>Basic URL check</td>
-                  <td><code>basic_check()</code></td>
-                  <td><code>basicCheck()</code></td>
-                  <td><code>basicCheck()</code></td>
-                  <td><code>basic_check()</code></td>
-                </tr>
-                <tr>
-                  <td>Detailed URL check</td>
-                  <td><code>detailed_check()</code></td>
-                  <td><code>detailedCheck()</code></td>
-                  <td><code>detailedCheck()</code></td>
-                  <td><code>detailed_check()</code></td>
                 </tr>
                 <tr>
                   <td>NSFW check</td>
@@ -440,7 +425,7 @@ cargo run --bin linkshieldai -- --api-key YOUR_API_KEY chimera https://google.co
           </p>
         </section>
 
-        <section class="endpoint doc-section" id="v1-scan" data-title="POST v1 scan Bearer standard detailed deep verdict request ID reason codes">
+        <section class="endpoint doc-section" id="v1-scan" data-title="POST v1 scan Bearer standard detailed deep ai model include_signals verdict request ID reason codes">
           <div class="endpoint-heading"><div><p class="eyebrow">Recommended endpoint</p><h3>URL-risk scan</h3></div><span class="method">POST</span></div>
           <dl class="endpoint-meta"><dt>URL</dt><dd><code>https://api.linkshieldai.com/v1/scan</code></dd><dt>Authentication</dt><dd><code>Authorization: Bearer YOUR_API_KEY</code></dd></dl>
           <pre><code>curl -X POST https://api.linkshieldai.com/v1/scan \
@@ -448,7 +433,22 @@ cargo run --bin linkshieldai -- --api-key YOUR_API_KEY chimera https://google.co
   -H "Content-Type: application/json" \
   -d '{"url":"https://example.com","mode":"standard"}'</code></pre>
           <h4>Modes</h4>
-          <div class="field-list"><article><h5><code>standard</code></h5><p>Fast reputation and threat-feed decision.</p></article><article><h5><code>detailed</code></h5><p>Adds redirect, page-preview, brand, and screenshot signals when available.</p></article><article><h5><code>deep</code></h5><p>Adds page fingerprinting and model analysis when earlier signals are inconclusive.</p></article></div>
+          <div class="field-list"><article><h5><code>standard</code></h5><p>Fast reputation and threat-feed decision.</p></article><article><h5><code>detailed</code></h5><p>Adds redirect, page-preview, brand, and screenshot signals when available.</p></article><article><h5><code>deep</code></h5><p>Adds page fingerprinting when earlier signals are inconclusive.</p></article></div>
+          <h4>Model analysis</h4>
+          <p>Send <code>"ai": true</code> to add model analysis when page fingerprinting is inconclusive. It is off by default and applies to <code>deep</code> only, since the model scores the page HTML that only <code>deep</code> fetches. Without it, <code>risk_score</code> and <code>confidence</code> stay <code>null</code>.</p>
+          <pre><code>-d '{"url":"https://example.com","mode":"deep","ai":true}'</code></pre>
+          <h4>Raw signals</h4>
+          <p>Send <code>"include_signals": true</code> to add a <code>signals</code> object reporting what each source returned before the verdict was decided. Use it to apply your own precedence. It is off by default and the <code>verdict</code> is unchanged either way.</p>
+          <pre><code>-d '{"url":"https://example.com","mode":"standard","include_signals":true}'</code></pre>
+          <pre><code>"signals": {
+  "url_reputation": "safe",
+  "domain_reputation": "unknown",
+  "threat_feed": "malicious",
+  "external_reputation": false,
+  "allowlist": {"fandom": false, "carrd": true},
+  "degraded": false
+}</code></pre>
+          <p class="note"><code>url_reputation</code>, <code>domain_reputation</code>, and <code>threat_feed</code> are <code>malicious</code>, <code>safe</code>, or <code>unknown</code>. <code>degraded</code> is <code>true</code> when a lookup failed, so the verdict rests on fewer sources than usual.</p>
           <h4>Example response</h4>
           <pre><code>{
   "request_id": "7f4d...",
@@ -465,7 +465,7 @@ cargo run --bin linkshieldai -- --api-key YOUR_API_KEY chimera https://google.co
   "freshness": "live",
   "engine_version": "linkshield-v1"
 }</code></pre>
-          <p class="note"><code>UNKNOWN</code> means no decisive signal was available and must not be treated as <code>SAFE</code>. Confidence, risk score, brand, and screenshot fields are nullable.</p>
+          <p class="note"><code>verdict</code> is <code>SAFE</code>, <code>MALICIOUS</code>, or <code>UNKNOWN</code>. <code>UNKNOWN</code> means no decisive signal was available and must not be treated as <code>SAFE</code>. Confidence, risk score, brand, and screenshot fields are nullable.</p>
           <h4>Errors and usage headers</h4>
           <p>Errors use <code>{"error":{"code":"INVALID_URL","message":"...","request_id":"..."}}</code>. Expect HTTP <code>400</code>, <code>401</code>, <code>429</code>, and <code>5xx</code>. Responses expose <code>X-Request-ID</code>, rate-limit, and monthly-usage headers; throttled responses include <code>Retry-After</code>.</p>
         </section>
@@ -473,7 +473,7 @@ cargo run --bin linkshieldai -- --api-key YOUR_API_KEY chimera https://google.co
         <section class="endpoint doc-section" id="basic-check" data-title="Basic Check likely safe might be malicious GET">
           <div class="endpoint-heading">
             <div>
-              <p class="eyebrow">Endpoint</p>
+              <p class="eyebrow">Deprecated endpoint</p>
               <h3>Basic Check</h3>
             </div>
             <span class="method">GET</span>
@@ -484,15 +484,8 @@ cargo run --bin linkshieldai -- --api-key YOUR_API_KEY chimera https://google.co
             <dt>Use it for</dt>
             <dd>Fast URL safety checks when you only need a simple safe or suspicious result.</dd>
           </dl>
-          <pre><code>from linkshieldai import LinkShieldAI
-
-client = LinkShieldAI(api_key="YOUR_API_KEY")
-result = client.basic_check("https://example.com")
-
-if result.is_malicious:
-    print("Block or review this URL")
-else:
-    print("No malicious signal found")</code></pre>
+          <p class="note">Deprecated in favour of <code>POST /v1/scan</code>. This endpoint keeps working and no removal date is set; responses carry a <code>Deprecation</code> header.</p>
+          <pre><code>curl "https://api.linkshieldai.com/?url=https://example.com"   -H "Authorization: Bearer YOUR_API_KEY"</code></pre>
           <h4>Example responses</h4>
           <div class="code-list">
             <code>{"result":"likely safe"}</code>
@@ -505,7 +498,7 @@ else:
         <section class="endpoint doc-section" id="detailed-check" data-title="Detailed Check screenshot URL tag brand phishing Yahoo">
           <div class="endpoint-heading">
             <div>
-              <p class="eyebrow">Endpoint</p>
+              <p class="eyebrow">Deprecated endpoint</p>
               <h3>Detailed Check</h3>
             </div>
             <span class="method">GET</span>
@@ -516,15 +509,8 @@ else:
             <dt>Use it for</dt>
             <dd>Getting a safety result, screenshot URL, and detected phishing target or brand tag.</dd>
           </dl>
-          <pre><code>result = client.detailed_check("https://example.com")
-
-print(result.result)
-print(result.screenshot_url)
-print(result.tag)</code></pre>
-          <p class="note">
-            SDKs normalize the API field <code>"screenshot url"</code> to the language's usual field style:
-            <code>screenshot_url</code> in Python and Rust, <code>screenshotUrl</code> in JavaScript and PHP.
-          </p>
+          <p class="note">Deprecated in favour of <code>POST /v1/scan</code>. This endpoint keeps working and no removal date is set; responses carry a <code>Deprecation</code> header.</p>
+          <pre><code>curl "https://api.linkshieldai.com/classify_link?url=https://example.com"   -H "Authorization: Bearer YOUR_API_KEY"</code></pre>
           <h4>Example response</h4>
           <pre><code>{
   "result": "Might be malicious",
