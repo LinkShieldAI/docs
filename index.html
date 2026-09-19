@@ -3,246 +3,215 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>(function(){try{var t=localStorage.getItem('lsa-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}})();</script>
     <title>LinkShieldAI Documentation</title>
-    <meta
-      name="description"
-      content="LinkShieldAI documentation for account setup, API keys, SDKs for Python, JavaScript, PHP, and Rust, CLI usage, endpoints, limits, and security notes."
-    />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css" />
-    <link rel="icon" type="image/png" href="lsa.png">
-    <link rel="stylesheet" href="styles.css?v=dark-mode-20260625" />
+    <meta name="description" content="LinkShieldAI API documentation. Account setup, API keys, SDKs for Python, JavaScript, PHP and Rust, the command line tool, endpoints, rate limits and errors." />
+    <meta name="theme-color" content="#f6f8fa" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#101418" media="(prefers-color-scheme: dark)" />
+    <link rel="icon" type="image/png" href="lsa.png" />
+    <link rel="apple-touch-icon" href="lsa.png" />
+    <link rel="stylesheet" href="styles.css?v=20260919" />
   </head>
   <body>
+    <a class="skip" href="#main">Skip to content</a>
     <header class="topbar">
       <a class="brand" href="#overview" aria-label="LinkShieldAI documentation home">
-        <span class="brand-mark">LS</span>
-        <span>
-          <strong>LinkShieldAI</strong>
-          <small>Developer Docs</small>
-        </span>
+        <img src="lsa.png" alt="" width="34" height="34" />
+        <span>LinkShieldAI</span>
+        <span class="pill info">Docs</span>
       </a>
-      <button class="icon-button menu-button" type="button" aria-label="Open navigation" data-menu-toggle>
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      <label class="search" aria-label="Search documentation">
-        <svg viewBox="0 0 24 24" aria-hidden="true">
-          <path d="m21 21-4.35-4.35m1.35-5.15a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z" />
-        </svg>
-        <input type="search" placeholder="Search docs..." data-search />
+      <label class="search">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m21 21-4.35-4.35m1.35-5.15a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0Z" /></svg>
+        <input type="search" placeholder="Search docs" aria-label="Search documentation" data-search />
       </label>
-      <a class="top-link" href="https://developer.linkshieldai.com/portal.php">Developer Portal</a>
+      <div class="top-actions">
+        <a class="button-link secondary" href="https://developer.linkshieldai.com/portal.php">Developer portal</a>
+        <button type="button" class="icon-button theme-toggle" aria-label="Toggle light or dark theme"><svg class="theme-toggle-light" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M19.1 4.9l-1.4 1.4M6.3 17.7l-1.4 1.4"/></svg><svg class="theme-toggle-dark" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+        <button type="button" class="icon-button menu-button" aria-label="Open navigation" aria-expanded="false" data-menu-toggle><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+      </div>
     </header>
 
     <div class="layout">
       <aside class="sidebar" data-sidebar>
         <nav aria-label="Documentation">
-          <a href="#overview" class="nav-link active">Overview</a>
+          <span class="nav-section">Get started</span>
+          <a href="#overview" class="nav-link">Overview</a>
           <a href="#quickstart" class="nav-link">Quickstart</a>
-          <a href="#account" class="nav-link sub">Create Account</a>
-          <a href="#python-sdk" class="nav-link sub">Python SDK</a>
-          <a href="#javascript-sdk" class="nav-link sub">JavaScript SDK</a>
-          <a href="#php-sdk" class="nav-link sub">PHP SDK</a>
-          <a href="#rust-sdk" class="nav-link sub">Rust SDK</a>
-          <a href="#cli" class="nav-link sub">CLI</a>
-          <a href="#sdk-methods" class="nav-link sub">Method Names</a>
+          <a href="#account" class="nav-link">Create an account</a>
+          <span class="nav-section">SDKs</span>
+          <a href="#python-sdk" class="nav-link">Python</a>
+          <a href="#javascript-sdk" class="nav-link">JavaScript</a>
+          <a href="#php-sdk" class="nav-link">PHP</a>
+          <a href="#rust-sdk" class="nav-link">Rust</a>
+          <a href="#cli" class="nav-link">Command line</a>
+          <a href="#sdk-methods" class="nav-link">Method names</a>
+          <span class="nav-section">API reference</span>
           <a href="#authentication" class="nav-link">Authentication</a>
-          <a href="#rate-limits" class="nav-link">Rate Limits</a>
+          <a href="#rate-limits" class="nav-link">Rate limits</a>
           <a href="#endpoints" class="nav-link">Endpoints</a>
-          <a href="#v1-scan" class="nav-link sub">POST /v1/scan</a>
-          <a href="#basic-check" class="nav-link sub">Basic Check</a>
-          <a href="#detailed-check" class="nav-link sub">Detailed Check</a>
-          <a href="#screenshot" class="nav-link sub">Screenshot</a>
-          <a href="#nsfw" class="nav-link sub">NSFW</a>
-          <a href="#chimera" class="nav-link sub">Chimera</a>
-          <a href="#errors" class="nav-link">Errors</a>
+          <a href="#v1-scan" class="nav-link">Scan a URL</a>
+          <a href="#screenshot" class="nav-link">Screenshots</a>
+          <a href="#nsfw" class="nav-link">NSFW check</a>
+          <a href="#chimera" class="nav-link">Chimera</a>
+          <span class="nav-section">More</span>
+          <a href="#errors" class="nav-link">Error handling</a>
           <a href="#security" class="nav-link">Security</a>
-          <a href="#projects" class="nav-link">Examples</a>
+          <a href="#links" class="nav-link">Links</a>
         </nav>
       </aside>
 
       <main class="content" id="main">
-        <section class="doc-section hero-section" id="overview" data-title="Overview LinkShieldAI anti phishing API Discord bot browser extension Python JavaScript PHP Rust SDK">
+        <section class="doc-section hero-section" id="overview" data-title="Overview LinkShieldAI API base URL bearer phishing malware scam NSFW Python JavaScript PHP Rust SDK">
+          <img class="hero-logo" src="lsa.png" alt="LinkShieldAI logo" width="64" height="64" />
           <p class="eyebrow">Documentation</p>
-          <h1>Build safer apps with LinkShieldAI</h1>
-          <p class="lede">
-            LinkShieldAI helps developers scan URLs for phishing, malware, scam pages, NSFW content,
-            and other unsafe destinations before users click them.
-          </p>
-          <div class="quick-grid">
-            <a href="#account">
-              <strong>Create a free account</strong>
-              <span>Use the Developer Portal to manage keys, usage, webhooks, and reports.</span>
-            </a>
-            <a href="#python-sdk">
-              <strong>Install an SDK</strong>
-              <span>Use Python, JavaScript, PHP, or Rust clients with typed results, retries, and CLI commands.</span>
-            </a>
-            <a href="#endpoints">
-              <strong>Call the API directly</strong>
-              <span>Use Bearer authentication with the versioned POST /v1/scan contract.</span>
-            </a>
+          <h1>LinkShieldAI developer docs</h1>
+          <p class="lede">Scan URLs for phishing, malware, scam pages and NSFW content before your users open them. Call the REST API directly or use an official SDK for Python, JavaScript, PHP or Rust.</p>
+          <dl class="facts">
+            <div><dt>Base URL</dt><dd><code>https://api.linkshieldai.com</code></dd></div>
+            <div><dt>Authentication</dt><dd><code>Authorization: Bearer YOUR_API_KEY</code></dd></div>
+            <div><dt>Main endpoint</dt><dd><code>POST /v1/scan</code></dd></div>
+            <div><dt>API key</dt><dd><a href="https://developer.linkshieldai.com/portal.php?signup=1">Create a free account</a> in the developer portal</dd></div>
+          </dl>
+          <div class="card-grid">
+            <a class="card" href="#quickstart"><strong>Quickstart</strong><span>Go from signup to your first scan.</span></a>
+            <a class="card" href="#python-sdk"><strong>SDKs</strong><span>Python, JavaScript, PHP and Rust clients with a command line tool.</span></a>
+            <a class="card" href="#v1-scan"><strong>API reference</strong><span>Request fields, response fields and error codes.</span></a>
           </div>
         </section>
 
-        <section class="doc-section" id="quickstart" data-title="Quickstart account api key pip npm composer cargo install first scan">
+        <section class="doc-section" id="quickstart" data-title="Quickstart account api key pip npm composer cargo install first scan curl">
           <p class="eyebrow">Start here</p>
           <h2>Quickstart</h2>
           <ol class="step-list">
-            <li>
-              <strong>Create a free developer account</strong>
-              <span>Open the <a href="https://developer.linkshieldai.com/portal.php?signup=1">Developer Portal signup page</a>, enter your email, and a password with at least 8 characters.</span>
-            </li>
-            <li>
-              <strong>Get your API key</strong>
-              <span>Sign in to the portal to view usage, rotate keys, configure webhooks, and report false positives.</span>
-            </li>
-            <li>
-              <strong>Install an SDK</strong>
-              <span>Choose Python, JavaScript, PHP, or Rust. Each SDK wraps the same API endpoints and uses the same API key.</span>
-            </li>
-            <li>
-              <strong>Run your first scan</strong>
-              <span>Use the SDK, CLI, or direct API endpoint depending on your project.</span>
-            </li>
+            <li><strong>Create a free account</strong><span>Sign up in the <a href="https://developer.linkshieldai.com/portal.php?signup=1">developer portal</a>, then sign in.</span></li>
+            <li><strong>Copy your API key</strong><span>Open API Keys in the portal and copy your key. Keep it on your server.</span></li>
+            <li><strong>Make a request</strong><span>Send a URL to <code>POST /v1/scan</code> with curl, or install an SDK.</span></li>
+            <li><strong>Read the verdict</strong><span>Act on <code>SAFE</code> and <code>MALICIOUS</code>. Treat <code>UNKNOWN</code> as unverified.</span></li>
           </ol>
-
-          <h3>Choose your SDK</h3>
-          <div class="sdk-grid">
-            <a href="#python-sdk">
-              <strong>Python</strong>
-              <span><code>pip install linkshieldai==0.3.1</code></span>
-            </a>
-            <a href="#javascript-sdk">
-              <strong>JavaScript / TypeScript</strong>
-              <span><code>npm install linkshieldai</code></span>
-            </a>
-            <a href="#php-sdk">
-              <strong>PHP</strong>
-              <span><code>composer require linkshieldai/linkshieldai</code></span>
-            </a>
-            <a href="#rust-sdk">
-              <strong>Rust</strong>
-              <span><code>linkshieldai = "0.3"</code></span>
-            </a>
+          <h3>Your first scan</h3>
+          <pre><code class="language-bash">curl -X POST https://api.linkshieldai.com/v1/scan \
+  -H "Authorization: Bearer YOUR_API_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"url":"https://example.com","mode":"standard"}'</code></pre>
+          <h3>Or install an SDK</h3>
+          <div class="card-grid four">
+            <a class="card" href="#python-sdk"><strong>Python</strong><code>pip install linkshieldai</code></a>
+            <a class="card" href="#javascript-sdk"><strong>JavaScript</strong><code>npm install linkshieldai</code></a>
+            <a class="card" href="#php-sdk"><strong>PHP</strong><code>composer require linkshieldai/linkshieldai</code></a>
+            <a class="card" href="#rust-sdk"><strong>Rust</strong><code>cargo add linkshieldai</code></a>
           </div>
         </section>
 
-        <section class="doc-section" id="account" data-title="Create account developer portal free developer account API key webhooks false positives">
+        <section class="doc-section" id="account" data-title="Create account developer portal signup google email confirm API keys webhooks false positives usage cap">
           <p class="eyebrow">Account</p>
-          <h2>Create a Free Developer Account</h2>
-          <p>
-            The Developer Portal is where you manage API access. Use it to sign in, create a free
-            account, view usage, rotate keys, configure webhooks, and report false positives.
-          </p>
-          <div class="callout">
-            <strong>Signup URL</strong>
-            <code>https://developer.linkshieldai.com/portal.php?signup=1</code>
-          </div>
-          <h3>Required signup fields</h3>
+          <h2>Create an account</h2>
+          <p>The developer portal is where you get your API key and manage your account.</p>
+          <dl class="facts">
+            <div><dt>Signup page</dt><dd><a href="https://developer.linkshieldai.com/portal.php?signup=1">developer.linkshieldai.com/portal.php?signup=1</a></dd></div>
+            <div><dt>Sign up with</dt><dd>Your name, email and a password of at least 8 characters, or your Google account</dd></div>
+            <div><dt>Email confirmation</dt><dd>If you sign up with email, open the link we send you before your first sign-in</dd></div>
+          </dl>
+          <h3>What you can do in the portal</h3>
           <ul class="check-list">
-            <li>Email address</li>
-            <li>Password with at least 8 characters</li>
+            <li>Create, copy, rotate and revoke API keys.</li>
+            <li>See this month's usage and your recent requests, including full responses and CSV export.</li>
+            <li>Add webhooks for flagged URLs and usage thresholds.</li>
+            <li>Report false positives and follow their review status.</li>
+            <li>Choose what happens when you reach your monthly allowance.</li>
           </ul>
-          <p>
-            After creating the account, return to <a href="https://developer.linkshieldai.com/portal.php">the portal</a>
-            and sign in with your email and password.
-          </p>
         </section>
 
-        <section class="doc-section" id="python-sdk" data-title="Python SDK PyPI linkshieldai 0.3.1 install setup sync async client environment variable">
+        <section class="doc-section" id="python-sdk" data-title="Python SDK PyPI pip install sync async client environment variable scan deep ai nsfw_check chimera get_screenshot">
           <p class="eyebrow">SDK</p>
-          <h2>Python SDK Setup</h2>
-          <p>
-            The official package is available on PyPI as <a href="https://pypi.org/project/linkshieldai/">linkshieldai 0.3.1</a>.
-            It requires Python 3.10 or newer and wraps the LinkShieldAI API at
-            <code>https://api.linkshieldai.com</code>.
-          </p>
-          <pre><code>python -m pip install linkshieldai==0.3.1</code></pre>
+          <h2>Python</h2>
+          <p>Install <a href="https://pypi.org/project/linkshieldai/">linkshieldai</a> from PyPI. It needs Python 3.10 or newer and includes a sync client, an async client and a command line tool.</p>
+          <pre><code class="language-bash">pip install linkshieldai</code></pre>
 
-          <h3>Option 1: pass the key directly</h3>
-          <pre><code>from linkshieldai import LinkShieldAI
+          <h3>Scan a URL</h3>
+          <pre><code class="language-python">from linkshieldai import LinkShieldAI
 
 client = LinkShieldAI(api_key="YOUR_API_KEY")
 result = client.scan("https://example.com", mode="standard")
 
-print(result.verdict)
+print(result.verdict)       # SAFE, MALICIOUS or UNKNOWN
 print(result.request_id)
-print(result.reason_codes)</code></pre>
+print(result.reason_codes)
 
-          <h3>Option 2: use an environment variable</h3>
-          <pre><code># PowerShell
-$env:LINKSHIELDAI_API_KEY = "YOUR_API_KEY"</code></pre>
-          <pre><code>from linkshieldai import LinkShieldAI
+if result.is_malicious:
+    print("Block or review this URL")</code></pre>
+          <p>Leave out <code>api_key</code> and the client reads <code>LINKSHIELDAI_API_KEY</code>. See <a href="#authentication">Authentication</a> for how to set it.</p>
 
-client = LinkShieldAI()
-result = client.chimera("https://google.com")
-
-print(result.result)
-print(result.raw)</code></pre>
+          <h3>Deep scan with model analysis</h3>
+          <pre><code class="language-python">result = client.scan("https://example.com", mode="deep", ai=True)
+print(result.verdict, result.risk_score, result.confidence)</code></pre>
 
           <h3>Async client</h3>
-          <pre><code>import asyncio
+          <pre><code class="language-python">import asyncio
 from linkshieldai import AsyncLinkShieldAI
 
 async def main():
     async with AsyncLinkShieldAI(api_key="YOUR_API_KEY") as client:
-        result = await client.chimera("https://google.com")
-        print(result.result)
-        print(result.raw)
+        result = await client.scan("https://example.com", mode="standard")
+        print(result.verdict)
 
 asyncio.run(main())</code></pre>
+
+          <h3>Other endpoints</h3>
+          <pre><code class="language-python">nsfw = client.nsfw_check("https://example.com")
+print(nsfw.is_nsfw)
+
+chimera = client.chimera("https://google.com")
+print(chimera.result)
+
+image_bytes = client.get_screenshot("05046f.png")
+client.get_screenshot("https://api.linkshieldai.com/screenshot/05046f.png", "site.png")</code></pre>
         </section>
 
-        <section class="doc-section" id="javascript-sdk" data-title="JavaScript TypeScript SDK npm linkshieldai install Node backend bots CLI">
+        <section class="doc-section" id="javascript-sdk" data-title="JavaScript TypeScript SDK npm Node install scan deep ai includeSignals nsfwCheck chimera getScreenshot">
           <p class="eyebrow">SDK</p>
-          <h2>JavaScript / TypeScript SDK Setup</h2>
-          <p>
-            The official JavaScript package is available on npm as
-            <a href="https://www.npmjs.com/package/linkshieldai">linkshieldai</a>.
-            Use it in Node.js backends, bots, moderation services, and security workflows.
-          </p>
-          <pre><code>npm install linkshieldai</code></pre>
+          <h2>JavaScript and TypeScript</h2>
+          <p>Install <a href="https://www.npmjs.com/package/linkshieldai">linkshieldai</a> from npm. It needs Node.js 18 or newer, works with ES modules and CommonJS, and ships its own TypeScript types.</p>
+          <pre><code class="language-bash">npm install linkshieldai</code></pre>
 
-          <h3>Run a basic scan</h3>
-          <pre><code>import { LinkShieldAI } from "linkshieldai";
+          <h3>Scan a URL</h3>
+          <pre><code class="language-javascript">import { LinkShieldAI } from "linkshieldai";
 
 const client = new LinkShieldAI({ apiKey: "YOUR_API_KEY" });
 const result = await client.scan("https://example.com", "standard");
 
-console.log(result.verdict);
+console.log(result.verdict);     // SAFE, MALICIOUS or UNKNOWN
 console.log(result.requestId);
-console.log(result.reasonCodes);</code></pre>
+console.log(result.reasonCodes);
 
-          <h3>Use an environment variable</h3>
-          <pre><code># PowerShell
-$env:LINKSHIELDAI_API_KEY = "YOUR_API_KEY"</code></pre>
-          <pre><code>import { LinkShieldAI } from "linkshieldai";
+if (result.isMalicious) {
+  console.log("Block or review this URL");
+}</code></pre>
+          <p>Leave out <code>apiKey</code> and the client reads <code>LINKSHIELDAI_API_KEY</code>.</p>
+          <p class="notice warning">Run the SDK on your server. Never call LinkShieldAI from browser JavaScript, because that exposes your API key.</p>
 
-const client = new LinkShieldAI();
-const result = await client.chimera("https://google.com");
+          <h3>Scan options</h3>
+          <pre><code class="language-javascript">await client.scan("https://example.com", "deep", { ai: true });
+await client.scan("https://example.com", "standard", { includeSignals: true });</code></pre>
 
-console.log(result.result);
-console.log(result.raw);</code></pre>
+          <h3>Other endpoints</h3>
+          <pre><code class="language-javascript">const nsfw = await client.nsfwCheck("https://example.com");
+console.log(nsfw.isNsfw);
 
-          <p class="note">
-            Keep API keys server-side. Do not call LinkShieldAI directly from public browser JavaScript.
-          </p>
+const chimera = await client.chimera("https://google.com");
+console.log(chimera.result);
+
+const imageBytes = await client.getScreenshot("05046f.png");
+await client.getScreenshot("https://api.linkshieldai.com/screenshot/05046f.png", "site.png");</code></pre>
         </section>
 
-        <section class="doc-section" id="php-sdk" data-title="PHP SDK Composer Packagist Laravel WordPress backend CLI">
+        <section class="doc-section" id="php-sdk" data-title="PHP SDK Composer Packagist Laravel install scan deep ai nsfwCheck chimera getScreenshot">
           <p class="eyebrow">SDK</p>
-          <h2>PHP SDK Setup</h2>
-          <p>
-            The official PHP package is available on Packagist as
-            <a href="https://packagist.org/packages/linkshieldai/linkshieldai">linkshieldai/linkshieldai</a>.
-            Use it in PHP apps, Laravel projects, WordPress tooling, dashboards, and backend services.
-          </p>
-          <pre><code>composer require linkshieldai/linkshieldai</code></pre>
+          <h2>PHP</h2>
+          <p>Install <a href="https://packagist.org/packages/linkshieldai/linkshieldai">linkshieldai/linkshieldai</a> with Composer.</p>
+          <pre><code class="language-bash">composer require linkshieldai/linkshieldai</code></pre>
 
-          <h3>Run a basic scan</h3>
-          <pre><code>&lt;?php
+          <h3>Scan a URL</h3>
+          <pre><code class="language-php">&lt;?php
 
 require __DIR__ . "/vendor/autoload.php";
 
@@ -251,39 +220,40 @@ use LinkShieldAI\Client;
 $client = new Client(apiKey: "YOUR_API_KEY");
 $result = $client-&gt;scan("https://example.com", "standard");
 
-echo $result-&gt;verdict . PHP_EOL;
+echo $result-&gt;verdict . PHP_EOL;     // SAFE, MALICIOUS or UNKNOWN
 echo $result-&gt;requestId . PHP_EOL;
-var_dump($result-&gt;reasonCodes);</code></pre>
+print_r($result-&gt;reasonCodes);
 
-          <h3>Use an environment variable</h3>
-          <pre><code># PowerShell
-$env:LINKSHIELDAI_API_KEY = "YOUR_API_KEY"</code></pre>
-          <pre><code>&lt;?php
+if ($result-&gt;isMalicious()) {
+    // Block or review this URL
+}</code></pre>
+          <p>Leave out <code>apiKey</code> and the client reads <code>LINKSHIELDAI_API_KEY</code>.</p>
 
-require __DIR__ . "/vendor/autoload.php";
+          <h3>Scan options</h3>
+          <pre><code class="language-php">$client-&gt;scan("https://example.com", "deep", ai: true);
+$client-&gt;scan("https://example.com", includeSignals: true);</code></pre>
 
-use LinkShieldAI\Client;
+          <h3>Other endpoints</h3>
+          <pre><code class="language-php">$nsfw = $client-&gt;nsfwCheck("https://example.com");
+var_dump($nsfw-&gt;isNsfw);
 
-$client = new Client();
-$result = $client-&gt;chimera("https://google.com");
+$chimera = $client-&gt;chimera("https://google.com");
+echo $chimera-&gt;result;
 
-echo $result-&gt;result . PHP_EOL;
-var_dump($result-&gt;raw);</code></pre>
+$imageBytes = $client-&gt;getScreenshot("05046f.png");
+$client-&gt;getScreenshot("https://api.linkshieldai.com/screenshot/05046f.png", "site.png");</code></pre>
         </section>
 
-        <section class="doc-section" id="rust-sdk" data-title="Rust SDK Cargo crate async Tokio reqwest CLI">
+        <section class="doc-section" id="rust-sdk" data-title="Rust SDK Cargo crate tokio async scan ScanMode ScanOptions nsfw_check chimera get_screenshot">
           <p class="eyebrow">SDK</p>
-          <h2>Rust SDK Setup</h2>
-          <p>
-            The Rust SDK is an async crate for Rust services, security tools, CLIs, and high-reliability
-            URL scanning pipelines. It uses typed result structs and a single error enum.
-          </p>
-          <pre><code>[dependencies]
+          <h2>Rust</h2>
+          <p>Add <a href="https://crates.io/crates/linkshieldai">linkshieldai</a> and Tokio to <code>Cargo.toml</code>. The client is async and returns typed result structs.</p>
+          <pre data-label="toml"><code class="language-ini">[dependencies]
 linkshieldai = "0.3"
 tokio = { version = "1", features = ["macros", "rt-multi-thread"] }</code></pre>
 
-          <h3>Run a basic scan</h3>
-          <pre><code>use linkshieldai::{LinkShieldAI, ScanMode, ScanOptions};
+          <h3>Scan a URL</h3>
+          <pre><code class="language-rust">use linkshieldai::{LinkShieldAI, ScanMode, ScanOptions};
 
 #[tokio::main]
 async fn main() -&gt; linkshieldai::Result&lt;()&gt; {
@@ -292,155 +262,173 @@ async fn main() -&gt; linkshieldai::Result&lt;()&gt; {
         .scan("https://example.com", ScanMode::Standard, ScanOptions::default())
         .await?;
 
-    println!("{}", result.verdict);
+    println!("{}", result.verdict); // SAFE, MALICIOUS or UNKNOWN
     println!("{:?}", result.request_id);
+    println!("{:?}", result.reason_codes);
 
     Ok(())
 }</code></pre>
+          <p>Pass an empty string to <code>LinkShieldAI::new</code> and the client reads <code>LINKSHIELDAI_API_KEY</code>.</p>
 
-          <h3>Use an environment variable</h3>
-          <pre><code># PowerShell
-$env:LINKSHIELDAI_API_KEY = "YOUR_API_KEY"</code></pre>
-          <pre><code>use linkshieldai::LinkShieldAI;
+          <h3>Scan options</h3>
+          <pre><code class="language-rust">let options = ScanOptions { ai: true, ..ScanOptions::default() };
+let result = client.scan("https://example.com", ScanMode::Deep, options).await?;</code></pre>
 
-let client = LinkShieldAI::new("")?;
-let result = client.chimera("https://google.com").await?;
+          <h3>Other endpoints</h3>
+          <pre><code class="language-rust">use std::path::Path;
 
-println!("{:?}", result.result);
-println!("{:?}", result.raw);</code></pre>
+let nsfw = client.nsfw_check("https://example.com").await?;
+println!("{}", nsfw.is_nsfw);
+
+let chimera = client.chimera("https://google.com").await?;
+println!("{:?}", chimera.result);
+
+let image_bytes = client.get_screenshot("05046f.png", None).await?;
+client.get_screenshot("05046f.png", Some(Path::new("site.png"))).await?;</code></pre>
         </section>
 
-        <section class="doc-section" id="cli" data-title="CLI command line scan standard detailed deep ai include-signals nsfw chimera screenshot">
-          <p class="eyebrow">CLI</p>
-          <h2>Command Line Usage</h2>
-          <p>
-            The Python, JavaScript, PHP, and Rust SDKs include command-line tools. You can pass the
-            API key with <code>--api-key</code>, or omit it when <code>LINKSHIELDAI_API_KEY</code> is set.
-          </p>
-          <p class="note">The <code>basic</code> and <code>detailed</code> commands were removed. Use <code>scan</code> with <code>--mode</code>.</p>
-          <h3>Python</h3>
-          <pre><code>linkshieldai --api-key YOUR_API_KEY scan https://example.com --mode standard
-linkshieldai --api-key YOUR_API_KEY scan https://example.com --mode detailed
-linkshieldai --api-key YOUR_API_KEY scan https://example.com --mode deep --ai
-linkshieldai --api-key YOUR_API_KEY scan https://example.com --include-signals
-linkshieldai --api-key YOUR_API_KEY nsfw https://example.com
-linkshieldai --api-key YOUR_API_KEY chimera https://google.com
-linkshieldai --api-key YOUR_API_KEY screenshot 05046f.png --output site.png</code></pre>
-
-          <h3>JavaScript / TypeScript</h3>
-          <pre><code>linkshieldai --api-key YOUR_API_KEY scan https://example.com --mode standard
-linkshieldai --api-key YOUR_API_KEY chimera https://google.com</code></pre>
-
-          <h3>PHP</h3>
-          <pre><code>vendor/bin/linkshieldai --api-key YOUR_API_KEY scan https://example.com --mode standard
-vendor/bin/linkshieldai --api-key YOUR_API_KEY chimera https://google.com</code></pre>
-
-          <h3>Rust</h3>
-          <pre><code>cargo run --bin linkshieldai -- --api-key YOUR_API_KEY scan https://example.com --mode standard
-cargo run --bin linkshieldai -- --api-key YOUR_API_KEY chimera https://google.com</code></pre>
-        </section>
-
-        <section class="doc-section" id="sdk-methods" data-title="SDK method names Python JavaScript PHP Rust scan nsfw chimera screenshot">
-          <p class="eyebrow">SDK Reference</p>
-          <h2>SDK Method Names</h2>
-          <p>
-            All official SDKs call the same LinkShieldAI endpoints. The method names only change to
-            match each language's style.
-          </p>
+        <section class="doc-section" id="cli" data-title="CLI command line terminal scan mode detailed deep ai include-signals nsfw chimera screenshot output npx vendor bin cargo install">
+          <p class="eyebrow">SDK</p>
+          <h2>Command line</h2>
+          <p>Every SDK includes a <code>linkshieldai</code> command with the same commands. Pass your key with <code>--api-key</code>, or leave it out when <code>LINKSHIELDAI_API_KEY</code> is set.</p>
           <div class="table-wrap">
             <table>
-              <thead>
-                <tr>
-                  <th>Action</th>
-                  <th>Python</th>
-                  <th>JavaScript</th>
-                  <th>PHP</th>
-                  <th>Rust</th>
-                </tr>
-              </thead>
+              <thead><tr><th>SDK</th><th>Run it with</th></tr></thead>
               <tbody>
-                <tr>
-                  <td>Versioned URL-risk scan</td>
-                  <td><code>scan()</code></td>
-                  <td><code>scan()</code></td>
-                  <td><code>scan()</code></td>
-                  <td><code>scan()</code></td>
-                </tr>
-                <tr>
-                  <td>NSFW check</td>
-                  <td><code>nsfw_check()</code></td>
-                  <td><code>nsfwCheck()</code></td>
-                  <td><code>nsfwCheck()</code></td>
-                  <td><code>nsfw_check()</code></td>
-                </tr>
-                <tr>
-                  <td>Chimera AI</td>
-                  <td><code>chimera()</code></td>
-                  <td><code>chimera()</code></td>
-                  <td><code>chimera()</code></td>
-                  <td><code>chimera()</code></td>
-                </tr>
-                <tr>
-                  <td>Screenshot download</td>
-                  <td><code>get_screenshot()</code></td>
-                  <td><code>getScreenshot()</code></td>
-                  <td><code>getScreenshot()</code></td>
-                  <td><code>get_screenshot()</code></td>
-                </tr>
+                <tr><td>Python</td><td><code>linkshieldai</code><small>Installed with the package</small></td></tr>
+                <tr><td>JavaScript</td><td><code>npx linkshieldai</code></td></tr>
+                <tr><td>PHP</td><td><code>vendor/bin/linkshieldai</code></td></tr>
+                <tr><td>Rust</td><td><code>linkshieldai</code><small>After <code>cargo install linkshieldai</code></small></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <h3>Commands</h3>
+          <pre><code class="language-bash">linkshieldai --api-key YOUR_API_KEY scan https://example.com
+linkshieldai scan https://example.com --mode detailed
+linkshieldai scan https://example.com --mode deep --ai
+linkshieldai scan https://example.com --include-signals
+linkshieldai nsfw https://example.com
+linkshieldai chimera https://google.com
+linkshieldai screenshot 05046f.png --output site.png</code></pre>
+          <p><code>scan</code> uses <code>standard</code> mode unless you pass <code>--mode</code>.</p>
+        </section>
+
+        <section class="doc-section" id="sdk-methods" data-title="SDK method names reference Python JavaScript PHP Rust scan nsfw chimera screenshot">
+          <p class="eyebrow">SDK</p>
+          <h2>Method names</h2>
+          <p>All SDKs call the same endpoints. Only the method names change to match each language.</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Action</th><th>Python</th><th>JavaScript</th><th>PHP</th><th>Rust</th></tr></thead>
+              <tbody>
+                <tr><td>Scan a URL</td><td><code>scan()</code></td><td><code>scan()</code></td><td><code>scan()</code></td><td><code>scan()</code></td></tr>
+                <tr><td>NSFW check</td><td><code>nsfw_check()</code></td><td><code>nsfwCheck()</code></td><td><code>nsfwCheck()</code></td><td><code>nsfw_check()</code></td></tr>
+                <tr><td>Chimera</td><td><code>chimera()</code></td><td><code>chimera()</code></td><td><code>chimera()</code></td><td><code>chimera()</code></td></tr>
+                <tr><td>Download a screenshot</td><td><code>get_screenshot()</code></td><td><code>getScreenshot()</code></td><td><code>getScreenshot()</code></td><td><code>get_screenshot()</code></td></tr>
               </tbody>
             </table>
           </div>
         </section>
 
-        <section class="doc-section" id="authentication" data-title="Authentication API key query parameter environment variable">
-          <p class="eyebrow">Access</p>
+        <section class="doc-section" id="authentication" data-title="Authentication API key bearer authorization header environment variable LINKSHIELDAI_API_KEY query key">
+          <p class="eyebrow">API reference</p>
           <h2>Authentication</h2>
-          <p>
-            The versioned API requires an API key in the HTTP <code>Authorization</code> header.
-            Keep keys server-side. SDKs accept a key directly or read <code>LINKSHIELDAI_API_KEY</code>.
-          </p>
-          <pre><code>Authorization: Bearer YOUR_API_KEY</code></pre>
-          <p class="note">All official SDK methods use Bearer authentication. Legacy endpoints still accept query keys for older third-party clients, but new direct calls should send only <code>url</code> in the query.</p>
+          <p>Send your API key in the <code>Authorization</code> header of every request.</p>
+          <pre data-label="http"><code class="language-plaintext">Authorization: Bearer YOUR_API_KEY</code></pre>
+          <h3>Set the key for the SDKs and command line</h3>
+          <p>The SDKs and the command line tool read <code>LINKSHIELDAI_API_KEY</code> when you don't pass a key.</p>
+          <pre data-label="shell"><code class="language-bash"># macOS and Linux
+export LINKSHIELDAI_API_KEY="YOUR_API_KEY"
+
+# Windows PowerShell
+$env:LINKSHIELDAI_API_KEY = "YOUR_API_KEY"</code></pre>
+          <p class="notice warning">Keep API keys on your server. Never put them in browser JavaScript or commit them to a public repository.</p>
+          <p class="notice"><code>/nsfw/site</code> and <code>/chimera</code> also accept the key as a <code>key</code> query parameter for older clients. Use the header in new code, since URLs often end up in logs.</p>
         </section>
 
-        <section class="doc-section" id="rate-limits" data-title="Rate Limits 1000 monthly requests developer portal expand limit">
-          <p class="eyebrow">Usage</p>
-          <h2>Rate Limits</h2>
-          <p>
-            Limits depend on the account plan and configured usage cap. The Developer Portal shows
-            the active allowance and current monthly usage.
-          </p>
-          <p>
-            Responses include <code>X-RateLimit-Remaining</code>, <code>X-Monthly-Usage-Remaining</code>,
-            and <code>Retry-After</code> when throttled. Treat HTTP <code>429</code> as retryable.
-          </p>
+        <section class="doc-section" id="rate-limits" data-title="Rate limits headers X-RateLimit X-Monthly-Usage Retry-After 429 plan allowance">
+          <p class="eyebrow">API reference</p>
+          <h2>Rate limits</h2>
+          <p>Limits depend on your plan. The developer portal shows your per-minute, hourly and daily limits and your monthly allowance.</p>
+          <p>Responses from <code>/v1/scan</code> include these headers:</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Header</th><th>Meaning</th></tr></thead>
+              <tbody>
+                <tr><td><code>X-RateLimit-Limit</code></td><td>Requests allowed per minute.</td></tr>
+                <tr><td><code>X-RateLimit-Remaining</code></td><td>Requests left in the current minute.</td></tr>
+                <tr><td><code>X-RateLimit-Reset</code></td><td>Length of the rate limit window in seconds.</td></tr>
+                <tr><td><code>X-Monthly-Usage-Used</code></td><td>Requests counted this month.</td></tr>
+                <tr><td><code>X-Monthly-Usage-Limit</code></td><td>Your monthly allowance. Sent when your plan has one.</td></tr>
+                <tr><td><code>X-Monthly-Usage-Remaining</code></td><td>Requests left this month. Sent when your plan has a monthly allowance.</td></tr>
+                <tr><td><code>Retry-After</code></td><td>Seconds to wait before trying again. Sent with HTTP <code>429</code>.</td></tr>
+                <tr><td><code>X-Request-ID</code></td><td>The ID of this request. Include it when you contact support.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>When you go over a limit the API returns HTTP <code>429</code>. Wait for the number of seconds in <code>Retry-After</code>, then try again. The SDKs retry <code>429</code> responses for you.</p>
         </section>
 
-        <section class="doc-section" id="endpoints" data-title="Endpoints Basic Detailed Screenshot NSFW Chimera direct HTTP API">
-          <p class="eyebrow">Reference</p>
-          <h2>API Endpoints</h2>
-          <p>
-            Every endpoint below can be called directly over HTTPS. The SDKs wrap the same endpoints
-            and normalize common fields for easier use in code.
-          </p>
+        <section class="doc-section" id="endpoints" data-title="Endpoints overview list v1 scan screenshot nsfw chimera">
+          <p class="eyebrow">API reference</p>
+          <h2>Endpoints</h2>
+          <p>All endpoints live under <code>https://api.linkshieldai.com</code> and are called over HTTPS.</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Method</th><th>Path</th><th>Use it to</th></tr></thead>
+              <tbody>
+                <tr><td><span class="pill info">POST</span></td><td><a href="#v1-scan"><code>/v1/scan</code></a></td><td>Scan a URL and get a verdict. Start here.</td></tr>
+                <tr><td><span class="pill good">GET</span></td><td><a href="#screenshot"><code>/screenshot/{file_name}</code></a></td><td>Download a screenshot from a detailed or deep scan.</td></tr>
+                <tr><td><span class="pill good">GET</span></td><td><a href="#nsfw"><code>/nsfw/site</code></a></td><td>Check whether a URL is flagged as NSFW.</td></tr>
+                <tr><td><span class="pill good">GET</span></td><td><a href="#chimera"><code>/chimera</code></a></td><td>Classify a URL with Chimera.</td></tr>
+              </tbody>
+            </table>
+          </div>
         </section>
 
-        <section class="endpoint doc-section" id="v1-scan" data-title="POST v1 scan Bearer standard detailed deep ai model include_signals verdict request ID reason codes">
-          <div class="endpoint-heading"><div><p class="eyebrow">Recommended endpoint</p><h3>URL-risk scan</h3></div><span class="method">POST</span></div>
-          <dl class="endpoint-meta"><dt>URL</dt><dd><code>https://api.linkshieldai.com/v1/scan</code></dd><dt>Authentication</dt><dd><code>Authorization: Bearer YOUR_API_KEY</code></dd></dl>
-          <pre><code>curl -X POST https://api.linkshieldai.com/v1/scan \
+        <section class="doc-section" id="v1-scan" data-title="POST v1 scan request body url mode ai include_signals response fields verdict SAFE MALICIOUS UNKNOWN request_id reason_codes threat_categories brand_target screenshot_url signals errors INVALID_URL INVALID_MODE UNAUTHORIZED INVALID_API_KEY RATE_LIMITED SCAN_FAILED INTERNAL_ERROR">
+          <p class="eyebrow">Recommended</p>
+          <div class="endpoint-heading"><h2>Scan a URL</h2><span class="pill info">POST</span></div>
+          <div class="endpoint-path"><code>https://api.linkshieldai.com/v1/scan</code></div>
+          <p>Send a JSON body with the URL to check. You get back a verdict and the reasons behind it.</p>
+
+          <h3>Request body</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td><code>url</code></td><td>string<small>Required</small></td><td>The http or https URL to scan, up to 940 characters. Private and local addresses are rejected.</td></tr>
+                <tr><td><code>mode</code></td><td>string</td><td><code>standard</code>, <code>detailed</code> or <code>deep</code>. Defaults to <code>standard</code>.</td></tr>
+                <tr><td><code>ai</code></td><td>boolean</td><td>Adds model analysis in <code>deep</code> mode. Defaults to <code>false</code>.</td></tr>
+                <tr><td><code>include_signals</code></td><td>boolean</td><td>Adds a <code>signals</code> object to the response. Defaults to <code>false</code>.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <pre><code class="language-bash">curl -X POST https://api.linkshieldai.com/v1/scan \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"url":"https://example.com","mode":"standard"}'</code></pre>
-          <h4>Modes</h4>
-          <div class="field-list"><article><h5><code>standard</code></h5><p>Fast reputation and threat-feed decision.</p></article><article><h5><code>detailed</code></h5><p>Adds redirect, page-preview, brand, and screenshot signals when available.</p></article><article><h5><code>deep</code></h5><p>Adds page fingerprinting when earlier signals are inconclusive.</p></article></div>
-          <h4>Model analysis</h4>
-          <p>Send <code>"ai": true</code> to add model analysis when page fingerprinting is inconclusive. It is off by default and applies to <code>deep</code> only, since the model scores the page HTML that only <code>deep</code> fetches. Without it, <code>risk_score</code> and <code>confidence</code> stay <code>null</code>.</p>
-          <pre><code>-d '{"url":"https://example.com","mode":"deep","ai":true}'</code></pre>
-          <h4>Raw signals</h4>
-          <p>Send <code>"include_signals": true</code> to add a <code>signals</code> object reporting what each source returned before the verdict was decided. Use it to apply your own precedence. It is off by default and the <code>verdict</code> is unchanged either way.</p>
-          <pre><code>-d '{"url":"https://example.com","mode":"standard","include_signals":true}'</code></pre>
-          <pre><code>"signals": {
+
+          <h3>Modes</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Mode</th><th>What it adds</th></tr></thead>
+              <tbody>
+                <tr><td><code>standard</code></td><td>Fast reputation and threat feed check.</td></tr>
+                <tr><td><code>detailed</code></td><td>Adds redirect, page preview, brand and screenshot signals when available.</td></tr>
+                <tr><td><code>deep</code></td><td>Adds page fingerprinting when earlier signals are inconclusive.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p>Detailed and deep scans load the page, so they take longer than standard scans.</p>
+
+          <h3>Model analysis</h3>
+          <p>Send <code>"ai": true</code> with <code>deep</code> mode to add model analysis when page fingerprinting is inconclusive. It is off by default and has no effect in other modes. <code>confidence</code> and <code>risk_score</code> are only filled in when the model runs.</p>
+          <pre><code class="language-json">{"url": "https://example.com", "mode": "deep", "ai": true}</code></pre>
+
+          <h3>Raw signals</h3>
+          <p>Send <code>"include_signals": true</code> to see what each source returned before the verdict was decided. Use it if you want to apply your own rules. The verdict is the same either way.</p>
+          <pre><code class="language-json">"signals": {
   "url_reputation": "safe",
   "domain_reputation": "unknown",
   "threat_feed": "malicious",
@@ -448,11 +436,16 @@ cargo run --bin linkshieldai -- --api-key YOUR_API_KEY chimera https://google.co
   "allowlist": {"fandom": false, "carrd": true},
   "degraded": false
 }</code></pre>
-          <p class="note"><code>url_reputation</code>, <code>domain_reputation</code>, and <code>threat_feed</code> are <code>malicious</code>, <code>safe</code>, or <code>unknown</code>. <code>degraded</code> is <code>true</code> when a lookup failed, so the verdict rests on fewer sources than usual.</p>
-          <h4>Example response</h4>
-          <pre><code>{
+          <p><code>url_reputation</code>, <code>domain_reputation</code> and <code>threat_feed</code> are <code>malicious</code>, <code>safe</code> or <code>unknown</code>. <code>degraded</code> is <code>true</code> when a lookup failed, which means the verdict rests on fewer sources than usual.</p>
+
+          <h3>Example response</h3>
+          <pre><code class="language-json">{
   "request_id": "7f4d...",
-  "url": {"submitted": "https://example.com", "normalized": "https://example.com/", "redirects": []},
+  "url": {
+    "submitted": "https://example.com",
+    "normalized": "https://example.com/",
+    "redirects": []
+  },
   "mode": "standard",
   "verdict": "SAFE",
   "confidence": null,
@@ -465,280 +458,189 @@ cargo run --bin linkshieldai -- --api-key YOUR_API_KEY chimera https://google.co
   "freshness": "live",
   "engine_version": "linkshield-v1"
 }</code></pre>
-          <p class="note"><code>verdict</code> is <code>SAFE</code>, <code>MALICIOUS</code>, or <code>UNKNOWN</code>. <code>UNKNOWN</code> means no decisive signal was available and must not be treated as <code>SAFE</code>. Confidence, risk score, brand, and screenshot fields are nullable.</p>
-          <h4>Errors and usage headers</h4>
-          <p>Errors use <code>{"error":{"code":"INVALID_URL","message":"...","request_id":"..."}}</code>. Expect HTTP <code>400</code>, <code>401</code>, <code>429</code>, and <code>5xx</code>. Responses expose <code>X-Request-ID</code>, rate-limit, and monthly-usage headers; throttled responses include <code>Retry-After</code>.</p>
-        </section>
+          <p class="notice warning"><strong>UNKNOWN is not SAFE.</strong> It means no decisive signal was found. Hold these links for review or treat them with caution.</p>
 
-        <section class="endpoint doc-section" id="basic-check" data-title="Basic Check likely safe might be malicious GET">
-          <div class="endpoint-heading">
-            <div>
-              <p class="eyebrow">Deprecated endpoint</p>
-              <h3>Basic Check</h3>
-            </div>
-            <span class="method">GET</span>
-          </div>
-          <dl class="endpoint-meta">
-            <dt>URL</dt>
-            <dd><code>https://api.linkshieldai.com/?url={url}</code> with <code>Authorization: Bearer {key}</code></dd>
-            <dt>Use it for</dt>
-            <dd>Fast URL safety checks when you only need a simple safe or suspicious result.</dd>
-          </dl>
-          <p class="note">Deprecated in favour of <code>POST /v1/scan</code>. This endpoint keeps working and no removal date is set; responses carry a <code>Deprecation</code> header.</p>
-          <pre><code>curl "https://api.linkshieldai.com/?url=https://example.com"   -H "Authorization: Bearer YOUR_API_KEY"</code></pre>
-          <h4>Example responses</h4>
-          <div class="code-list">
-            <code>{"result":"likely safe"}</code>
-            <code>{"result":"Might be malicious"}</code>
-            <code>{"result":"The system didn't detect anything malicious."}</code>
-            <code>{"Error":"some error"}</code>
-          </div>
-        </section>
-
-        <section class="endpoint doc-section" id="detailed-check" data-title="Detailed Check screenshot URL tag brand phishing Yahoo">
-          <div class="endpoint-heading">
-            <div>
-              <p class="eyebrow">Deprecated endpoint</p>
-              <h3>Detailed Check</h3>
-            </div>
-            <span class="method">GET</span>
-          </div>
-          <dl class="endpoint-meta">
-            <dt>URL</dt>
-            <dd><code>https://api.linkshieldai.com/classify_link?url={url}</code> with <code>Authorization: Bearer {key}</code></dd>
-            <dt>Use it for</dt>
-            <dd>Getting a safety result, screenshot URL, and detected phishing target or brand tag.</dd>
-          </dl>
-          <p class="note">Deprecated in favour of <code>POST /v1/scan</code>. This endpoint keeps working and no removal date is set; responses carry a <code>Deprecation</code> header.</p>
-          <pre><code>curl "https://api.linkshieldai.com/classify_link?url=https://example.com"   -H "Authorization: Bearer YOUR_API_KEY"</code></pre>
-          <h4>Example response</h4>
-          <pre><code>{
-  "result": "Might be malicious",
-  "screenshot url": "https://api.linkshieldai.com/screenshot/1b0745.png",
-  "tag": "Yahoo"
-}</code></pre>
-          <p class="note">
-            Successful detailed scans return one of: <code>Likely safe</code>,
-            <code>Might be malicious</code>, or
-            <code>The system didn't detect anything malicious.</code>
-          </p>
-        </section>
-
-        <section class="endpoint doc-section" id="screenshot" data-title="Screenshot image file download get screenshot png">
-          <div class="endpoint-heading">
-            <div>
-              <p class="eyebrow">Endpoint</p>
-              <h3>Get Website Screenshot</h3>
-            </div>
-            <span class="method">GET</span>
-          </div>
-          <dl class="endpoint-meta">
-            <dt>URL</dt>
-            <dd><code>https://api.linkshieldai.com/screenshot/{file_name}</code></dd>
-            <dt>SDK authentication</dt>
-            <dd><code>Authorization: Bearer YOUR_API_KEY</code></dd>
-            <dt>Use it for</dt>
-            <dd>Downloading a screenshot file returned by a detailed scan.</dd>
-          </dl>
-          <pre><code>image_bytes = client.get_screenshot("05046f.png")
-client.get_screenshot("https://api.linkshieldai.com/screenshot/05046f.png", "site.png")</code></pre>
-        </section>
-
-        <section class="endpoint doc-section" id="nsfw" data-title="NSFW endpoint pornographic content database True False">
-          <div class="endpoint-heading">
-            <div>
-              <p class="eyebrow">Endpoint</p>
-              <h3>NSFW Check</h3>
-            </div>
-            <span class="method">GET</span>
-          </div>
-          <dl class="endpoint-meta">
-            <dt>URL</dt>
-            <dd><code>https://api.linkshieldai.com/nsfw/site?url={url}</code> with <code>Authorization: Bearer {key}</code></dd>
-            <dt>Use it for</dt>
-            <dd>Checking whether a URL is flagged as NSFW or pornographic in the database.</dd>
-          </dl>
-          <pre><code>result = client.nsfw_check("https://example.com")
-print(result.is_nsfw)</code></pre>
-          <div class="code-list">
-            <code>{"result":"False"}</code>
-            <code>{"result":"True"}</code>
-            <code>{"Error":"placeholder error"}</code>
-          </div>
-        </section>
-
-        <section class="endpoint doc-section" id="chimera" data-title="Chimera AI phishing malware Might be malicious likely safe UNKNOWN classification response">
-          <div class="endpoint-heading">
-            <div>
-              <p class="eyebrow">Endpoint</p>
-              <h3>Chimera AI Classification</h3>
-            </div>
-            <span class="method">GET</span>
-          </div>
-          <p>
-            Chimera is the advanced classification endpoint. It combines reputation data,
-            fingerprint matching, and AI detection to identify malicious URLs. The response exposes
-            only the final classification and scanned URL.
-          </p>
-          <dl class="endpoint-meta">
-            <dt>URL</dt>
-            <dd><code>https://api.linkshieldai.com/chimera?url={url}</code> with <code>Authorization: Bearer {key}</code></dd>
-            <dt>Use it for</dt>
-            <dd>Moderation pipelines, Discord bots, browser extensions, and user-facing link checks.</dd>
-          </dl>
-          <pre><code>result = client.chimera("https://google.com")
-
-print(result.result)
-print(result.raw)</code></pre>
-
-          <h4>Example request</h4>
-          <pre><code>GET https://api.linkshieldai.com/chimera?url=https://somethingmalicious.com
-Authorization: Bearer YOUR_API_KEY</code></pre>
-
-          <h4>Successful responses</h4>
-          <pre><code>{
-  "result": "Might be malicious",
-  "url": "https://somethingmalicious.com"
-}</code></pre>
-          <pre><code>{
-  "result": "likely safe",
-  "url": "https://google.com"
-}</code></pre>
-          <pre><code>{
-  "result": "UNKNOWN",
-  "url": "https://example.com"
-}</code></pre>
-
-          <p class="note">
-            A result of <code>UNKNOWN</code> means Chimera did not find enough evidence to classify
-            the URL, including when PhishPrint identifies suspicious but unconfirmed similarity.
-            It is not a guarantee that the URL is safe.
-          </p>
-
-          <h4>Response fields</h4>
-          <div class="field-list">
-            <article>
-              <h5><code>result</code> <span>string</span></h5>
-              <p>Final classification: <code>likely safe</code>, <code>Might be malicious</code>, or <code>UNKNOWN</code>.</p>
-            </article>
-            <article>
-              <h5><code>url</code> <span>string</span></h5>
-              <p>The normalized URL scanned by Chimera.</p>
-            </article>
-          </div>
-
-          <h4>Error responses</h4>
+          <h3>Response fields</h3>
           <div class="table-wrap">
             <table>
-              <thead>
-                <tr>
-                  <th>Status</th>
-                  <th>Response</th>
-                </tr>
-              </thead>
+              <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
               <tbody>
-                <tr>
-                  <td><code>400</code></td>
-                  <td><code>{"error":"Missing \"key\" or \"url\" parameter."}</code></td>
-                </tr>
-                <tr>
-                  <td><code>400</code></td>
-                  <td><code>{"error":"Invalid or unreachable URL."}</code></td>
-                </tr>
-                <tr>
-                  <td><code>429</code></td>
-                  <td><code>{"error":"API key rate limit exceeded."}</code></td>
-                </tr>
-                <tr>
-                  <td><code>502</code></td>
-                  <td><code>{"error":"Unable to scan URL."}</code></td>
-                </tr>
-                <tr>
-                  <td><code>500</code></td>
-                  <td><code>{"error":"Internal server error."}</code></td>
-                </tr>
+                <tr><td><code>request_id</code></td><td>string</td><td>Unique ID for this request. Also sent in the <code>X-Request-ID</code> header.</td></tr>
+                <tr><td><code>url.submitted</code></td><td>string</td><td>The URL you sent.</td></tr>
+                <tr><td><code>url.normalized</code></td><td>string</td><td>The URL that was scanned, with a lowercase scheme and host and no fragment.</td></tr>
+                <tr><td><code>url.redirects</code></td><td>array</td><td>URLs found inside the submitted URL's query string, such as a redirect parameter.</td></tr>
+                <tr><td><code>mode</code></td><td>string</td><td>The mode that was used.</td></tr>
+                <tr><td><code>verdict</code></td><td>string</td><td><code>SAFE</code>, <code>MALICIOUS</code> or <code>UNKNOWN</code>.</td></tr>
+                <tr><td><code>confidence</code></td><td>number or null</td><td>Set only when model analysis ran.</td></tr>
+                <tr><td><code>risk_score</code></td><td>number or null</td><td>Set only when model analysis ran.</td></tr>
+                <tr><td><code>threat_categories</code></td><td>array</td><td>Categories that apply to the URL. Empty when none apply.</td></tr>
+                <tr><td><code>reason_codes</code></td><td>array</td><td>Short codes that explain the verdict, such as <code>KNOWN_SAFE_MATCH</code>.</td></tr>
+                <tr><td><code>brand_target</code></td><td>string or null</td><td>The brand the page appears to impersonate. From detailed and deep scans.</td></tr>
+                <tr><td><code>screenshot_url</code></td><td>string or null</td><td>A screenshot of the page from a detailed or deep scan, when one was captured.</td></tr>
+                <tr><td><code>data_collection_success</code></td><td>boolean</td><td>Detailed and deep scans only. <code>true</code> when the page was reached and page evidence was collected.</td></tr>
+                <tr><td><code>scanned_at</code></td><td>string</td><td>When the scan ran, in UTC (ISO 8601).</td></tr>
+                <tr><td><code>freshness</code></td><td>string</td><td><code>live</code></td></tr>
+                <tr><td><code>engine_version</code></td><td>string</td><td>The version of the scanning engine.</td></tr>
+                <tr><td><code>signals</code></td><td>object</td><td>Only present when you send <code>include_signals</code>. See Raw signals above.</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>Errors</h3>
+          <p>Errors return a JSON body with a code you can match on. Some <code>INVALID_URL</code> errors also include a <code>details</code> field that explains the problem.</p>
+          <pre><code class="language-json">{
+  "error": {
+    "code": "INVALID_URL",
+    "message": "A valid public HTTP(S) URL is required.",
+    "request_id": "..."
+  }
+}</code></pre>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Status</th><th>Code</th><th>When</th></tr></thead>
+              <tbody>
+                <tr><td><code>400</code></td><td><code>INVALID_URL</code></td><td>The URL is missing, malformed, not http or https, too long, or points to a private address.</td></tr>
+                <tr><td><code>400</code></td><td><code>INVALID_MODE</code></td><td><code>mode</code> is not <code>standard</code>, <code>detailed</code> or <code>deep</code>.</td></tr>
+                <tr><td><code>401</code></td><td><code>UNAUTHORIZED</code></td><td>No Bearer token in the <code>Authorization</code> header.</td></tr>
+                <tr><td><code>401</code></td><td><code>INVALID_API_KEY</code></td><td>The API key is not valid.</td></tr>
+                <tr><td><code>429</code></td><td><code>RATE_LIMITED</code></td><td>You reached a usage limit. Wait for <code>Retry-After</code> seconds.</td></tr>
+                <tr><td><code>500</code></td><td><code>SCAN_FAILED</code></td><td>The URL could not be scanned right now. Try again later.</td></tr>
+                <tr><td><code>500</code></td><td><code>INTERNAL_ERROR</code></td><td>The request could not be processed right now. Try again later.</td></tr>
               </tbody>
             </table>
           </div>
         </section>
 
-        <section class="doc-section" id="errors" data-title="Errors AuthenticationError RateLimitError APIStatusError APIResponseError APIConnectionError">
-          <p class="eyebrow">Handling</p>
-          <h2>Errors</h2>
-          <p>
-            SDKs preserve raw API payloads on result objects through <code>raw</code> and expose clear
-            error types for common failure modes.
-          </p>
-          <pre><code>from linkshieldai import (
-    APIConnectionError,
-    APIResponseError,
-    APIStatusError,
-    AuthenticationError,
-    RateLimitError,
-)</code></pre>
-          <div class="field-list">
-            <article>
-              <h5><code>AuthenticationError</code></h5>
-              <p>Raised when the API key is missing.</p>
-            </article>
-            <article>
-              <h5><code>RateLimitError</code></h5>
-              <p>Raised for HTTP 429 responses.</p>
-            </article>
-            <article>
-              <h5><code>APIStatusError</code></h5>
-              <p>Raised for non-success HTTP status responses.</p>
-            </article>
-            <article>
-              <h5><code>APIResponseError</code></h5>
-              <p>Raised for malformed JSON or API payloads containing <code>Error</code> or <code>error</code>.</p>
-            </article>
-            <article>
-              <h5><code>APIConnectionError</code></h5>
-              <p>Raised for timeouts, DNS failures, or connection failures.</p>
-            </article>
+        <section class="doc-section" id="screenshot" data-title="Screenshot image file download get_screenshot getScreenshot png 404 File not found">
+          <p class="eyebrow">Endpoint</p>
+          <div class="endpoint-heading"><h2>Download a screenshot</h2><span class="pill good">GET</span></div>
+          <div class="endpoint-path"><code>https://api.linkshieldai.com/screenshot/{file_name}</code></div>
+          <p>Detailed and deep scans can return a <code>screenshot_url</code>. Open it directly, or pass the URL or its file name to an SDK to save the image.</p>
+          <pre><code class="language-bash">curl -o site.png https://api.linkshieldai.com/screenshot/05046f.png \
+  -H "Authorization: Bearer YOUR_API_KEY"</code></pre>
+          <pre><code class="language-python">image_bytes = client.get_screenshot("05046f.png")
+client.get_screenshot("https://api.linkshieldai.com/screenshot/05046f.png", "site.png")</code></pre>
+          <p>The response is the image file. An unknown file name returns HTTP <code>404</code> with <code>{"error": "File not found"}</code>.</p>
+        </section>
+
+        <section class="doc-section" id="nsfw" data-title="NSFW check adult content endpoint True False is_nsfw nsfw_check nsfwCheck errors">
+          <p class="eyebrow">Endpoint</p>
+          <div class="endpoint-heading"><h2>NSFW check</h2><span class="pill good">GET</span></div>
+          <div class="endpoint-path"><code>https://api.linkshieldai.com/nsfw/site?url={url}</code></div>
+          <p>Checks whether a URL's domain is flagged as NSFW. URLs inside its query string, such as a redirect parameter, are checked too.</p>
+          <pre><code class="language-bash">curl "https://api.linkshieldai.com/nsfw/site?url=https://example.com" \
+  -H "Authorization: Bearer YOUR_API_KEY"</code></pre>
+          <h3>Response</h3>
+          <pre><code class="language-json">{"result": "True"}</code></pre>
+          <p><code>result</code> is the string <code>"True"</code> or <code>"False"</code>, not a boolean. The SDKs turn it into a boolean for you as <code>is_nsfw</code> or <code>isNsfw</code>.</p>
+          <h3>Errors</h3>
+          <p>Errors on this endpoint use an <code>Error</code> key with a capital E.</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Status</th><th>Response</th><th>When</th></tr></thead>
+              <tbody>
+                <tr><td><code>400</code></td><td><code>{"Error": "URL parameter is missing."}</code></td><td>No <code>url</code> in the query.</td></tr>
+                <tr><td><code>400</code></td><td><code>{"Error": "key parameter is missing."}</code></td><td>No API key was sent.</td></tr>
+                <tr><td><code>400</code></td><td><code>{"Error": "Invalid URL format."}</code></td><td>The URL is not a valid http or https URL.</td></tr>
+                <tr><td><code>400</code></td><td><code>{"Error": "URL is too long. max char(940)"}</code></td><td>The URL is longer than 940 characters.</td></tr>
+                <tr><td><code>429</code></td><td><code>{"Error": "Key rate limit exceeded."}</code></td><td>You reached a usage limit.</td></tr>
+                <tr><td><code>500</code></td><td><code>{"Error": "An error occurred."}</code></td><td>The check failed. Try again later.</td></tr>
+              </tbody>
+            </table>
           </div>
         </section>
 
-        <section class="doc-section" id="security" data-title="Security production API key HTTPS server side retries">
-          <p class="eyebrow">Production</p>
-          <h2>Security Notes</h2>
+        <section class="doc-section" id="chimera" data-title="Chimera AI classification reputation fingerprint PhishPrint likely safe Might be malicious UNKNOWN errors 502">
+          <p class="eyebrow">Endpoint</p>
+          <div class="endpoint-heading"><h2>Chimera</h2><span class="pill good">GET</span></div>
+          <div class="endpoint-path"><code>https://api.linkshieldai.com/chimera?url={url}</code></div>
+          <p>Chimera combines reputation data, fingerprint matching and AI detection to classify a URL. The response contains only the final result and the URL that was scanned.</p>
+          <pre><code class="language-bash">curl "https://api.linkshieldai.com/chimera?url=https://google.com" \
+  -H "Authorization: Bearer YOUR_API_KEY"</code></pre>
+          <h3>Responses</h3>
+          <pre><code class="language-json">{"result": "Might be malicious", "url": "https://somethingmalicious.com"}
+{"result": "likely safe", "url": "https://google.com"}
+{"result": "UNKNOWN", "url": "https://example.com"}</code></pre>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead>
+              <tbody>
+                <tr><td><code>result</code></td><td>string</td><td><code>likely safe</code>, <code>Might be malicious</code> or <code>UNKNOWN</code>.</td></tr>
+                <tr><td><code>url</code></td><td>string</td><td>The URL that was scanned. If you leave out the scheme, <code>http://</code> is added.</td></tr>
+              </tbody>
+            </table>
+          </div>
+          <p class="notice warning"><strong>UNKNOWN is not a guarantee that the URL is safe.</strong> It means Chimera did not find enough evidence, including when PhishPrint finds a suspicious but unconfirmed match.</p>
+          <h3>Errors</h3>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>Status</th><th>Response</th><th>When</th></tr></thead>
+              <tbody>
+                <tr><td><code>400</code></td><td><code>{"error": "Missing \"key\" or \"url\" parameter."}</code></td><td>No <code>url</code> in the query, or no API key.</td></tr>
+                <tr><td><code>400</code></td><td><code>{"error": "Invalid or unreachable URL."}</code></td><td>The URL is not valid, can't be reached, or points to a private address.</td></tr>
+                <tr><td><code>400</code></td><td><code>{"Error": "Invalid url format."}</code></td><td>The URL is malformed. Note the capital E.</td></tr>
+                <tr><td><code>429</code></td><td><code>{"error": "API key rate limit exceeded."}</code></td><td>You reached a usage limit.</td></tr>
+                <tr><td><code>502</code></td><td><code>{"error": "Unable to scan URL."}</code></td><td>The page could not be fetched for analysis.</td></tr>
+                <tr><td><code>500</code></td><td><code>{"error": "Internal server error."}</code></td><td>The request failed. Try again later.</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <section class="doc-section" id="errors" data-title="Error handling SDK exceptions AuthenticationError RateLimitError APIStatusError APIResponseError APIConnectionError retries timeout raw">
+          <p class="eyebrow">More</p>
+          <h2>Error handling</h2>
+          <p>The SDKs raise a specific error for each kind of failure. Every result object keeps the untouched API response in <code>raw</code>.</p>
+          <div class="table-wrap wide-first">
+            <table>
+              <thead><tr><th>When</th><th>Python and JavaScript</th><th>PHP</th><th>Rust</th></tr></thead>
+              <tbody>
+                <tr><td>No API key was provided</td><td><code>AuthenticationError</code></td><td><code>AuthenticationException</code></td><td><code>LinkShieldAIError::Authentication</code></td></tr>
+                <tr><td>HTTP 429</td><td><code>RateLimitError</code></td><td><code>RateLimitException</code></td><td><code>LinkShieldAIError::RateLimit</code></td></tr>
+                <tr><td>Any other error status</td><td><code>APIStatusError</code></td><td><code>ApiStatusException</code></td><td><code>LinkShieldAIError::Status</code></td></tr>
+                <tr><td>Bad JSON or an error payload</td><td><code>APIResponseError</code></td><td><code>ApiResponseException</code></td><td><code>LinkShieldAIError::Response</code></td></tr>
+                <tr><td>Timeout, DNS or connection failure</td><td><code>APIConnectionError</code></td><td><code>ApiConnectionException</code></td><td><code>LinkShieldAIError::Connection</code></td></tr>
+              </tbody>
+            </table>
+          </div>
+          <pre><code class="language-python">from linkshieldai import LinkShieldAI, RateLimitError
+
+client = LinkShieldAI()
+
+try:
+    result = client.scan("https://example.com")
+except RateLimitError as error:
+    print("Slow down. Retry after", error.retry_after, "seconds")</code></pre>
+          <h3>Retries and timeouts</h3>
+          <p>By default the SDKs wait up to 10 seconds per request and retry twice after a connection failure or an HTTP <code>429</code>, <code>502</code>, <code>503</code> or <code>504</code>. You can change the timeout and retry count when you create the client.</p>
+        </section>
+
+        <section class="doc-section" id="security" data-title="Security production API key HTTPS server side retries UNKNOWN review">
+          <p class="eyebrow">More</p>
+          <h2>Security</h2>
           <ul class="check-list">
             <li>Always call the API over HTTPS.</li>
-            <li>Keep API keys server-side. Do not expose them in browser JavaScript.</li>
-            <li>Use retries for temporary failures. The SDK retries connection failures and HTTP <code>429</code>, <code>502</code>, <code>503</code>, and <code>504</code> by default.</li>
-            <li>Catch <code>RateLimitError</code> when running moderation bots, browser extension backends, or high-volume pipelines.</li>
+            <li>Keep API keys on your server. Never put them in browser JavaScript or public repositories.</li>
+            <li>Rotate a key in the developer portal if you think it leaked.</li>
+            <li>Treat <code>UNKNOWN</code> as unverified. Don't auto-approve it.</li>
+            <li>Handle <code>429</code> responses in bots and high-volume pipelines so a burst of links doesn't stop your service.</li>
+            <li>No scanner catches every threat. Use LinkShieldAI alongside your own review process.</li>
           </ul>
         </section>
 
-        <section class="doc-section" id="projects" data-title="Examples Discord bot browser extension website docs GitHub">
-          <p class="eyebrow">Examples</p>
-          <h2>Example Projects and Links</h2>
-          <div class="link-grid">
-            <a href="https://linkshieldai.com">
-              <strong>Website</strong>
-              <span>Product homepage for the Discord security bot.</span>
-            </a>
-            <a href="https://github.com/LinkShieldAI/Discord-bot-template">
-              <strong>Discord Bot Template</strong>
-              <span>Python template for building an anti-phishing Discord bot with LinkShieldAI.</span>
-            </a>
-            <a href="https://github.com/LinkShieldAI/linkshieldai-extension">
-              <strong>Browser Extension</strong>
-              <span>Extension project for bringing LinkShieldAI checks into the browser.</span>
-            </a>
-            <a href="https://pypi.org/project/linkshieldai/0.2.2/">
-              <strong>PyPI Package</strong>
-              <span>Official Python SDK release page.</span>
-            </a>
-            <a href="https://www.npmjs.com/package/linkshieldai">
-              <strong>npm Package</strong>
-              <span>Official JavaScript and TypeScript SDK release page.</span>
-            </a>
-            <a href="https://packagist.org/packages/linkshieldai/linkshieldai">
-              <strong>Packagist Package</strong>
-              <span>Official PHP SDK release page.</span>
-            </a>
+        <section class="doc-section" id="links" data-title="Links website developer portal status Chrome extension PyPI npm Packagist crates support email">
+          <p class="eyebrow">More</p>
+          <h2>Links</h2>
+          <div class="card-grid two">
+            <a class="card" href="https://linkshieldai.com"><strong>Website</strong><span>The LinkShieldAI Discord bot, API and Chrome extension.</span></a>
+            <a class="card" href="https://developer.linkshieldai.com/portal.php"><strong>Developer portal</strong><span>API keys, usage, webhooks and reports.</span></a>
+            <a class="card" href="https://status.linkshieldai.com"><strong>Service status</strong><span>Current API health.</span></a>
+            <a class="card" href="https://chromewebstore.google.com/detail/anfenjcapbgbgbfaokjmgglobcomnocd"><strong>Chrome extension</strong><span>LinkShieldAI checks while you browse.</span></a>
+            <a class="card" href="https://pypi.org/project/linkshieldai/"><strong>PyPI</strong><span>Python SDK.</span></a>
+            <a class="card" href="https://www.npmjs.com/package/linkshieldai"><strong>npm</strong><span>JavaScript and TypeScript SDK.</span></a>
+            <a class="card" href="https://packagist.org/packages/linkshieldai/linkshieldai"><strong>Packagist</strong><span>PHP SDK.</span></a>
+            <a class="card" href="https://crates.io/crates/linkshieldai"><strong>crates.io</strong><span>Rust SDK.</span></a>
+            <a class="card" href="mailto:support@linkshieldai.com"><strong>Support</strong><span>support@linkshieldai.com</span></a>
           </div>
         </section>
       </main>
@@ -747,21 +649,21 @@ Authorization: Bearer YOUR_API_KEY</code></pre>
         <p>On this page</p>
         <a href="#quickstart">Quickstart</a>
         <a href="#account">Account</a>
-        <a href="#python-sdk">Python SDK</a>
-        <a href="#javascript-sdk">JavaScript SDK</a>
-        <a href="#php-sdk">PHP SDK</a>
-        <a href="#rust-sdk">Rust SDK</a>
-        <a href="#endpoints">Endpoints</a>
-        <a href="#errors">Errors</a>
+        <a href="#python-sdk">SDKs</a>
+        <a href="#cli">Command line</a>
+        <a href="#authentication">Authentication</a>
+        <a href="#rate-limits">Rate limits</a>
+        <a href="#v1-scan">Scan a URL</a>
+        <a href="#nsfw">NSFW check</a>
+        <a href="#chimera">Chimera</a>
+        <a href="#errors">Error handling</a>
         <a href="#security">Security</a>
       </aside>
     </div>
 
-    <div class="no-results" data-no-results hidden>
-      No matching sections found.
-    </div>
+    <div class="no-results" data-no-results hidden>No matching sections found.</div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
-    <script src="script.js"></script>
+    <script src="script.js?v=20260919"></script>
   </body>
 </html>
