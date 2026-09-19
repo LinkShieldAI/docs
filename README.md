@@ -19,16 +19,6 @@ LinkShieldAI scans URLs for phishing, malware, scam pages and NSFW content. Thes
 - PHP: https://packagist.org/packages/linkshieldai/linkshieldai
 - Rust: https://crates.io/crates/linkshieldai
 
-## Run the docs locally
-
-The site is plain HTML, CSS and JavaScript. To preview it with Node.js:
-
-```bash
-node server.js
-```
-
-Then open http://127.0.0.1:4173.
-
 ## Links
 
 - Website: https://linkshieldai.com
