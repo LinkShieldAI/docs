@@ -415,11 +415,12 @@ $env:LINKSHIELDAI_API_KEY = "YOUR_API_KEY"</code></pre>
               <thead><tr><th>Mode</th><th>What it adds</th></tr></thead>
               <tbody>
                 <tr><td><code>standard</code></td><td>Fast reputation and threat feed check.</td></tr>
-                <tr><td><code>detailed</code></td><td>Adds redirect, page preview, brand and screenshot signals when available.</td></tr>
+                <tr><td><code>detailed</code></td><td>Adds page preview, brand and screenshot signals when available.</td></tr>
                 <tr><td><code>deep</code></td><td>Adds page fingerprinting when earlier signals are inconclusive.</td></tr>
               </tbody>
             </table>
           </div>
+          <p>Every mode follows the link's redirects and checks the page it ends on. That page is returned in <code>url.final</code>.</p>
           <p>Detailed and deep scans load the page, so they take longer than standard scans.</p>
 
           <h3>Model analysis</h3>
@@ -436,7 +437,7 @@ $env:LINKSHIELDAI_API_KEY = "YOUR_API_KEY"</code></pre>
   "allowlist": {"fandom": false, "carrd": true},
   "degraded": false
 }</code></pre>
-          <p><code>url_reputation</code>, <code>domain_reputation</code> and <code>threat_feed</code> are <code>malicious</code>, <code>safe</code> or <code>unknown</code>. <code>degraded</code> is <code>true</code> when a lookup failed, which means the verdict rests on fewer sources than usual.</p>
+          <p><code>url_reputation</code>, <code>domain_reputation</code> and <code>threat_feed</code> are <code>malicious</code>, <code>safe</code> or <code>unknown</code>. <code>degraded</code> is <code>true</code> when a lookup failed, which means the verdict rests on fewer sources than usual. Signals describe <code>url.final</code>, the page the link ends on.</p>
 
           <h3>Example response</h3>
           <pre><code class="language-json">{
@@ -444,7 +445,9 @@ $env:LINKSHIELDAI_API_KEY = "YOUR_API_KEY"</code></pre>
   "url": {
     "submitted": "https://example.com",
     "normalized": "https://example.com/",
-    "redirects": []
+    "redirects": [],
+    "final": "https://example.com/",
+    "redirect_chain": []
   },
   "mode": "standard",
   "verdict": "SAFE",
@@ -467,8 +470,10 @@ $env:LINKSHIELDAI_API_KEY = "YOUR_API_KEY"</code></pre>
               <tbody>
                 <tr><td><code>request_id</code></td><td>string</td><td>Unique ID for this request. Also sent in the <code>X-Request-ID</code> header.</td></tr>
                 <tr><td><code>url.submitted</code></td><td>string</td><td>The URL you sent.</td></tr>
-                <tr><td><code>url.normalized</code></td><td>string</td><td>The URL that was scanned, with a lowercase scheme and host and no fragment.</td></tr>
+                <tr><td><code>url.normalized</code></td><td>string</td><td>The URL you sent, with a lowercase scheme and host and no fragment.</td></tr>
                 <tr><td><code>url.redirects</code></td><td>array</td><td>URLs found inside the submitted URL's query string, such as a redirect parameter.</td></tr>
+                <tr><td><code>url.final</code></td><td>string</td><td>Where the link ends up after its redirects. The verdict describes this page. The same as <code>url.normalized</code> when there is no redirect.</td></tr>
+                <tr><td><code>url.redirect_chain</code></td><td>array</td><td>Every URL the link redirected through, in order, ending with <code>url.final</code>. Empty when there is no redirect.</td></tr>
                 <tr><td><code>mode</code></td><td>string</td><td>The mode that was used.</td></tr>
                 <tr><td><code>verdict</code></td><td>string</td><td><code>SAFE</code>, <code>MALICIOUS</code> or <code>UNKNOWN</code>.</td></tr>
                 <tr><td><code>confidence</code></td><td>number or null</td><td>Set only when model analysis ran.</td></tr>
